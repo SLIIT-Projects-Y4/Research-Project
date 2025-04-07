@@ -1,0 +1,1001 @@
+User_ID,Age,User_Interest,Preferred_Destination,Budget,Travel_Style
+U0001,20,Cultural Tours,"Gregory Lake, Community Tsunami Museum",Low,Balanced
+U0002,22,"Educational Tours, Rafting, Cultural Activities",Arugam Bay,Medium,Luxury
+U0003,19,Animal Watching,"Pinnawala Elephant Orphanage, Sea Turtle Farm Galle Mahamodara, Ceylon Tea Museum",Low,Backpacker
+U0004,25,"Yoga, Rafting, Boating","Colombo National Museum, Arugam Bay",Low,Adventurous
+U0005,24,"Kit Surfing, Swimming","Jaya Sri Maha Bodhi, Polonnaruwa, Ritigala Forest Monastery",Low,Relaxed
+U0006,20,"Architectural Marvel, Wildlife Spotting",Arugam Bay,Medium,Relaxed
+U0007,23,"Surfing, Animal Watching, Sunbathing",Lover's Leap Falls,High,Relaxed
+U0008,19,"Boating, Cultural Tours, Kite Surfing","Lover's Leap Falls, Handunugoda Tea Estate, Jaya Sri Maha Bodhi",Medium,Balanced
+U0009,19,"Nature Walks, Jet Skiing",Kelaniya Raja Maha Vihara,High,Balanced
+U0010,18,"Historical Exploration, Wildlife Safaris, Learning History",Udawalawe National Park,High,Balanced
+U0011,21,"Animal Watching, Fruit Picking",Bentota Beach,High,Luxury
+U0012,20,Walking Trails,"Temple of the Sacred Tooth Relic, Mihintale, Victoria Park of Nuwara Eliya",Medium,Luxury
+U0013,23,"Educational Tours, Swimming, Fruit Picking",Dambatenne Tea Factory,Low,Adventurous
+U0014,18,"Hiking, Yoga, Sunbathing","Horton Plains National Park, National Zoological Gardens of Sri Lanka, Wilpattu National Park",Medium,Adventurous
+U0015,18,Kit Surfing,"Ravana Ella Falls, Arugam Bay",High,Backpacker
+U0016,24,Trekking,National Zoological Gardens of Sri Lanka,Low,Relaxed
+U0017,24,"Photography, Farm Tours, Rafting","Colombo National Museum, Ceylon Tea Museum, Kalametiya Eco Bird Watching",Medium,Luxury
+U0018,23,"Trekking, Yoga",Dambulla Cave Temple,Low,Backpacker
+U0019,21,"Yoga, Hiking","Negombo Beach, Gregory Lake",Low,Adventurous
+U0020,18,"Photography, Snorkeling","Kalametiya Eco Bird Watching, Hakgala Botanic Gardens",High,Adventurous
+U0021,19,"Kite Surfing, Worship, Animal Watching",Diyaluma Falls,High,Relaxed
+U0022,22,"Worship, Kite Surfing",Arugam Bay,Low,Balanced
+U0023,19,Kite Surfing,"Bentota Beach, Tissa Wewa",Low,Relaxed
+U0024,18,"Boating, Exploring Exhibits","Mount Lavinia Beach, Ramboda Waterfall, Mirissa Beach",Low,Relaxed
+U0025,23,Trekking,"Passikudah Beach, Temple of the Sacred Tooth Relic, Jethawanaramaya Stupa",High,Adventurous
+U0026,18,"Exploring Exhibits, Rafting",Jethawanaramaya Stupa,Low,Adventurous
+U0027,21,Beach Hopping,"Ceylon Tea Museum, Minneriya Tusker Safaris, Horton Plains National Park",High,Balanced
+U0028,19,"Surfing, Animal Watching","Ceylon Tea Museum, Minneriya Tusker Safaris, Koneswaram Temple",Medium,Adventurous
+U0029,23,"Agricultural Workshops, Wildlife Spotting",,High,Luxury
+U0030,25,"Snorkeling, Wildlife Safaris, Learning History","Jaya Sri Maha Bodhi, Pigeon Island National Park, Diyaluma Falls",Low,Luxury
+U0031,20,"Educational Tours, Surfing","Dagoba of Thuparama, Sinharaja Forest Reserve, Bundala National Park",Low,Relaxed
+U0032,21,"Rafting, Cultural Tours, Snorkeling","Horton Plains National Park, New Ranweli Spice Garden, Jungle Beach",Low,Relaxed
+U0033,24,"Swimming, Hiking , Tea Plucking","Udawalawe National Park, Pigeon Island National Park",Medium,Balanced
+U0034,22,"Nature Walks, Nature Photography",Koneswaram Temple,Medium,Adventurous
+U0035,24,Kayaking,"Ceylon Tea Museum, Ruwanwelisaya",Low,Luxury
+U0036,24,"Fishing, Rafting",,Low,Balanced
+U0037,25,"Boating, Beach Hopping","Mount Lavinia Beach, Nallur Kovil, Samadhi Statue",Low,Luxury
+U0038,18,Relaxation,"Dambulla Cave Temple, Twin Baths (Kuttam Pokuna)",Medium,Relaxed
+U0039,19,"Hiking, Nature Photography, Fishing","Hakgala Botanic Gardens, Sigiriya Museum",High,Luxury
+U0040,20,"Jet Skiing, Wildlife Safaris, Agricultural Workshops","Ruwanwelisaya, Diyaluma Falls",Medium,Balanced
+U0041,18,Rafting,World Buddhist Museum,High,Balanced
+U0042,24,"Cultural Activities, Wildlife, Educational Tours",,Medium,Relaxed
+U0043,20,Agricultural Workshops,,Medium,Luxury
+U0044,19,"Guided Tours, Wildlife Spotting, Boat Tours","Jaya Sri Maha Bodhi, Nallur Kovil",Low,Adventurous
+U0045,24,Animal Watching,Martin Wickramasinghe Folk Museum Complex,Medium,Luxury
+U0046,24,"Learning History, Farm Tours, Tea Plucking","Community Tsunami Museum, Ruwanwelisaya",Medium,Backpacker
+U0047,25,"Walking Trails, Bird Watching, Jet Skiing","Damro Labookellie Tea Centre and Tea Garden, Polonnaruwa",High,Luxury
+U0048,21,Wildlife Safaris,"Kumana National Park, Pigeon Island National Park, Ravana Ella Falls",Medium,Relaxed
+U0049,19,"Learning History, Exploring Exhibits, Bird Watching","Gangaramaya (Vihara) Buddhist Temple, Martin Wickramasinghe Folk Museum Complex, Negombo Beach",High,Backpacker
+U0050,18,"Architectural Marvel, Nature Photography, Wildlife Safaris","Sigiriya The Ancient Rock Fortress, Pigeon Island National Park",High,Luxury
+U0051,24,"Kayaking, Worship, Fruit Picking",Sigiriya Museum,High,Adventurous
+U0052,18,"Boating, Jet Skiing, Nature Photography","Gangaramaya (Vihara) Buddhist Temple, Ritigala Forest Monastery, New Ranweli Spice Garden",Medium,Balanced
+U0053,23,"Walking Trails, Cultural Tours",Jaffna Fort,Medium,Relaxed
+U0054,19,Relaxation,"Hikkaduwa Beach, National Zoological Gardens of Sri Lanka",Medium,Relaxed
+U0055,24,Swimming,Glenloch Tea Factory,Medium,Backpacker
+U0056,24,"Swimming, Cultural Activities, Snorkeling","Martin Wickramasinghe Folk Museum Complex, Sea Turtle Farm Galle Mahamodara, Lover's Leap Falls",Low,Adventurous
+U0057,23,"Worship, Nature Walks","Marble Beach, Samadhi Statue",Low,Luxury
+U0058,22,"Worship, Rafting",Ceylon Tea Museum,Medium,Luxury
+U0059,20,Animal Watching,"Mihintale, Ruwanwelisaya",Low,Adventurous
+U0060,25,Wildlife,"Pigeon Island National Park, Ceylon Tea Museum, Community Tsunami Museum",Medium,Backpacker
+U0061,20,"Wildlife Spotting, Hiking",,High,Relaxed
+U0062,23,"Historical Exploration, Relaxation, Yoga",Minneriya National Park,High,Luxury
+U0063,25,"Educational Tours, Relaxation","New Ranweli Spice Garden, Bluefield Tea Gardens, Polonnaruwa",High,Luxury
+U0064,25,Beach Hopping,"Handunugoda Tea Estate, Community Tsunami Museum",Low,Relaxed
+U0065,24,Wildlife,"Ramboda Waterfall, Brief Garden - Bevis Bawa, Dagoba of Thuparama",Medium,Adventurous
+U0066,25,"Photography, Architectural Marvel, Bird Watching",,High,Backpacker
+U0067,19,Guided Tours,Koneswaram Temple,Medium,Luxury
+U0068,22,Relaxation,"Horton Plains National Park, New Ranweli Spice Garden, Kalametiya Eco Bird Watching",Medium,Balanced
+U0069,22,"Cultural Exploration, Yoga",Ritigala Forest Monastery,Medium,Adventurous
+U0070,18,"Hiking, Beach Hopping, Learning History","Kaudulla National Park, Sea Turtle Farm Galle Mahamodara, Mirissa Beach",High,Relaxed
+U0071,23,"Yoga, Animal Watching, Cultural Exploration",,Medium,Balanced
+U0072,19,Bird Watching,"Temple of the Sacred Tooth Relic, Ceylon Tea Museum, New Ranweli Spice Garden",Medium,Relaxed
+U0073,22,"Architectural Marvel, Cultural Activities",,Low,Adventurous
+U0074,21,"Farm Tours, Photography","Ariyapala Mask Museum, Mount Lavinia Beach",Low,Luxury
+U0075,18,Surfing,Galle Fort,Medium,Balanced
+U0076,19,"Guided Tours, Learning History, Cultural Exploration","Minneriya Tusker Safaris, Negombo Beach, Kumana National Park",High,Relaxed
+U0077,22,"Sunbathing, Sightseeing","Bluefield Tea Gardens, Ritigala Forest Monastery, Brief Garden - Bevis Bawa",Medium,Backpacker
+U0078,25,"Jeep Safaris, Beach Hopping","St Clair's Falls, Pedro Tea Factory",Low,Adventurous
+U0079,19,"Cultural Activities, Yoga, Swimming",Jaya Sri Maha Bodhi,Medium,Backpacker
+U0080,20,"Kayaking, Fishing",,High,Balanced
+U0081,19,"Hiking, Farm Tours, Jeep Safaris","St Clair's Falls, Mirissa Beach, Bentota Beach",Medium,Relaxed
+U0082,22,"Yoga, Guided Tours","Samadhi Statue, Victoria Park of Nuwara Eliya, Ariyapala Mask Museum",Medium,Backpacker
+U0083,23,"Kite Surfing, Cultural Activities, Sunbathing",Hikkaduwa Beach,Medium,Relaxed
+U0084,22,"Fruit Picking, Surfing, Yoga","Colombo National Museum, Royal Botanical Gardens",High,Backpacker
+U0085,25,Surfing,"Kaudulla National Park, Sea Turtle Farm Galle Mahamodara",High,Balanced
+U0086,24,"Swimming, Architectural Marvel, Walking Trails",Minneriya Tusker Safaris,High,Balanced
+U0087,25,"Yoga, Walking Trails","Negombo Beach, Bluefield Tea Gardens",Low,Balanced
+U0088,24,"Snorkeling, Sunbathing","Kelaniya Raja Maha Vihara, Ariyapala Mask Museum",Low,Backpacker
+U0089,21,"Wildlife Safaris, Swimming, Agricultural Workshops",Nallur Kovil,Medium,Balanced
+U0090,25,Meditation," Royal Botanical Gardens, Jaya Sri Maha Bodhi",Medium,Relaxed
+U0091,20,"Fruit Picking, Snorkeling, Cultural Activities","Arugam Bay, Kandy Lake",Medium,Adventurous
+U0092,18,Architectural Marvel,"Sea Turtle Farm Galle Mahamodara, Koneswaram Temple",Medium,Luxury
+U0093,21,Agricultural Workshops,"Negombo Beach, Ceylon Tea Museum, Udawattekele Sanctuary",Medium,Luxury
+U0094,24,Animal Watching,Negombo Beach,Medium,Adventurous
+U0095,18,"Agricultural Workshops, Architectural Marvel, Meditation",Bentota Beach,High,Adventurous
+U0096,25,"Sunbathing, Boat Tours, Sightseeing",,Low,Adventurous
+U0097,23,"Exploring Exhibits, Trekking","Sea Turtle Farm Galle Mahamodara, Samadhi Statue",High,Adventurous
+U0098,23,"Tea Plucking, Nature Photography","Kelaniya Raja Maha Vihara, Pedro Tea Factory",Medium,Relaxed
+U0099,18,"Hiking , Exploring Exhibits, Rafting",Jungle Beach,Medium,Luxury
+U0100,18,"Hiking, Educational Tours","Bentota Beach, Brief Garden - Bevis Bawa, Colombo National Museum",Medium,Adventurous
+U0101,21,Wildlife Safaris,Nilaveli Beach,Medium,Backpacker
+U0102,18,Nature Photography,,Medium,Relaxed
+U0103,19,Beach Hopping,,Medium,Balanced
+U0104,20,"Meditation, Walking Trails, Architectural Marvel","Twin Baths (Kuttam Pokuna), Minneriya Tusker Safaris",High,Relaxed
+U0105,23,"Farm Tours, Guided Tours",Jungle Beach,Medium,Relaxed
+U0106,24,"Guided Tours, Agricultural Workshops","Udawalawe National Park, Halpewatte Tea Factory Tour, Bentota Beach",High,Backpacker
+U0107,18,"Worship, Jet Skiing, Hiking",Isurumuniya Temple,Medium,Relaxed
+U0108,23,Animal Watching,Tissa Wewa,Low,Luxury
+U0109,21,"Bird Watching, Nature Walks","Horton Plains National Park, Ritigala Forest Monastery",High,Balanced
+U0110,21,Farm Tours,,Medium,Luxury
+U0111,19,Tea Plucking,Community Tsunami Museum,Medium,Luxury
+U0112,23,"Boating, Learning History","Kelaniya Raja Maha Vihara, Kalametiya Eco Bird Watching",Low,Balanced
+U0113,22,"Surfing, Wildlife Spotting",Isurumuniya Temple,High,Adventurous
+U0114,21,"Bird Watching, Boating","Victoria Park of Nuwara Eliya, Lover's Leap Falls",Medium,Balanced
+U0115,20,Bird Watching,"Pedro Tea Factory, Minneriya National Park, Kelaniya Raja Maha Vihara",Low,Adventurous
+U0116,21,Educational Tours,"Udawattekele Sanctuary, Jaya Sri Maha Bodhi, Sigiriya The Ancient Rock Fortress",Medium,Balanced
+U0117,18,"Learning History, Trekking","Damro Labookellie Tea Centre and Tea Garden, Passikudah Beach, Twin Baths (Kuttam Pokuna)",High,Balanced
+U0118,19,Swimming,"Damro Labookellie Tea Centre and Tea Garden, Jethawanaramaya Stupa",High,Relaxed
+U0119,19,"Nature Photography, Relaxation","Sigiriya Museum, Pigeon Island National Park, Bentota Beach",Low,Relaxed
+U0120,21,Guided Tours,"Kandy Lake, Kumana National Park, Negombo Beach",High,Luxury
+U0121,25,"Yoga, Tea Plucking, Boat Tours","Galle Fort, Pinnawala Elephant Orphanage",Low,Backpacker
+U0122,25,Jeep Safaris,"Abhayagiri Dagaba, Isurumuniya Temple",High,Luxury
+U0123,18,"Cultural Activities, Meditation, Hiking","Negombo Beach, Pinnawala Elephant Orphanage, Royal Botanical Gardens",Medium,Relaxed
+U0124,21,"Beach Hopping, Exploring Exhibits, Historical Exploration",Sea Turtle Farm Galle Mahamodara,Medium,Relaxed
+U0125,18,"Bird Watching, Walking Trails, Meditation","Mount Lavinia Beach, National Zoological Gardens of Sri Lanka",Medium,Backpacker
+U0126,18,"Wildlife Safaris, Educational Tours","Jaffna Fort, Galle Fort, Ambewela Farms",High,Backpacker
+U0127,22,"Educational Tours, Yoga, Animal Watching","Tissa Wewa, Dambulla Cave Temple, Minneriya National Park",High,Relaxed
+U0128,18,Fruit Picking,,Low,Balanced
+U0129,19,"Guided Tours, Cultural Activities, Jet Skiing",,Medium,Relaxed
+U0130,18,"Tea Plucking, Cultural Exploration",Minneriya Tusker Safaris,Low,Adventurous
+U0131,21,"Learning History, Architectural Marvel, Fruit Picking","Minneriya National Park, Pedro Tea Factory, Dagoba of Thuparama",Low,Balanced
+U0132,18,"Architectural Marvel, Wildlife Safaris, Cultural Tours","Horton Plains National Park, Koneswaram Temple",Low,Balanced
+U0133,19,"Jeep Safaris, Rafting, Yoga","Sigiriya Museum, St Clair's Falls, Hakgala Botanic Gardens",Low,Adventurous
+U0134,24,"Worship, Rafting","Bluefield Tea Gardens, Ambewela Farms",Medium,Balanced
+U0135,18,"Historical Exploration, Hiking, Animal Watching","Kalametiya Eco Bird Watching, Abhayagiri Dagaba",Low,Relaxed
+U0136,24,"Wildlife Safaris, Cultural Exploration, Snorkeling",Ramboda Waterfall,Medium,Luxury
+U0137,25,Wildlife Spotting,Polonnaruwa,Medium,Luxury
+U0138,25,"Yoga, Cultural Activities","Dagoba of Thuparama, Pigeon Island National Park, Ruwanwelisaya",Low,Backpacker
+U0139,22,Kayaking,"Tissa Wewa, Glenloch Tea Factory, Diyaluma Falls",Medium,Adventurous
+U0140,19,"Surfing, Jeep Safaris",Mihintale,High,Backpacker
+U0141,25,"Cultural Tours, Beach Hopping, Boating","Handunugoda Tea Estate, Udawalawe National Park, Ritigala Forest Monastery",Low,Relaxed
+U0142,25,"Hiking, Surfing, Farm Tours",,High,Relaxed
+U0143,21,"Snorkeling, Bird Watching","Udawattekele Sanctuary, Negombo Beach, Mirissa Beach",Low,Adventurous
+U0144,20,"Kite Surfing, Tea Plucking, Rafting",Kumana National Park,High,Backpacker
+U0145,18,"Trekking, Kayaking","Pigeon Island National Park, Ravana Ella Falls, Jungle Beach",High,Relaxed
+U0146,24,"Cultural Tours, Educational Tours, Boating","Mount Lavinia Beach, Handunugoda Tea Estate",High,Backpacker
+U0147,22,Surfing,Sigiriya The Ancient Rock Fortress,Low,Adventurous
+U0148,19,Relaxation,"Kumana National Park, Ariyapala Mask Museum",Medium,Relaxed
+U0149,24,"Cultural Tours, Surfing",Bundala National Park,Medium,Backpacker
+U0150,22,Tea Plucking,,Medium,Balanced
+U0151,20,"Trekking, Bird Watching, Boating","Ambewela Farms, Sea Turtle Farm Galle Mahamodara",High,Balanced
+U0152,24,Rafting,,Low,Luxury
+U0153,23,Swimming," Kandy Lake, Hakgala Botanic Gardens",High,Luxury
+U0154,22,"Snorkeling, Photography","Jaya Sri Maha Bodhi, Damro Labookellie Tea Centre and Tea Garden",Low,Relaxed
+U0155,20,"Learning History, Exploring Exhibits","Baker's Falls, Samadhi Statue, Kaudulla National Park",High,Balanced
+U0156,25,"Exploring Exhibits, Hiking",,High,Backpacker
+U0157,25,"Kayaking, Architectural Marvel, Learning History","Dambatenne Tea Factory, Jaya Sri Maha Bodhi, Ariyapala Mask Museum",Medium,Backpacker
+U0158,22,Learning History,Nallur Kovil,Medium,Balanced
+U0159,24,"Cultural Tours, Wildlife Safaris","Ruwanwelisaya, Brief Garden - Bevis Bawa",Low,Balanced
+U0160,25,"Beach Hopping, Sunbathing","Diyaluma Falls, Kandy Lake",Low,Backpacker
+U0161,24,"Swimming, Exploring Exhibits, Walking Trails","Polonnaruwa, Abhayagiri Dagaba, Koneswaram Temple",High,Backpacker
+U0162,20,"Fruit Picking, Jet Skiing, Jeep Safaris",Pigeon Island National Park,High,Backpacker
+U0163,19,Boat Tours,Kalametiya Eco Bird Watching,High,Luxury
+U0164,20,"Guided Tours, Boat Tours, Farm Tours","Wilpattu National Park, Victoria Park of Nuwara Eliya, Mihintale",High,Adventurous
+U0165,24,"Animal Watching, Nature Walks",Jungle Beach,Medium,Balanced
+U0166,21,"Photography, Kite Surfing, Worship",,Low,Backpacker
+U0167,21,Farm Tours,"Koneswaram Temple, New Ranweli Spice Garden, Damro Labookellie Tea Centre and Tea Garden",Low,Relaxed
+U0168,20,"Agricultural Workshops, Kayaking","Ceylon Tea Museum, Tissa Wewa",High,Balanced
+U0169,21,Exploring Exhibits,"Hikkaduwa Beach, Ceylon Tea Museum, Martin Wickramasinghe Folk Museum Complex",Low,Backpacker
+U0170,21,Hiking,Abhayagiri Dagaba,Medium,Luxury
+U0171,24,Jet Skiing,,Low,Backpacker
+U0172,21,"Nature Photography, Nature Walks, Agricultural Workshops","Passikudah Beach, Isurumuniya Temple",High,Balanced
+U0173,24,Swimming,Bundala National Park,Medium,Luxury
+U0174,22,Relaxation,"Jaffna Fort, Kelaniya Raja Maha Vihara",Medium,Relaxed
+U0175,25,"Sunbathing, Nature Photography, Boat Tours",,High,Relaxed
+U0176,21,Boating,"Lover's Leap Falls, Temple of the Sacred Tooth Relic, Udawattekele Sanctuary",Low,Balanced
+U0177,19,"Cultural Exploration, Wildlife",Damro Labookellie Tea Centre and Tea Garden,High,Backpacker
+U0178,22,Swimming,"Kandy Lake, Sinharaja Forest Reserve, Polonnaruwa",Medium,Backpacker
+U0179,19,"Learning History, Relaxation, Nature Photography",Wilpattu National Park,Low,Luxury
+U0180,24,"Fishing, Farm Tours, Tea Plucking","Pigeon Island National Park, Passikudah Beach",High,Luxury
+U0181,19,Historical Exploration,Ruwanwelisaya,High,Luxury
+U0182,25,"Educational Tours, Swimming, Guided Tours",Kandy Lake,Low,Backpacker
+U0183,18,Worship,,Low,Balanced
+U0184,21,"Surfing, Animal Watching, Agricultural Workshops","Martin Wickramasinghe Folk Museum Complex, Jaffna Fort",High,Backpacker
+U0185,20,Cultural Tours,"Ariyapala Mask Museum, Abhayagiri Dagaba",Medium,Luxury
+U0186,24,"Beach Hopping, Nature Walks, Sightseeing",,Medium,Adventurous
+U0187,25,"Educational Tours, Exploring Exhibits, Nature Walks",Kalutara Beach,Low,Balanced
+U0188,20,"Cultural Exploration, Wildlife Safaris","Community Tsunami Museum, Kelaniya Raja Maha Vihara",Low,Balanced
+U0189,20,Worship,Glenloch Tea Factory,High,Luxury
+U0190,25,"Trekking, Meditation",Dagoba of Thuparama,Low,Adventurous
+U0191,18,"Boating, Wildlife, Bird Watching",,High,Adventurous
+U0192,22,"Educational Tours, Sunbathing, Nature Walks",,Medium,Balanced
+U0193,22,"Exploring Exhibits, Farm Tours","Koneswaram Temple, Ceylon Tea Museum",High,Relaxed
+U0194,24,"Walking Trails, Sightseeing",,Medium,Luxury
+U0195,20,"Beach Hopping, Snorkeling","Pedro Tea Factory, Samadhi Statue",High,Balanced
+U0196,24,"Kit Surfing, Trekking, Architectural Marvel","Bluefield Tea Gardens, Ceylon Tea Museum, Ritigala Forest Monastery",High,Relaxed
+U0197,18,"Surfing, Walking Trails, Worship","Nallur Kovil, Koneswaram Temple, Kalametiya Eco Bird Watching",Low,Relaxed
+U0198,18,Trekking,"Gangaramaya (Vihara) Buddhist Temple, Polonnaruwa, Dagoba of Thuparama",Low,Backpacker
+U0199,19,"Rafting, Learning History, Relaxation","Sigiriya Museum, Jaya Sri Maha Bodhi, Koneswaram Temple",Low,Luxury
+U0200,19,"Architectural Marvel, Sightseeing, Hiking",Sinharaja Forest Reserve,Medium,Adventurous
+U0201,23,Hiking ,"Kelaniya Raja Maha Vihara, Bluefield Tea Gardens, Bentota Beach",High,Luxury
+U0202,25,Wildlife,,Low,Adventurous
+U0203,23,Boating,"Sinharaja Forest Reserve, Udawattekele Sanctuary, Marble Beach",Medium,Adventurous
+U0204,20,"Sunbathing, Farm Tours, Fruit Picking","Minneriya National Park, Kalutara Beach",High,Luxury
+U0205,18,"Tea Plucking, Jeep Safaris, Agricultural Workshops",,High,Balanced
+U0206,21,"Relaxation, Meditation",Community Tsunami Museum,Low,Luxury
+U0207,20,"Animal Watching, Relaxation","Kumana National Park, Minneriya National Park",High,Backpacker
+U0208,18,"Beach Hopping, Boating","Nilaveli Beach, Pedro Tea Factory",High,Adventurous
+U0209,18,"Farm Tours, Fruit Picking, Boating",National Zoological Gardens of Sri Lanka,Low,Backpacker
+U0210,20,"Nature Walks, Wildlife Spotting","St Clair's Falls, Brief Garden - Bevis Bawa, Kelaniya Raja Maha Vihara",Medium,Luxury
+U0211,21,Boat Tours,"Twin Baths (Kuttam Pokuna), Gangaramaya (Vihara) Buddhist Temple",Low,Luxury
+U0212,22,"Animal Watching, Jet Skiing","Bentota Beach, Arugam Bay, Jungle Beach",High,Luxury
+U0213,23,"Photography, Educational Tours, Swimming","Udawalawe National Park, Hikkaduwa Beach, Galle Fort",High,Luxury
+U0214,24,"Cultural Activities, Rafting, Wildlife","Hakgala Botanic Gardens, Kumana National Park, Udawalawe National Park",High,Adventurous
+U0215,18,"Rafting, Learning History",Handunugoda Tea Estate,High,Luxury
+U0216,22,"Learning History, Relaxation","Jungle Beach, Pedro Tea Factory",Low,Relaxed
+U0217,24,Tea Plucking,Isurumuniya Temple,Medium,Luxury
+U0218,25,"Relaxation, Guided Tours","Community Tsunami Museum, Kalutara Beach, Twin Baths (Kuttam Pokuna)",Low,Balanced
+U0219,23,"Sunbathing, Wildlife","Kaudulla National Park, Dambulla Cave Temple",Medium,Luxury
+U0220,22,"Fishing, Hiking, Yoga","Kalametiya Eco Bird Watching, Ariyapala Mask Museum",High,Adventurous
+U0221,22,Photography,"Abhayagiri Dagaba, Gangaramaya (Vihara) Buddhist Temple",Low,Adventurous
+U0222,19,Fruit Picking,"Martin Wickramasinghe Folk Museum Complex, Nilaveli Beach",Medium,Balanced
+U0223,18,Agricultural Workshops,"Polonnaruwa, Kelaniya Raja Maha Vihara",High,Backpacker
+U0224,24,Hiking ,"Udawalawe National Park, Community Tsunami Museum, Pigeon Island National Park",High,Adventurous
+U0225,25,"Boating, Beach Hopping, Agricultural Workshops","Polonnaruwa, Jungle Beach",Medium,Backpacker
+U0226,20,"Animal Watching, Relaxation",Jethawanaramaya Stupa,High,Balanced
+U0227,20,Learning History,Bluefield Tea Gardens,Low,Backpacker
+U0228,22,Wildlife Spotting,"Kalutara Beach, Bentota Beach, Jethawanaramaya Stupa",High,Adventurous
+U0229,21,"Kit Surfing, Agricultural Workshops, Farm Tours",Martin Wickramasinghe Folk Museum Complex,High,Relaxed
+U0230,18,Bird Watching,"Hakgala Botanic Gardens, Mihintale",Low,Luxury
+U0231,23,"Jet Skiing, Animal Watching, Fruit Picking",,High,Adventurous
+U0232,20,"Guided Tours, Nature Walks, Hiking ","Bundala National Park, Jethawanaramaya Stupa, Dambatenne Tea Factory",High,Adventurous
+U0233,23,"Nature Walks, Swimming, Hiking ",Bluefield Tea Gardens,Low,Relaxed
+U0234,24,Wildlife,,High,Balanced
+U0235,19,"Boating, Fruit Picking, Agricultural Workshops",Koneswaram Temple,Low,Backpacker
+U0236,22,Nature Walks,"Hikkaduwa Beach, Abhayagiri Dagaba",Medium,Backpacker
+U0237,19,Jet Skiing,"Ambewela Farms, Colombo National Museum, Ceylon Tea Museum",High,Backpacker
+U0238,23,"Kite Surfing, Bird Watching, Tea Plucking","Sea Turtle Farm Galle Mahamodara, Galle Fort, Passikudah Beach",High,Backpacker
+U0239,24,"Tea Plucking, Hiking, Architectural Marvel","Halpewatte Tea Factory Tour, Sinharaja Forest Reserve, Diyaluma Falls",Low,Relaxed
+U0240,25,"Hiking, Fruit Picking, Worship","Jaffna Fort, Royal Botanical Gardens",High,Adventurous
+U0241,22,"Bird Watching, Boat Tours","Brief Garden - Bevis Bawa, Ceylon Tea Museum",Low,Luxury
+U0242,22,"Walking Trails, Snorkeling, Cultural Activities",Kelaniya Raja Maha Vihara,Low,Adventurous
+U0243,23,"Guided Tours, Farm Tours","Hakgala Botanic Gardens, Kaudulla National Park, Ariyapala Mask Museum",Low,Luxury
+U0244,22,Educational Tours,Sigiriya The Ancient Rock Fortress,Medium,Balanced
+U0245,20,"Animal Watching, Learning History, Sightseeing","Horton Plains National Park, Jaffna Fort",High,Luxury
+U0246,18,"Historical Exploration, Sightseeing","Kumana National Park, Abhayagiri Dagaba, Martin Wickramasinghe Folk Museum Complex",Medium,Balanced
+U0247,22,Trekking,"New Ranweli Spice Garden, Ravana Ella Falls",Medium,Balanced
+U0248,22,Animal Watching,"Samadhi Statue, Koneswaram Temple",High,Relaxed
+U0249,18,"Nature Photography, Learning History, Nature Walks",,High,Luxury
+U0250,19,Fishing,Minneriya Tusker Safaris,Low,Balanced
+U0251,34,"Snorkeling, Sightseeing, Animal Watching","Jaffna Fort, Gregory Lake, Sinharaja Forest Reserve",Low,Balanced
+U0252,34,"Boat Tours, Bird Watching","Marble Beach, Jaffna Fort, Dambulla Cave Temple",Medium,Relaxed
+U0253,26,Walking Trails,"Kaudulla National Park, Twin Baths (Kuttam Pokuna), Colombo National Museum",High,Adventurous
+U0254,33,"Trekking, Fishing, Relaxation",Hikkaduwa Beach,High,Balanced
+U0255,35,Bird Watching,"Colombo National Museum, Sigiriya The Ancient Rock Fortress",Low,Backpacker
+U0256,30,Kite Surfing,,Low,Adventurous
+U0257,34,Bird Watching,,Medium,Relaxed
+U0258,34,"Jeep Safaris, Boating, Historical Exploration","Samadhi Statue, Brief Garden - Bevis Bawa, Ritigala Forest Monastery",Low,Adventurous
+U0259,29,"Photography, Swimming, Cultural Tours",Brief Garden - Bevis Bawa,High,Adventurous
+U0260,28,"Nature Walks, Tea Plucking",Baker's Falls,High,Backpacker
+U0261,33,"Agricultural Workshops, Bird Watching, Educational Tours",,High,Relaxed
+U0262,32,"Worship, Cultural Tours, Walking Trails",New Ranweli Spice Garden,High,Luxury
+U0263,32,"Surfing, Wildlife Spotting",,Low,Luxury
+U0264,35,"Meditation, Guided Tours, Swimming","Jaya Sri Maha Bodhi, New Ranweli Spice Garden, Udawalawe National Park",Medium,Balanced
+U0265,29,"Bird Watching, Jeep Safaris, Nature Photography",,High,Adventurous
+U0266,26,"Agricultural Workshops, Wildlife Spotting, Jet Skiing","Abhayagiri Dagaba, Ariyapala Mask Museum",Medium,Adventurous
+U0267,27,"Snorkeling, Cultural Activities","Pedro Tea Factory, Ramboda Waterfall, Royal Botanical Gardens",Medium,Relaxed
+U0268,31,"Relaxation, Swimming","Royal Botanical Gardens, Nilaveli Beach, Lover's Leap Falls",Low,Relaxed
+U0269,30,Wildlife,,Low,Backpacker
+U0270,28,"Guided Tours, Historical Exploration, Surfing","Hikkaduwa Beach, Twin Baths (Kuttam Pokuna)",Medium,Relaxed
+U0271,30,Exploring Exhibits,Kalametiya Eco Bird Watching,High,Balanced
+U0272,28,"Animal Watching, Kayaking, Wildlife Spotting",,High,Luxury
+U0273,28,Learning History,"Kandy Lake, Diyaluma Falls",High,Relaxed
+U0274,32,"Boating, Yoga, Meditation",Glenloch Tea Factory,High,Luxury
+U0275,33,"Farm Tours, Nature Walks",New Ranweli Spice Garden,Medium,Balanced
+U0276,28,"Photography, Wildlife Spotting, Nature Walks",,Low,Adventurous
+U0277,34,"Sunbathing, Historical Exploration, Meditation","Diyaluma Falls, Sea Turtle Farm Galle Mahamodara",Low,Relaxed
+U0278,33,"Wildlife Safaris, Sunbathing","Jaffna Fort, Mirissa Beach",Medium,Adventurous
+U0279,30,Historical Exploration,"Damro Labookellie Tea Centre and Tea Garden, Polonnaruwa",Low,Luxury
+U0280,28,Hiking ,"Royal Botanical Gardens, Ramboda Waterfall, Community Tsunami Museum",High,Balanced
+U0281,33,"Kite Surfing, Rafting, Exploring Exhibits",Dambulla Cave Temple,Medium,Luxury
+U0282,27,"Beach Hopping, Agricultural Workshops","Sea Turtle Farm Galle Mahamodara, Kandy Lake",Low,Relaxed
+U0283,31,Kite Surfing,"Twin Baths (Kuttam Pokuna), Kalutara Beach, Jaya Sri Maha Bodhi",Low,Balanced
+U0284,27,Hiking,,Medium,Luxury
+U0285,33,"Meditation, Relaxation","Brief Garden - Bevis Bawa, Koneswaram Temple, Nilaveli Beach",Medium,Luxury
+U0286,27,Exploring Exhibits,"St Clair's Falls, Wilpattu National Park",Low,Luxury
+U0287,31,Boat Tours,"Community Tsunami Museum, Twin Baths (Kuttam Pokuna), Diyaluma Falls",Medium,Balanced
+U0288,34,"Exploring Exhibits, Boat Tours, Agricultural Workshops",Tissa Wewa,Low,Adventurous
+U0289,31,Wildlife Spotting,"Jaya Sri Maha Bodhi, Mount Lavinia Beach, Hikkaduwa Beach",Low,Luxury
+U0290,28,"Boat Tours, Nature Photography, Surfing",,Medium,Adventurous
+U0291,29,"Yoga, Guided Tours","Ruwanwelisaya, Jaffna Fort, Ambewela Farms",Low,Adventurous
+U0292,34,Fishing,Ambewela Farms,High,Relaxed
+U0293,33,"Cultural Exploration, Fruit Picking","Royal Botanical Gardens, Temple of the Sacred Tooth Relic",High,Relaxed
+U0294,31,"Swimming, Agricultural Workshops",Brief Garden - Bevis Bawa,Medium,Relaxed
+U0295,31,Boat Tours,"Mount Lavinia Beach, Kumana National Park",High,Backpacker
+U0296,28,"Bird Watching, Historical Exploration","National Zoological Gardens of Sri Lanka, Colombo National Museum",Medium,Adventurous
+U0297,28,Rafting,"Baker's Falls, Kandy Lake, Lover's Leap Falls",Low,Adventurous
+U0298,32,Exploring Exhibits,National Zoological Gardens of Sri Lanka,Medium,Balanced
+U0299,34,Trekking,Bluefield Tea Gardens,Medium,Adventurous
+U0300,29,"Guided Tours, Cultural Exploration, Boating",Gangaramaya (Vihara) Buddhist Temple,Low,Backpacker
+U0301,33,"Trekking, Animal Watching, Guided Tours",Samadhi Statue,High,Balanced
+U0302,27,"Wildlife, Sightseeing, Cultural Exploration","New Ranweli Spice Garden, Diyaluma Falls",Low,Luxury
+U0303,30,"Tea Plucking, Rafting, Trekking","Colombo National Museum, Koneswaram Temple, Ambewela Farms",Low,Luxury
+U0304,30,"Kite Surfing, Cultural Tours, Nature Photography","Gangaramaya (Vihara) Buddhist Temple, Udawalawe National Park, Minneriya Tusker Safaris",High,Adventurous
+U0305,32,Snorkeling,"Ambewela Farms, Pedro Tea Factory",Medium,Balanced
+U0306,34,"Learning History, Rafting, Guided Tours",Koneswaram Temple,Medium,Adventurous
+U0307,35,"Walking Trails, Jeep Safaris","Jethawanaramaya Stupa, Pedro Tea Factory",High,Luxury
+U0308,32,Worship,Minneriya National Park,Low,Luxury
+U0309,35,"Kite Surfing, Wildlife Spotting",Nilaveli Beach,Medium,Luxury
+U0310,35,"Guided Tours, Kayaking",,Medium,Relaxed
+U0311,35,Meditation,Ravana Ella Falls,High,Balanced
+U0312,29,Kayaking,Udawalawe National Park,Medium,Balanced
+U0313,28,Wildlife,"Ariyapala Mask Museum, Pigeon Island National Park, Hakgala Botanic Gardens",High,Adventurous
+U0314,35,Animal Watching,,Low,Relaxed
+U0315,34,"Historical Exploration, Guided Tours, Boat Tours",Minneriya Tusker Safaris,High,Relaxed
+U0316,27,"Fruit Picking, Jeep Safaris, Yoga",,Low,Adventurous
+U0317,29,"Tea Plucking, Cultural Exploration",Martin Wickramasinghe Folk Museum Complex,Medium,Adventurous
+U0318,26,"Educational Tours, Animal Watching, Beach Hopping","Minneriya National Park, Glenloch Tea Factory",Low,Luxury
+U0319,35,Sunbathing,Dambatenne Tea Factory,Medium,Relaxed
+U0320,35,"Boating, Worship, Educational Tours",,High,Backpacker
+U0321,31,"Trekking, Guided Tours, Relaxation","Koneswaram Temple, Pinnawala Elephant Orphanage",Low,Relaxed
+U0322,34,Cultural Exploration,Jaffna Fort,Low,Backpacker
+U0323,32,Boating,New Ranweli Spice Garden,Medium,Adventurous
+U0324,30,"Cultural Tours, Farm Tours, Learning History",Damro Labookellie Tea Centre and Tea Garden,High,Luxury
+U0325,31,"Walking Trails, Jeep Safaris","Hikkaduwa Beach, Sinharaja Forest Reserve",Medium,Relaxed
+U0326,34,"Architectural Marvel, Exploring Exhibits",Udawalawe National Park,High,Balanced
+U0327,33,"Walking Trails, Swimming","Halpewatte Tea Factory Tour, Marble Beach, Sigiriya The Ancient Rock Fortress",Medium,Balanced
+U0328,29,"Farm Tours, Tea Plucking","Ariyapala Mask Museum, Sigiriya Museum, Galle Fort",Medium,Luxury
+U0329,27,"Tea Plucking, Kite Surfing",Halpewatte Tea Factory Tour,Low,Luxury
+U0330,26,"Wildlife Safaris, Worship, Bird Watching",Pedro Tea Factory,Low,Luxury
+U0331,33,"Cultural Exploration, Kayaking, Architectural Marvel","Kandy Lake, New Ranweli Spice Garden",High,Backpacker
+U0332,31,Jeep Safaris,Sinharaja Forest Reserve,High,Luxury
+U0333,27,Animal Watching,,Low,Luxury
+U0334,26,Cultural Tours,"World Buddhist Museum, Kumana National Park",Low,Backpacker
+U0335,26,Yoga,,Low,Balanced
+U0336,33,Snorkeling,"Sea Turtle Farm Galle Mahamodara, Temple of the Sacred Tooth Relic",Low,Relaxed
+U0337,34,"Walking Trails, Kayaking, Kite Surfing",National Zoological Gardens of Sri Lanka,Low,Adventurous
+U0338,32,Meditation,"Dambatenne Tea Factory, Twin Baths (Kuttam Pokuna)",Medium,Luxury
+U0339,33,"Educational Tours, Wildlife Spotting, Rafting",Ritigala Forest Monastery,Low,Luxury
+U0340,31,Boating,Dambulla Cave Temple,Low,Backpacker
+U0341,32,"Farm Tours, Historical Exploration, Nature Walks","Wilpattu National Park, Jaffna Fort",Medium,Balanced
+U0342,33,"Wildlife Safaris, Boating","Royal Botanical Gardens, Samadhi Statue, Hikkaduwa Beach",Medium,Balanced
+U0343,27,"Jet Skiing, Exploring Exhibits",,Medium,Balanced
+U0344,26,"Beach Hopping, Cultural Tours","Wilpattu National Park, Jethawanaramaya Stupa, Negombo Beach",Low,Backpacker
+U0345,26,"Educational Tours, Architectural Marvel",Jaya Sri Maha Bodhi,High,Adventurous
+U0346,32,"Relaxation, Bird Watching, Yoga","Royal Botanical Gardens, Hikkaduwa Beach, Wilpattu National Park",High,Luxury
+U0347,33,"Photography, Wildlife, Cultural Tours",Tissa Wewa,Medium,Adventurous
+U0348,33,"Nature Walks, Rafting","Ramboda Waterfall, Mihintale, Isurumuniya Temple",Medium,Backpacker
+U0349,29,"Meditation, Fishing, Beach Hopping",Pigeon Island National Park,Medium,Backpacker
+U0350,33,"Beach Hopping, Historical Exploration","Kandy Lake, St Clair's Falls, Nilaveli Beach",Medium,Adventurous
+U0351,26,"Boat Tours, Jeep Safaris, Sunbathing","Minneriya Tusker Safaris, Negombo Beach, Gregory Lake",Medium,Adventurous
+U0352,26,Surfing,"Negombo Beach, Pinnawala Elephant Orphanage",Low,Backpacker
+U0353,31,"Kite Surfing, Relaxation, Farm Tours",,Medium,Adventurous
+U0354,31,Surfing,,High,Balanced
+U0355,26,"Guided Tours, Jeep Safaris, Wildlife","Halpewatte Tea Factory Tour, New Ranweli Spice Garden, Jaya Sri Maha Bodhi",Medium,Balanced
+U0356,35,"Nature Walks, Guided Tours",Kalametiya Eco Bird Watching,Low,Relaxed
+U0357,32,"Bird Watching, Cultural Exploration",Tissa Wewa,High,Luxury
+U0358,33,Wildlife,Jaya Sri Maha Bodhi,Low,Luxury
+U0359,30,Fruit Picking,,Low,Luxury
+U0360,33,"Fruit Picking, Cultural Exploration, Nature Photography",Pigeon Island National Park,Medium,Backpacker
+U0361,34,Snorkeling,"Bluefield Tea Gardens, Glenloch Tea Factory",Medium,Balanced
+U0362,30,"Jeep Safaris, Cultural Tours",Ruwanwelisaya,Medium,Balanced
+U0363,29,Sunbathing,"Marble Beach, Bundala National Park",High,Balanced
+U0364,34,"Surfing, Fruit Picking, Educational Tours","Jungle Beach, Ritigala Forest Monastery",High,Luxury
+U0365,30,"Trekking, Fishing, Worship","Tissa Wewa, Ambewela Farms, Mihintale",High,Luxury
+U0366,32,"Historical Exploration, Sunbathing, Nature Walks","Kumana National Park, Baker's Falls",High,Balanced
+U0367,29,"Worship, Wildlife Safaris","Brief Garden - Bevis Bawa, Sigiriya The Ancient Rock Fortress",High,Balanced
+U0368,34,"Learning History, Wildlife, Farm Tours",,Medium,Luxury
+U0369,32,"Kite Surfing, Tea Plucking","Community Tsunami Museum, Kaudulla National Park",Medium,Backpacker
+U0370,32,Cultural Activities,"Colombo National Museum, Minneriya National Park",High,Balanced
+U0371,29,"Photography, Swimming","Sigiriya The Ancient Rock Fortress, Galle Fort, Ramboda Waterfall",Low,Balanced
+U0372,29,"Bird Watching, Hiking , Exploring Exhibits",,High,Luxury
+U0373,34,"Nature Walks, Kite Surfing","Udawattekele Sanctuary, Jaya Sri Maha Bodhi, Diyaluma Falls",Medium,Relaxed
+U0374,32,"Exploring Exhibits, Boat Tours, Kit Surfing","Jaffna Fort, Kaudulla National Park, Minneriya National Park",High,Adventurous
+U0375,31,Cultural Activities,"Abhayagiri Dagaba, Damro Labookellie Tea Centre and Tea Garden",High,Relaxed
+U0376,29,"Cultural Activities, Rafting, Jeep Safaris",,High,Relaxed
+U0377,26,"Trekking, Animal Watching, Learning History","Horton Plains National Park, Dambulla Cave Temple",Medium,Balanced
+U0378,27,Kayaking,Bentota Beach,Low,Backpacker
+U0379,33,"Trekking, Hiking, Sightseeing","New Ranweli Spice Garden, Kalutara Beach",High,Balanced
+U0380,35,"Animal Watching, Surfing","Koneswaram Temple, Marble Beach",High,Luxury
+U0381,34,Trekking,"Negombo Beach, Tissa Wewa, St Clair's Falls",Low,Relaxed
+U0382,35,"Guided Tours, Kit Surfing, Cultural Activities",Kelaniya Raja Maha Vihara,High,Luxury
+U0383,26,Exploring Exhibits,Gregory Lake,Low,Backpacker
+U0384,27,"Jeep Safaris, Exploring Exhibits, Wildlife",Galle Fort,Low,Relaxed
+U0385,27,"Hiking , Cultural Activities",Sigiriya The Ancient Rock Fortress,Medium,Adventurous
+U0386,31,"Cultural Activities, Trekking, Worship","Temple of the Sacred Tooth Relic, Ariyapala Mask Museum, Pigeon Island National Park",Medium,Luxury
+U0387,30,"Sightseeing, Bird Watching, Kit Surfing",Galle Fort,Low,Relaxed
+U0388,30,"Sunbathing, Boating","Twin Baths (Kuttam Pokuna), Nilaveli Beach, Brief Garden - Bevis Bawa",High,Balanced
+U0389,26,"Photography, Exploring Exhibits",,High,Balanced
+U0390,27,"Farm Tours, Fishing, Snorkeling",,High,Backpacker
+U0391,27,Walking Trails,Dambatenne Tea Factory,High,Balanced
+U0392,28,"Nature Walks, Trekking","Negombo Beach, Abhayagiri Dagaba",Medium,Relaxed
+U0393,32,Sunbathing,Damro Labookellie Tea Centre and Tea Garden,Medium,Adventurous
+U0394,28,"Relaxation, Agricultural Workshops",Mount Lavinia Beach,Medium,Backpacker
+U0395,34,Architectural Marvel,"Glenloch Tea Factory, Kandy Lake",Medium,Backpacker
+U0396,28,"Kayaking, Guided Tours, Sightseeing","Jaya Sri Maha Bodhi, Gregory Lake",Low,Relaxed
+U0397,28,Sunbathing,"Royal Botanical Gardens, Passikudah Beach",Low,Backpacker
+U0398,34,Jeep Safaris,"Mirissa Beach, Diyaluma Falls",Medium,Backpacker
+U0399,35,"Hiking, Exploring Exhibits, Cultural Activities",Pinnawala Elephant Orphanage,Low,Adventurous
+U0400,29,"Worship, Fruit Picking, Architectural Marvel",,Low,Backpacker
+U0401,28,Historical Exploration,Ruwanwelisaya,Medium,Adventurous
+U0402,28,Beach Hopping,Koneswaram Temple,Medium,Balanced
+U0403,35,"Farm Tours, Kite Surfing","Hikkaduwa Beach, Ravana Ella Falls",Low,Luxury
+U0404,33,"Surfing, Sightseeing, Kayaking","Baker's Falls, Galle Fort",Low,Backpacker
+U0405,35,"Photography, Wildlife Safaris",,Medium,Relaxed
+U0406,26,Rafting,,High,Balanced
+U0407,26,Wildlife,,Medium,Luxury
+U0408,35,"Cultural Tours, Farm Tours, Swimming","Jethawanaramaya Stupa, Gangaramaya (Vihara) Buddhist Temple",Medium,Backpacker
+U0409,34,Surfing,Hakgala Botanic Gardens,High,Backpacker
+U0410,27,Agricultural Workshops,"Tissa Wewa, Twin Baths (Kuttam Pokuna), Bluefield Tea Gardens",Medium,Relaxed
+U0411,33,"Jeep Safaris, Wildlife Safaris, Hiking ","Damro Labookellie Tea Centre and Tea Garden, Dambulla Cave Temple",Low,Adventurous
+U0412,26,"Wildlife Safaris, Cultural Exploration",Temple of the Sacred Tooth Relic,Low,Luxury
+U0413,29,"Jeep Safaris, Wildlife Safaris","Marble Beach, Ravana Ella Falls",Low,Balanced
+U0414,28,"Snorkeling, Nature Walks","Martin Wickramasinghe Folk Museum Complex, New Ranweli Spice Garden",High,Backpacker
+U0415,30,Rafting,Nilaveli Beach,High,Luxury
+U0416,34,"Boating, Photography, Worship",Ritigala Forest Monastery,High,Relaxed
+U0417,26,Snorkeling,Samadhi Statue,Medium,Adventurous
+U0418,30,"Kite Surfing, Meditation",Tissa Wewa,Medium,Relaxed
+U0419,33,"Animal Watching, Bird Watching, Learning History","Gangaramaya (Vihara) Buddhist Temple, Brief Garden - Bevis Bawa",Low,Backpacker
+U0420,26,"Exploring Exhibits, Sunbathing, Kite Surfing",,High,Balanced
+U0421,30,"Jeep Safaris, Exploring Exhibits","Pinnawala Elephant Orphanage, Kalametiya Eco Bird Watching",High,Luxury
+U0422,27,"Wildlife, Bird Watching",,Low,Adventurous
+U0423,26,"Trekking, Cultural Exploration, Beach Hopping",Glenloch Tea Factory,Medium,Backpacker
+U0424,33,"Boating, Farm Tours",Wilpattu National Park,Low,Luxury
+U0425,27,"Tea Plucking, Kayaking",,Medium,Balanced
+U0426,30,"Rafting, Historical Exploration, Nature Photography","World Buddhist Museum, Community Tsunami Museum, Ravana Ella Falls",Medium,Luxury
+U0427,34,"Hiking , Sunbathing, Architectural Marvel","Diyaluma Falls, Ruwanwelisaya, Kumana National Park",High,Backpacker
+U0428,33,"Meditation, Worship, Boating","Royal Botanical Gardens, Minneriya National Park",Low,Adventurous
+U0429,33,"Jet Skiing, Fruit Picking","Royal Botanical Gardens, St Clair's Falls",Low,Balanced
+U0430,27,"Tea Plucking, Jeep Safaris",Mount Lavinia Beach,Medium,Adventurous
+U0431,29,Jet Skiing,,Medium,Relaxed
+U0432,33,"Exploring Exhibits, Wildlife","Kaudulla National Park, Gregory Lake, Bundala National Park",Low,Balanced
+U0433,31,"Farm Tours, Historical Exploration","Diyaluma Falls, Ariyapala Mask Museum, Brief Garden - Bevis Bawa",Medium,Relaxed
+U0434,32,"Historical Exploration, Boating, Nature Walks","Community Tsunami Museum, Bundala National Park, Diyaluma Falls",Low,Adventurous
+U0435,27,Farm Tours,"Kumana National Park, Passikudah Beach",Medium,Relaxed
+U0436,32,"Bird Watching, Historical Exploration, Surfing",,High,Adventurous
+U0437,30,Hiking ,"Victoria Park of Nuwara Eliya, St Clair's Falls, Brief Garden - Bevis Bawa",High,Adventurous
+U0438,32,Jeep Safaris,"Mihintale, Ravana Ella Falls",High,Luxury
+U0439,34,Fruit Picking,"Diyaluma Falls, Pedro Tea Factory",Medium,Adventurous
+U0440,33,"Swimming, Hiking","Bluefield Tea Gardens, Royal Botanical Gardens",Medium,Backpacker
+U0441,34,"Kayaking, Bird Watching",Mihintale,High,Backpacker
+U0442,33,"Boating, Sightseeing","Nallur Kovil, Polonnaruwa, Arugam Bay",High,Luxury
+U0443,29,Historical Exploration,Glenloch Tea Factory,Low,Adventurous
+U0444,31,Bird Watching,"World Buddhist Museum, Ariyapala Mask Museum, Negombo Beach",High,Balanced
+U0445,34,Nature Walks,,High,Adventurous
+U0446,32,"Nature Photography, Swimming, Photography","Minneriya National Park, Bluefield Tea Gardens, Kalutara Beach",Medium,Relaxed
+U0447,34,Farm Tours,Dambatenne Tea Factory,Low,Backpacker
+U0448,31,"Jet Skiing, Guided Tours, Relaxation","Isurumuniya Temple, World Buddhist Museum",Medium,Luxury
+U0449,27,"Sunbathing, Architectural Marvel",Kaudulla National Park,Low,Adventurous
+U0450,26,"Beach Hopping, Kayaking",Pigeon Island National Park,Low,Balanced
+U0451,39,Yoga,"Handunugoda Tea Estate, Isurumuniya Temple",High,Adventurous
+U0452,44,"Snorkeling, Hiking , Tea Plucking","Negombo Beach, Abhayagiri Dagaba, Mount Lavinia Beach",Medium,Backpacker
+U0453,36,Cultural Tours,,Low,Relaxed
+U0454,45,"Surfing, Snorkeling",Pinnawala Elephant Orphanage,Low,Adventurous
+U0455,49,Kit Surfing,"Jaffna Fort, Polonnaruwa, Dagoba of Thuparama",Low,Relaxed
+U0456,50,"Jet Skiing, Swimming","Abhayagiri Dagaba, Baker's Falls, Udawattekele Sanctuary",Medium,Relaxed
+U0457,43,"Guided Tours, Learning History, Farm Tours","Marble Beach, Gangaramaya (Vihara) Buddhist Temple, Mirissa Beach",Low,Relaxed
+U0458,38,Tea Plucking,"Community Tsunami Museum, Sea Turtle Farm Galle Mahamodara",High,Adventurous
+U0459,41,"Walking Trails, Sunbathing, Relaxation","Udawalawe National Park, Polonnaruwa, Dambatenne Tea Factory",Medium,Adventurous
+U0460,49,"Boat Tours, Beach Hopping","Martin Wickramasinghe Folk Museum Complex, Ambewela Farms, Brief Garden - Bevis Bawa",Medium,Balanced
+U0461,47,"Nature Photography, Swimming",,High,Luxury
+U0462,39,"Learning History, Beach Hopping, Snorkeling","St Clair's Falls, National Zoological Gardens of Sri Lanka",Low,Relaxed
+U0463,49,"Swimming, Cultural Tours, Wildlife Safaris","Kaudulla National Park, Kumana National Park, Ariyapala Mask Museum",Medium,Relaxed
+U0464,44,"Agricultural Workshops, Kayaking, Jeep Safaris","Bundala National Park, Ravana Ella Falls",Low,Relaxed
+U0465,39,"Educational Tours, Tea Plucking",,High,Relaxed
+U0466,45,Wildlife Safaris,Kandy Lake,Low,Adventurous
+U0467,40,"Walking Trails, Photography","Kelaniya Raja Maha Vihara, Dambulla Cave Temple",High,Backpacker
+U0468,45,"Hiking, Cultural Exploration",Pinnawala Elephant Orphanage,Low,Relaxed
+U0469,37,"Historical Exploration, Wildlife Spotting","Abhayagiri Dagaba, Kelaniya Raja Maha Vihara, Mount Lavinia Beach",Low,Balanced
+U0470,41,"Jet Skiing, Tea Plucking, Worship","Mount Lavinia Beach, Marble Beach",High,Luxury
+U0471,49,Hiking,"Sigiriya Museum, Community Tsunami Museum, New Ranweli Spice Garden",High,Adventurous
+U0472,37,"Photography, Meditation, Relaxation","Kumana National Park, Koneswaram Temple",Low,Relaxed
+U0473,49,"Snorkeling, Boat Tours",Galle Fort,Low,Balanced
+U0474,45,"Walking Trails, Hiking, Cultural Exploration",Royal Botanical Gardens,High,Adventurous
+U0475,42,Hiking ,"Minneriya National Park, Ruwanwelisaya, Negombo Beach",Medium,Relaxed
+U0476,49,"Animal Watching, Agricultural Workshops, Snorkeling",,Low,Adventurous
+U0477,47,Rafting,Ambewela Farms,High,Balanced
+U0478,46,"Bird Watching, Snorkeling",,Low,Relaxed
+U0479,42,"Architectural Marvel, Learning History","Abhayagiri Dagaba, Negombo Beach, Diyaluma Falls",High,Balanced
+U0480,39,Historical Exploration,"Gangaramaya (Vihara) Buddhist Temple, Pedro Tea Factory",High,Backpacker
+U0481,38,"Cultural Exploration, Hiking , Wildlife Safaris",,Low,Luxury
+U0482,46,"Learning History, Cultural Exploration, Nature Walks","Sigiriya Museum, Community Tsunami Museum, Kaudulla National Park",Medium,Adventurous
+U0483,45,"Tea Plucking, Animal Watching, Yoga","Kumana National Park, Ramboda Waterfall",High,Relaxed
+U0484,40,"Guided Tours, Cultural Tours, Hiking ","Sigiriya Museum, Nallur Kovil",High,Backpacker
+U0485,37,Kit Surfing,"Kaudulla National Park, Pinnawala Elephant Orphanage, Ceylon Tea Museum",Low,Backpacker
+U0486,45,"Kite Surfing, Kayaking",,High,Relaxed
+U0487,36,"Swimming, Walking Trails, Nature Photography","Sinharaja Forest Reserve, Jungle Beach, Sigiriya The Ancient Rock Fortress",High,Backpacker
+U0488,39,"Beach Hopping, Rafting, Guided Tours",Hikkaduwa Beach,High,Backpacker
+U0489,50,"Boating, Kit Surfing",Arugam Bay,Medium,Adventurous
+U0490,36,Jeep Safaris,"Bluefield Tea Gardens, Handunugoda Tea Estate",Medium,Backpacker
+U0491,40,"Wildlife Spotting, Kit Surfing, Yoga",,Medium,Balanced
+U0492,49,Kit Surfing,,Medium,Adventurous
+U0493,42,Meditation,,Medium,Luxury
+U0494,37,Farm Tours,,Low,Backpacker
+U0495,43,"Worship, Kayaking",Ruwanwelisaya,Low,Luxury
+U0496,42,"Animal Watching, Sunbathing","Samadhi Statue, National Zoological Gardens of Sri Lanka, Ravana Ella Falls",Medium,Relaxed
+U0497,47,"Educational Tours, Wildlife Safaris, Wildlife Spotting","Brief Garden - Bevis Bawa, Dambulla Cave Temple, Kandy Lake",High,Backpacker
+U0498,42,"Meditation, Animal Watching, Farm Tours","Mihintale, Kandy Lake, Colombo National Museum",High,Luxury
+U0499,46,"Kit Surfing, Educational Tours","Ramboda Waterfall, Handunugoda Tea Estate, Minneriya Tusker Safaris",Medium,Relaxed
+U0500,43,"Sunbathing, Sightseeing",Baker's Falls,Medium,Balanced
+U0501,43,"Relaxation, Wildlife Spotting","Kandy Lake, Polonnaruwa",Medium,Luxury
+U0502,36,"Cultural Exploration, Trekking",,Medium,Relaxed
+U0503,42,"Boating, Exploring Exhibits","Polonnaruwa, Udawattekele Sanctuary",High,Luxury
+U0504,49,"Cultural Tours, Walking Trails","Kalutara Beach, Tissa Wewa",High,Balanced
+U0505,37,Cultural Tours,,Low,Balanced
+U0506,36,"Historical Exploration, Photography, Fishing","Mount Lavinia Beach, Passikudah Beach, Lover's Leap Falls",Low,Balanced
+U0507,44,"Hiking, Agricultural Workshops, Relaxation",,Low,Adventurous
+U0508,39,"Historical Exploration, Yoga",Hikkaduwa Beach,Medium,Balanced
+U0509,42,"Yoga, Wildlife",Lover's Leap Falls,Medium,Backpacker
+U0510,49,"Kayaking, Bird Watching","Passikudah Beach, Hikkaduwa Beach",Medium,Luxury
+U0511,40,"Exploring Exhibits, Hiking , Wildlife Spotting","Sigiriya The Ancient Rock Fortress, Royal Botanical Gardens, Hikkaduwa Beach",Low,Relaxed
+U0512,43,"Agricultural Workshops, Fruit Picking",Ramboda Waterfall,Medium,Adventurous
+U0513,44,Hiking,Hakgala Botanic Gardens,Medium,Relaxed
+U0514,43,"Boating, Hiking, Trekking",Horton Plains National Park,Low,Luxury
+U0515,42,Swimming,"Gangaramaya (Vihara) Buddhist Temple, Dambatenne Tea Factory, Jaya Sri Maha Bodhi",Low,Luxury
+U0516,40,"Snorkeling, Wildlife Safaris, Cultural Activities","Wilpattu National Park, Baker's Falls, Isurumuniya Temple",Low,Luxury
+U0517,36,"Fruit Picking, Jeep Safaris, Boat Tours","Bluefield Tea Gardens, Sinharaja Forest Reserve, Jungle Beach",Medium,Luxury
+U0518,47,"Nature Photography, Farm Tours, Cultural Exploration","Marble Beach, Kalametiya Eco Bird Watching",Medium,Balanced
+U0519,41,"Boat Tours, Wildlife Safaris, Kit Surfing",,Low,Adventurous
+U0520,40,"Bird Watching, Trekking","Jaya Sri Maha Bodhi, Isurumuniya Temple, Sigiriya Museum",High,Backpacker
+U0521,36,Wildlife Safaris,"Kaudulla National Park, Jethawanaramaya Stupa",Medium,Relaxed
+U0522,40,Nature Walks,"Wilpattu National Park, Sinharaja Forest Reserve, Diyaluma Falls",Low,Balanced
+U0523,41,"Kite Surfing, Jeep Safaris","Gangaramaya (Vihara) Buddhist Temple, St Clair's Falls",Low,Relaxed
+U0524,37,Tea Plucking,"Sinharaja Forest Reserve, Sigiriya Museum, Marble Beach",High,Luxury
+U0525,44,"Beach Hopping, Photography",Pedro Tea Factory,High,Balanced
+U0526,41,Animal Watching,"Baker's Falls, Kandy Lake, Mount Lavinia Beach",Medium,Adventurous
+U0527,49,Photography,Martin Wickramasinghe Folk Museum Complex,High,Backpacker
+U0528,41,"Yoga, Cultural Activities, Wildlife Spotting",National Zoological Gardens of Sri Lanka,Low,Adventurous
+U0529,45,"Agricultural Workshops, Relaxation, Trekking",,Low,Relaxed
+U0530,39,"Animal Watching, Guided Tours",Ambewela Farms,Medium,Luxury
+U0531,50,"Yoga, Worship",Koneswaram Temple,Medium,Adventurous
+U0532,44,"Farm Tours, Cultural Activities, Walking Trails","Mount Lavinia Beach, Nallur Kovil",High,Relaxed
+U0533,45,"Fruit Picking, Fishing","Kalutara Beach, Kandy Lake, Dambulla Cave Temple",Low,Adventurous
+U0534,47,"Rafting, Learning History","Arugam Bay, Tissa Wewa, Sigiriya The Ancient Rock Fortress",Low,Adventurous
+U0535,44,"Bird Watching, Boating, Beach Hopping","New Ranweli Spice Garden, Baker's Falls, Marble Beach",Medium,Backpacker
+U0536,46,Kayaking,"Tissa Wewa, Samadhi Statue",Low,Backpacker
+U0537,47,"Rafting, Nature Photography",Twin Baths (Kuttam Pokuna),Medium,Adventurous
+U0538,42,"Boat Tours, Snorkeling, Worship","Hikkaduwa Beach, New Ranweli Spice Garden",Medium,Balanced
+U0539,40,"Architectural Marvel, Worship","Ritigala Forest Monastery, Glenloch Tea Factory",High,Relaxed
+U0540,47,"Sunbathing, Cultural Tours","Hakgala Botanic Gardens, St Clair's Falls, Sigiriya Museum",High,Backpacker
+U0541,50,Guided Tours,Dagoba of Thuparama,Medium,Balanced
+U0542,48,"Animal Watching, Beach Hopping, Fishing","Kaudulla National Park, Mirissa Beach, Dagoba of Thuparama",High,Backpacker
+U0543,39,"Boat Tours, Farm Tours, Guided Tours","Gangaramaya (Vihara) Buddhist Temple, Dagoba of Thuparama",Low,Balanced
+U0544,50,"Exploring Exhibits, Snorkeling, Jet Skiing",,Low,Adventurous
+U0545,46,"Boat Tours, Wildlife, Wildlife Safaris","Galle Fort, Community Tsunami Museum",Low,Luxury
+U0546,45,Jeep Safaris,,Medium,Relaxed
+U0547,45,Yoga,"Pinnawala Elephant Orphanage, Sigiriya Museum, Negombo Beach",Medium,Adventurous
+U0548,47,"Tea Plucking, Photography",Jaya Sri Maha Bodhi,Low,Balanced
+U0549,46,"Kite Surfing, Hiking","Ariyapala Mask Museum, Udawattekele Sanctuary",High,Relaxed
+U0550,49,"Cultural Exploration, Learning History","Martin Wickramasinghe Folk Museum Complex, Lover's Leap Falls",Medium,Adventurous
+U0551,42,Wildlife Spotting,"Negombo Beach, Victoria Park of Nuwara Eliya, St Clair's Falls",Medium,Adventurous
+U0552,42,"Tea Plucking, Learning History, Trekking",,High,Relaxed
+U0553,39,"Worship, Fishing","Damro Labookellie Tea Centre and Tea Garden, Kumana National Park, Marble Beach",High,Relaxed
+U0554,44,"Wildlife Safaris, Farm Tours, Trekking",,Low,Adventurous
+U0555,39,"Fruit Picking, Wildlife","Dambulla Cave Temple, Tissa Wewa",High,Relaxed
+U0556,39,Architectural Marvel,Halpewatte Tea Factory Tour,Medium,Luxury
+U0557,42,Farm Tours,,High,Luxury
+U0558,44,"Animal Watching, Jet Skiing, Nature Photography","Kalutara Beach, Temple of the Sacred Tooth Relic",Low,Balanced
+U0559,44,"Photography, Boat Tours",,Low,Adventurous
+U0560,38,"Wildlife Spotting, Exploring Exhibits",Horton Plains National Park,Medium,Luxury
+U0561,40,"Agricultural Workshops, Beach Hopping, Trekking","Arugam Bay, Ambewela Farms, Minneriya Tusker Safaris",High,Adventurous
+U0562,36,"Nature Photography, Swimming",New Ranweli Spice Garden,Medium,Balanced
+U0563,49,"Animal Watching, Boat Tours, Farm Tours",,Medium,Adventurous
+U0564,47,Nature Walks,"Udawalawe National Park, Handunugoda Tea Estate",Medium,Adventurous
+U0565,37,"Cultural Exploration, Kayaking, Hiking","Victoria Park of Nuwara Eliya, Mirissa Beach",High,Backpacker
+U0566,38,"Trekking, Kit Surfing","Ramboda Waterfall, Pigeon Island National Park",High,Backpacker
+U0567,48,"Farm Tours, Tea Plucking, Surfing","Brief Garden - Bevis Bawa, Samadhi Statue, Udawattekele Sanctuary",High,Luxury
+U0568,43,Boating,"Kandy Lake, Kumana National Park",Low,Luxury
+U0569,46,Guided Tours,"Jaya Sri Maha Bodhi, Colombo National Museum",High,Luxury
+U0570,49,"Photography, Educational Tours, Cultural Activities","Pedro Tea Factory, Pigeon Island National Park",High,Balanced
+U0571,37,"Fishing, Agricultural Workshops, Cultural Activities",Koneswaram Temple,Medium,Relaxed
+U0572,43,"Cultural Exploration, Relaxation","Sigiriya Museum, Bluefield Tea Gardens",Medium,Relaxed
+U0573,49,"Wildlife Spotting, Swimming",Ambewela Farms,Medium,Luxury
+U0574,37,"Wildlife Safaris, Trekking, Swimming",Hakgala Botanic Gardens,Medium,Relaxed
+U0575,37,"Relaxation, Farm Tours","St Clair's Falls, Sigiriya The Ancient Rock Fortress, Twin Baths (Kuttam Pokuna)",Medium,Backpacker
+U0576,44,"Architectural Marvel, Sightseeing","Jungle Beach, Diyaluma Falls, Hakgala Botanic Gardens",Low,Backpacker
+U0577,48,"Swimming, Kit Surfing, Historical Exploration",Brief Garden - Bevis Bawa,Low,Balanced
+U0578,41,"Worship, Bird Watching","Bentota Beach, Community Tsunami Museum",High,Luxury
+U0579,37,"Relaxation, Farm Tours, Cultural Activities","World Buddhist Museum, Lover's Leap Falls",High,Luxury
+U0580,48,Bird Watching,Dambatenne Tea Factory,Low,Backpacker
+U0581,38,"Photography, Rafting",Dagoba of Thuparama,Low,Relaxed
+U0582,39,"Surfing, Kit Surfing",Jaya Sri Maha Bodhi,Medium,Luxury
+U0583,47,"Wildlife Safaris, Kit Surfing, Nature Walks","Colombo National Museum, Pigeon Island National Park, World Buddhist Museum",Medium,Luxury
+U0584,37,"Fishing, Animal Watching",,Medium,Backpacker
+U0585,47,"Snorkeling, Meditation, Agricultural Workshops",Ritigala Forest Monastery,High,Relaxed
+U0586,50,Guided Tours,"Kumana National Park, Minneriya National Park, Dambatenne Tea Factory",High,Backpacker
+U0587,37,"Farm Tours, Meditation, Worship",Udawalawe National Park,Low,Adventurous
+U0588,45,"Snorkeling, Cultural Exploration",Jaffna Fort,Medium,Relaxed
+U0589,45,"Worship, Animal Watching, Photography","Mount Lavinia Beach, Tissa Wewa",High,Balanced
+U0590,46,"Photography, Kite Surfing, Surfing","Samadhi Statue, Glenloch Tea Factory",Medium,Backpacker
+U0591,47,"Wildlife Spotting, Architectural Marvel","Kaudulla National Park, Royal Botanical Gardens",Low,Backpacker
+U0592,50,Hiking ,"Kelaniya Raja Maha Vihara, Nilaveli Beach",Medium,Balanced
+U0593,47,"Hiking , Exploring Exhibits","Koneswaram Temple, Minneriya National Park",Low,Adventurous
+U0594,42,"Nature Walks, Wildlife Spotting","Sea Turtle Farm Galle Mahamodara, Bundala National Park, Pigeon Island National Park",High,Backpacker
+U0595,38,"Cultural Exploration, Exploring Exhibits","World Buddhist Museum, Samadhi Statue, Ramboda Waterfall",Medium,Luxury
+U0596,47,"Kit Surfing, Relaxation, Hiking ",Bentota Beach,Low,Luxury
+U0597,50,Fruit Picking,"Nilaveli Beach, New Ranweli Spice Garden, Colombo National Museum",Low,Adventurous
+U0598,36,"Swimming, Rafting","Ariyapala Mask Museum, Twin Baths (Kuttam Pokuna), Horton Plains National Park",Low,Balanced
+U0599,37,"Rafting, Swimming, Boat Tours",New Ranweli Spice Garden,Low,Balanced
+U0600,43,"Cultural Tours, Relaxation, Walking Trails",Sigiriya The Ancient Rock Fortress,Low,Luxury
+U0601,52,"Kayaking, Jeep Safaris",Bundala National Park,High,Adventurous
+U0602,54,Kite Surfing,"Passikudah Beach, Jaya Sri Maha Bodhi, Hakgala Botanic Gardens",Low,Balanced
+U0603,52,"Educational Tours, Kit Surfing, Meditation","Jethawanaramaya Stupa, Ariyapala Mask Museum",High,Balanced
+U0604,66,Cultural Tours,St Clair's Falls,Medium,Adventurous
+U0605,57,"Tea Plucking, Jet Skiing, Boat Tours","Dambatenne Tea Factory, Mount Lavinia Beach, Bundala National Park",Low,Relaxed
+U0606,61,"Bird Watching, Exploring Exhibits",,High,Backpacker
+U0607,65,Cultural Tours,,Medium,Adventurous
+U0608,52,"Kayaking, Learning History, Yoga",,Low,Backpacker
+U0609,54,Kayaking,"Mount Lavinia Beach, Kandy Lake, Abhayagiri Dagaba",High,Relaxed
+U0610,58,"Animal Watching, Jet Skiing, Hiking",Pinnawala Elephant Orphanage,Low,Relaxed
+U0611,61,"Beach Hopping, Trekking, Boating",Pedro Tea Factory,Medium,Luxury
+U0612,56,"Sightseeing, Sunbathing","Colombo National Museum, Community Tsunami Museum, Hikkaduwa Beach",High,Adventurous
+U0613,64,"Educational Tours, Hiking, Walking Trails","Nallur Kovil, Kaudulla National Park",Medium,Luxury
+U0614,60,"Fruit Picking, Architectural Marvel, Agricultural Workshops","Twin Baths (Kuttam Pokuna), Sinharaja Forest Reserve, Jaya Sri Maha Bodhi",High,Relaxed
+U0615,63,"Boating, Cultural Tours","Minneriya Tusker Safaris, Ruwanwelisaya, Jaffna Fort",Low,Balanced
+U0616,56,"Sightseeing, Wildlife Safaris",Kaudulla National Park,Low,Luxury
+U0617,69,"Jet Skiing, Learning History, Meditation",Lover's Leap Falls,Medium,Adventurous
+U0618,70,"Surfing, Tea Plucking",Jungle Beach,Low,Backpacker
+U0619,61,"Exploring Exhibits, Meditation",,Low,Backpacker
+U0620,53,"Sunbathing, Cultural Tours, Hiking ","Isurumuniya Temple, Ariyapala Mask Museum",Low,Adventurous
+U0621,68,Cultural Activities,"Pinnawala Elephant Orphanage, Jethawanaramaya Stupa, Pedro Tea Factory",Low,Luxury
+U0622,51,"Jeep Safaris, Fishing, Agricultural Workshops",Nallur Kovil,High,Balanced
+U0623,64,Worship,Pigeon Island National Park,Low,Relaxed
+U0624,55,Jeep Safaris,"Nilaveli Beach, Temple of the Sacred Tooth Relic, Pedro Tea Factory",Low,Luxury
+U0625,65,Walking Trails,"Samadhi Statue, Nilaveli Beach",Medium,Adventurous
+U0626,69,Trekking,,Low,Balanced
+U0627,68,Wildlife Spotting,"Sigiriya Museum, Lover's Leap Falls",Medium,Backpacker
+U0628,51,Agricultural Workshops,"Sigiriya The Ancient Rock Fortress, Community Tsunami Museum, Udawalawe National Park",Low,Luxury
+U0629,51,"Boating, Nature Photography",Isurumuniya Temple,High,Relaxed
+U0630,70,"Kit Surfing, Rafting, Swimming","New Ranweli Spice Garden, Isurumuniya Temple, National Zoological Gardens of Sri Lanka",Low,Adventurous
+U0631,66,Exploring Exhibits,"New Ranweli Spice Garden, Sigiriya Museum",High,Adventurous
+U0632,52,Jeep Safaris,"Gangaramaya (Vihara) Buddhist Temple, Marble Beach",Medium,Backpacker
+U0633,70,"Agricultural Workshops, Hiking",Tissa Wewa,High,Backpacker
+U0634,61,"Wildlife Spotting, Hiking , Rafting","Minneriya Tusker Safaris, Damro Labookellie Tea Centre and Tea Garden",High,Luxury
+U0635,70,Hiking,,Low,Adventurous
+U0636,54,"Animal Watching, Swimming, Bird Watching",Jaffna Fort,Medium,Relaxed
+U0637,65,"Jeep Safaris, Wildlife Spotting",Handunugoda Tea Estate,Low,Luxury
+U0638,54,"Jeep Safaris, Worship","Ramboda Waterfall, Sigiriya Museum, Horton Plains National Park",Medium,Relaxed
+U0639,65,"Cultural Exploration, Trekking","Arugam Bay, Royal Botanical Gardens, Diyaluma Falls",Medium,Adventurous
+U0640,59,"Sunbathing, Cultural Exploration","Kalutara Beach, Kelaniya Raja Maha Vihara, Sigiriya Museum",High,Luxury
+U0641,65,Sightseeing,"Lover's Leap Falls, World Buddhist Museum, Ritigala Forest Monastery",Low,Backpacker
+U0642,67,"Snorkeling, Yoga, Learning History","Baker's Falls, Mirissa Beach",Medium,Balanced
+U0643,59,"Historical Exploration, Tea Plucking","Udawattekele Sanctuary, Halpewatte Tea Factory Tour, Victoria Park of Nuwara Eliya",High,Balanced
+U0644,60,Boat Tours,Ramboda Waterfall,Medium,Backpacker
+U0645,68,Fruit Picking,"Colombo National Museum, Nallur Kovil",Low,Backpacker
+U0646,66,Fishing,"Temple of the Sacred Tooth Relic, Polonnaruwa, Pigeon Island National Park",High,Backpacker
+U0647,52,"Jeep Safaris, Swimming","Mihintale, Kalutara Beach",Medium,Adventurous
+U0648,69,"Wildlife Safaris, Surfing, Boat Tours","Marble Beach, Tissa Wewa, Baker's Falls",High,Balanced
+U0649,52,Animal Watching,"Diyaluma Falls, Minneriya Tusker Safaris",High,Backpacker
+U0650,62,"Boating, Bird Watching",Udawalawe National Park,Medium,Luxury
+U0651,68,"Animal Watching, Cultural Tours, Educational Tours",Sigiriya Museum,High,Relaxed
+U0652,65,Fishing,"Jaffna Fort, Mount Lavinia Beach",Low,Balanced
+U0653,63,"Tea Plucking, Historical Exploration","Horton Plains National Park, Wilpattu National Park, Martin Wickramasinghe Folk Museum Complex",Medium,Luxury
+U0654,54,Rafting,"Polonnaruwa, Hakgala Botanic Gardens, Ceylon Tea Museum",Medium,Luxury
+U0655,56,Tea Plucking,"Sigiriya Museum, Galle Fort, Glenloch Tea Factory",Medium,Relaxed
+U0656,59,Animal Watching,Mirissa Beach,High,Balanced
+U0657,60,Cultural Exploration,,Low,Luxury
+U0658,60,Boating,"Bluefield Tea Gardens, Glenloch Tea Factory",Medium,Luxury
+U0659,65,Wildlife Safaris,Pedro Tea Factory,High,Luxury
+U0660,67,"Animal Watching, Photography, Hiking","Ramboda Waterfall, Marble Beach",Low,Backpacker
+U0661,57,"Cultural Exploration, Agricultural Workshops",Ariyapala Mask Museum,High,Adventurous
+U0662,63,"Bird Watching, Yoga","Sigiriya The Ancient Rock Fortress, Martin Wickramasinghe Folk Museum Complex, Sigiriya Museum",Low,Adventurous
+U0663,57,"Kayaking, Nature Walks, Wildlife","Udawattekele Sanctuary, Koneswaram Temple, Samadhi Statue",Medium,Balanced
+U0664,65,"Jeep Safaris, Tea Plucking","Kaudulla National Park, Bentota Beach, Wilpattu National Park",High,Relaxed
+U0665,59,"Beach Hopping, Walking Trails, Boat Tours","Nallur Kovil, Minneriya National Park, Pigeon Island National Park",Medium,Balanced
+U0666,63,"Exploring Exhibits, Fruit Picking",Ritigala Forest Monastery,Medium,Adventurous
+U0667,53,"Wildlife, Meditation, Hiking ",Royal Botanical Gardens,High,Backpacker
+U0668,63,Wildlife Spotting,"Sinharaja Forest Reserve, Diyaluma Falls, Polonnaruwa",Low,Luxury
+U0669,64,"Yoga, Walking Trails, Kite Surfing",,Low,Relaxed
+U0670,61,"Wildlife, Rafting",,Low,Adventurous
+U0671,62,Tea Plucking,Minneriya Tusker Safaris,Low,Backpacker
+U0672,67,"Wildlife Spotting, Bird Watching, Boating",Jethawanaramaya Stupa,High,Adventurous
+U0673,57,"Cultural Tours, Meditation, Wildlife",Sea Turtle Farm Galle Mahamodara,Low,Luxury
+U0674,70,Wildlife Safaris,"Kalutara Beach, Mihintale",Medium,Luxury
+U0675,61,"Learning History, Fruit Picking","National Zoological Gardens of Sri Lanka, Marble Beach, Bundala National Park",High,Backpacker
+U0676,65,"Walking Trails, Jet Skiing","Baker's Falls, Tissa Wewa, St Clair's Falls",Low,Luxury
+U0677,53,"Nature Photography, Fruit Picking",Arugam Bay,High,Relaxed
+U0678,53,"Nature Photography, Boat Tours, Trekking","Nilaveli Beach, Pigeon Island National Park",Low,Relaxed
+U0679,58,Historical Exploration,Galle Fort,Medium,Luxury
+U0680,61,"Walking Trails, Snorkeling",Jaffna Fort,Medium,Balanced
+U0681,57,Tea Plucking,Pedro Tea Factory,Low,Balanced
+U0682,54,Walking Trails,,Medium,Balanced
+U0683,69,Architectural Marvel,"Passikudah Beach, Royal Botanical Gardens, Victoria Park of Nuwara Eliya",Low,Backpacker
+U0684,63,"Relaxation, Sunbathing, Tea Plucking","Passikudah Beach, Polonnaruwa",Low,Backpacker
+U0685,70,"Jet Skiing, Jeep Safaris, Educational Tours","Damro Labookellie Tea Centre and Tea Garden, Ramboda Waterfall",Medium,Adventurous
+U0686,51,"Beach Hopping, Yoga",Minneriya National Park,Low,Adventurous
+U0687,51,"Boat Tours, Photography","Dambulla Cave Temple, Community Tsunami Museum, Mount Lavinia Beach",Low,Luxury
+U0688,64,"Boating, Rafting","Brief Garden - Bevis Bawa, Ceylon Tea Museum",Low,Backpacker
+U0689,60,"Yoga, Agricultural Workshops, Beach Hopping",Koneswaram Temple,Low,Relaxed
+U0690,53,"Surfing, Swimming, Agricultural Workshops",Dagoba of Thuparama,Low,Balanced
+U0691,52,"Meditation, Fishing",Dagoba of Thuparama,Medium,Luxury
+U0692,63,"Nature Photography, Snorkeling, Kit Surfing","Negombo Beach, Samadhi Statue",High,Balanced
+U0693,65,"Snorkeling, Fruit Picking, Meditation","Mihintale, Handunugoda Tea Estate",High,Backpacker
+U0694,54,"Trekking, Hiking",,Medium,Balanced
+U0695,56,"Boat Tours, Exploring Exhibits","Wilpattu National Park, Halpewatte Tea Factory Tour",High,Balanced
+U0696,56,Cultural Activities,"St Clair's Falls, Samadhi Statue",High,Backpacker
+U0697,61,"Jeep Safaris, Walking Trails","Halpewatte Tea Factory Tour, Negombo Beach",Low,Balanced
+U0698,54,"Rafting, Sunbathing","Kalametiya Eco Bird Watching, Jaffna Fort, Lover's Leap Falls",Low,Balanced
+U0699,58,"Tea Plucking, Sunbathing, Nature Photography",Kandy Lake,Low,Adventurous
+U0700,57,"Surfing, Tea Plucking, Jeep Safaris","Brief Garden - Bevis Bawa, Ruwanwelisaya, Dambatenne Tea Factory",High,Adventurous
+U0701,60,"Educational Tours, Rafting",,Medium,Relaxed
+U0702,47,"Cultural Tours, Educational Tours","Arugam Bay, Yala",Low,Relaxed
+U0703,33,Rafting,,High,Luxury
+U0704,28,"Kit Surfing, Boating",,High,Luxury
+U0705,42,Cultural Tours,Trincomalee,Medium,Adventurous
+U0706,49,"Swimming, Kit Surfing, Boating",,Low,Adventurous
+U0707,32,"Rafting, Kit Surfing, Cultural Tours",Yala,Low,Backpacking
+U0708,26,"Kit Surfing, Swimming","Ella, Arugam Bay",High,Balanced
+U0709,57,"Swimming, Animal Watching",,Low,Balanced
+U0710,37,Educational Tours,,Medium,Luxury
+U0711,27,"Boating, Educational Tours, Rafting",,Low,Backpacking
+U0712,51,"Yoga, Swimming, Animal Watching",,Medium,Luxury
+U0713,23,"Kit Surfing, Swimming",,Low,Luxury
+U0714,34,"Swimming, Kit Surfing, Educational Tours",Yala,High,Relaxed
+U0715,19,"Boating, Yoga","Polonnaruwa, Ella",High,Backpacking
+U0716,57,Rafting,Sigiriya,Low,Balanced
+U0717,59,"Educational Tours, Boating",,High,Relaxed
+U0718,28,"Cultural Tours, Rafting",,Low,Adventurous
+U0719,31,Cultural Tours,"Polonnaruwa, Gregory Lake",High,Backpacking
+U0720,19,"Yoga, Cultural Tours","Polonnaruwa, Arugam Bay",Medium,Luxury
+U0721,20,Cultural Tours,,High,Adventurous
+U0722,21,"Cultural Tours, Educational Tours",Gregory Lake,High,Backpacking
+U0723,43,"Cultural Tours, Swimming, Yoga",Arugam Bay,Low,Balanced
+U0724,24,"Boating, Cultural Tours",Polonnaruwa,Medium,Luxury
+U0725,29,"Cultural Tours, Educational Tours",,High,Luxury
+U0726,39,Rafting,Polonnaruwa,Low,Luxury
+U0727,56,Swimming,"Trincomalee, Arugam Bay",Medium,Backpacking
+U0728,26,Yoga,,Low,Balanced
+U0729,37,"Swimming, Animal Watching",,Medium,Luxury
+U0730,38,"Cultural Tours, Animal Watching",,Medium,Balanced
+U0731,19,Yoga,,Medium,Adventurous
+U0732,48,"Boating, Kit Surfing, Rafting",,Low,Balanced
+U0733,50,"Kit Surfing, Boating, Educational Tours",,Low,Luxury
+U0734,55,Swimming,,High,Backpacking
+U0735,49,Swimming,Sigiriya,Medium,Luxury
+U0736,27,Kit Surfing,"Arugam Bay, Ella",High,Backpacking
+U0737,18,Yoga,,Medium,Adventurous
+U0738,29,Kit Surfing,,Medium,Luxury
+U0739,40,Boating,"Ella, Sigiriya",Low,Adventurous
+U0740,42,"Swimming, Rafting",,High,Adventurous
+U0741,47,"Educational Tours, Boating, Animal Watching","Yala, Ella",Low,Balanced
+U0742,24,"Rafting, Boating",Sigiriya,Medium,Relaxed
+U0743,38,Cultural Tours,,Low,Balanced
+U0744,35,"Yoga, Boating, Educational Tours",Kandy,Medium,Luxury
+U0745,41,Yoga,Kandy,Low,Balanced
+U0746,19,"Animal Watching, Cultural Tours, Boating",,Medium,Balanced
+U0747,19,"Educational Tours, Cultural Tours",,High,Backpacking
+U0748,21,Kit Surfing,,High,Balanced
+U0749,24,Rafting,Ella,Low,Balanced
+U0750,19,Yoga,Ella,Low,Balanced
+U0751,35,Rafting,Gregory Lake,Medium,Relaxed
+U0752,28,Kit Surfing,,Medium,Backpacking
+U0753,54,"Swimming, Kit Surfing",,Medium,Backpacking
+U0754,31,"Cultural Tours, Yoga, Animal Watching","Yala, Sigiriya",Low,Balanced
+U0755,49,"Yoga, Rafting, Educational Tours",,High,Balanced
+U0756,26,Rafting,,Medium,Relaxed
+U0757,20,Animal Watching,"Arugam Bay, Trincomalee",Medium,Relaxed
+U0758,22,Kit Surfing,"Polonnaruwa, Yala",Medium,Balanced
+U0759,57,Boating,,Low,Adventurous
+U0760,52,Swimming,"Kandy, Yala",High,Adventurous
+U0761,56,Yoga,Arugam Bay,Low,Balanced
+U0762,39,"Yoga, Boating",,Medium,Backpacking
+U0763,37,"Boating, Cultural Tours",Kandy,Medium,Balanced
+U0764,57,Kit Surfing,,Low,Adventurous
+U0765,18,"Educational Tours, Cultural Tours",Gregory Lake,Medium,Balanced
+U0766,25,Boating,,Medium,Adventurous
+U0767,53,Rafting,"Gregory Lake, Trincomalee",High,Backpacking
+U0768,56,Rafting,Gregory Lake,High,Adventurous
+U0769,43,"Yoga, Educational Tours, Kit Surfing","Sigiriya, Kandy",High,Luxury
+U0770,47,"Educational Tours, Cultural Tours",Ella,Low,Backpacking
+U0771,21,"Educational Tours, Boating, Kit Surfing",Ella,Medium,Adventurous
+U0772,47,"Educational Tours, Kit Surfing, Animal Watching",Yala,Medium,Adventurous
+U0773,23,Kit Surfing,,Medium,Backpacking
+U0774,37,"Boating, Animal Watching, Kit Surfing",,High,Relaxed
+U0775,28,"Cultural Tours, Educational Tours","Trincomalee, Kandy",High,Backpacking
+U0776,19,Kit Surfing,,Low,Luxury
+U0777,19,"Yoga, Swimming, Rafting","Yala, Ella",High,Balanced
+U0778,50,Kit Surfing,"Gregory Lake, Trincomalee",Low,Backpacking
+U0779,46,"Boating, Yoga",,High,Adventurous
+U0780,55,"Boating, Educational Tours, Swimming",Kandy,High,Adventurous
+U0781,55,Cultural Tours,,Low,Luxury
+U0782,26,"Swimming, Animal Watching, Kit Surfing","Arugam Bay, Kandy",Medium,Relaxed
+U0783,37,"Rafting, Yoga, Swimming",Yala,Medium,Relaxed
+U0784,42,"Animal Watching, Educational Tours, Swimming",,Low,Adventurous
+U0785,42,"Kit Surfing, Educational Tours",Sigiriya,High,Balanced
+U0786,48,"Boating, Cultural Tours, Yoga",Gregory Lake,Low,Luxury
+U0787,23,"Educational Tours, Yoga, Boating",,Medium,Balanced
+U0788,53,Swimming,Yala,Low,Balanced
+U0789,49,"Cultural Tours, Rafting",Arugam Bay,High,Adventurous
+U0790,34,"Kit Surfing, Rafting","Ella, Arugam Bay",Medium,Backpacking
+U0791,32,Cultural Tours,,Medium,Luxury
+U0792,53,Swimming,Kandy,Medium,Luxury
+U0793,52,Swimming,Ella,Low,Backpacking
+U0794,49,"Kit Surfing, Boating, Yoga","Polonnaruwa, Yala",High,Backpacking
+U0795,23,"Educational Tours, Yoga","Arugam Bay, Sigiriya",Medium,Luxury
+U0796,20,Kit Surfing,"Kandy, Ella",Low,Luxury
+U0797,27,Rafting,,Medium,Balanced
+U0798,25,"Cultural Tours, Educational Tours",Arugam Bay,Medium,Balanced
+U0799,34,Educational Tours,,Low,Adventurous
+U0800,47,Yoga,"Gregory Lake, Yala",High,Relaxed
+U0801,38,"Educational Tours, Boating",,Low,Relaxed
+U0802,22,"Boating, Animal Watching","Ella, Polonnaruwa",Low,Relaxed
+U0803,50,Cultural Tours,,Medium,Relaxed
+U0804,48,"Swimming, Kit Surfing",Ella,Low,Relaxed
+U0805,21,"Animal Watching, Kit Surfing, Educational Tours",Arugam Bay,Medium,Backpacking
+U0806,57,Kit Surfing,,Low,Balanced
+U0807,26,"Rafting, Yoga",,High,Adventurous
+U0808,58,"Swimming, Educational Tours",Gregory Lake,Low,Balanced
+U0809,43,"Swimming, Cultural Tours, Yoga",Kandy,Low,Backpacking
+U0810,23,"Kit Surfing, Cultural Tours, Yoga","Trincomalee, Gregory Lake",Medium,Luxury
+U0811,48,"Swimming, Rafting, Animal Watching",Trincomalee,High,Balanced
+U0812,50,"Educational Tours, Yoga",Ella,Low,Relaxed
+U0813,55,"Rafting, Animal Watching",Gregory Lake,High,Luxury
+U0814,46,"Kit Surfing, Rafting","Polonnaruwa, Sigiriya",Medium,Luxury
+U0815,23,"Educational Tours, Kit Surfing",,Medium,Balanced
+U0816,55,"Cultural Tours, Boating",,High,Adventurous
+U0817,48,"Rafting, Boating, Kit Surfing",,High,Adventurous
+U0818,49,"Kit Surfing, Rafting",Trincomalee,Low,Relaxed
+U0819,42,"Rafting, Animal Watching, Boating","Arugam Bay, Sigiriya",High,Relaxed
+U0820,51,Swimming,,Low,Luxury
+U0821,47,"Boating, Rafting",Polonnaruwa,Low,Backpacking
+U0822,35,"Kit Surfing, Rafting, Yoga",,Medium,Backpacking
+U0823,24,Boating,,Medium,Adventurous
+U0824,29,"Boating, Educational Tours",,Low,Balanced
+U0825,57,"Kit Surfing, Cultural Tours",,Medium,Balanced
+U0826,33,Swimming,"Ella, Kandy",Low,Relaxed
+U0827,39,"Boating, Cultural Tours",,Medium,Relaxed
+U0828,42,"Kit Surfing, Cultural Tours, Swimming","Yala, Sigiriya",Low,Luxury
+U0829,53,"Swimming, Animal Watching",,Medium,Luxury
+U0830,40,"Swimming, Educational Tours",,Medium,Luxury
+U0831,29,Educational Tours,,Low,Luxury
+U0832,47,"Yoga, Educational Tours, Cultural Tours",Kandy,High,Relaxed
+U0833,36,"Yoga, Rafting, Swimming",Sigiriya,Low,Luxury
+U0834,29,Educational Tours,Arugam Bay,Low,Backpacking
+U0835,35,Yoga,,Medium,Relaxed
+U0836,58,"Boating, Animal Watching",,High,Luxury
+U0837,58,Animal Watching,"Polonnaruwa, Trincomalee",Medium,Balanced
+U0838,54,Educational Tours,,Medium,Adventurous
+U0839,32,Cultural Tours,Kandy,Medium,Adventurous
+U0840,51,"Cultural Tours, Educational Tours, Boating",,Medium,Balanced
+U0841,49,"Educational Tours, Yoga",Trincomalee,Medium,Backpacking
+U0842,56,"Kit Surfing, Animal Watching, Cultural Tours",,High,Adventurous
+U0843,19,Swimming,"Sigiriya, Arugam Bay",Low,Balanced
+U0844,39,"Rafting, Animal Watching",Sigiriya,High,Luxury
+U0845,26,"Boating, Kit Surfing",,High,Relaxed
+U0846,56,"Educational Tours, Animal Watching, Rafting","Kandy, Arugam Bay",High,Backpacking
+U0847,33,"Kit Surfing, Boating, Animal Watching",Polonnaruwa,High,Balanced
+U0848,25,"Rafting, Educational Tours, Animal Watching","Gregory Lake, Ella",High,Relaxed
+U0849,44,Kit Surfing,,Medium,Luxury
+U0850,59,Kit Surfing,"Polonnaruwa, Trincomalee",Low,Relaxed
+U0851,22,"Yoga, Educational Tours","Ella, Gregory Lake",High,Backpacking
+U0852,22,"Yoga, Kit Surfing, Boating",,Medium,Adventurous
+U0853,60,Cultural Tours,,High,Backpacking
+U0854,34,Boating,"Yala, Gregory Lake",High,Balanced
+U0855,57,"Animal Watching, Boating",,Medium,Balanced
+U0856,33,"Animal Watching, Yoga",,High,Luxury
+U0857,45,"Rafting, Kit Surfing",Ella,Low,Backpacking
+U0858,28,Rafting,Kandy,Low,Backpacking
+U0859,22,"Kit Surfing, Cultural Tours",,High,Relaxed
+U0860,45,Kit Surfing,,High,Relaxed
+U0861,36,Rafting,"Gregory Lake, Ella",Low,Luxury
+U0862,51,Boating,,High,Backpacking
+U0863,42,Swimming,"Ella, Sigiriya",Medium,Adventurous
+U0864,52,"Kit Surfing, Cultural Tours, Educational Tours",Yala,Low,Luxury
+U0865,33,"Cultural Tours, Swimming, Kit Surfing",Sigiriya,Medium,Luxury
+U0866,26,"Boating, Educational Tours, Yoga",Sigiriya,Medium,Luxury
+U0867,60,"Educational Tours, Swimming",Kandy,Medium,Adventurous
+U0868,37,Educational Tours,,Medium,Backpacking
+U0869,27,"Kit Surfing, Yoga, Swimming",Trincomalee,Medium,Luxury
+U0870,53,Yoga,,Low,Luxury
+U0871,33,"Animal Watching, Kit Surfing","Gregory Lake, Ella",High,Backpacking
+U0872,32,Cultural Tours,,Medium,Adventurous
+U0873,43,"Kit Surfing, Cultural Tours, Rafting",Trincomalee,Low,Relaxed
+U0874,59,"Cultural Tours, Animal Watching, Yoga",,Medium,Luxury
+U0875,47,Animal Watching,,High,Adventurous
+U0876,33,Educational Tours,,Medium,Relaxed
+U0877,38,"Animal Watching, Kit Surfing, Boating","Kandy, Gregory Lake",Medium,Backpacking
+U0878,23,"Rafting, Kit Surfing, Yoga",,Low,Backpacking
+U0879,55,"Cultural Tours, Educational Tours, Boating",Yala,Low,Backpacking
+U0880,41,"Animal Watching, Boating, Yoga","Kandy, Trincomalee",Medium,Backpacking
+U0881,56,"Swimming, Rafting, Boating","Yala, Trincomalee",Medium,Backpacking
+U0882,58,"Boating, Educational Tours",,Medium,Luxury
+U0883,31,"Educational Tours, Animal Watching, Swimming",Kandy,Medium,Adventurous
+U0884,49,Swimming,,Medium,Luxury
+U0885,45,Yoga,,Medium,Balanced
+U0886,23,Yoga,"Trincomalee, Sigiriya",Low,Adventurous
+U0887,59,Cultural Tours,Sigiriya,Medium,Relaxed
+U0888,52,"Boating, Animal Watching, Swimming",Sigiriya,Medium,Adventurous
+U0889,52,Rafting,Gregory Lake,High,Balanced
+U0890,44,"Yoga, Kit Surfing, Animal Watching",,Medium,Relaxed
+U0891,40,"Animal Watching, Swimming","Sigiriya, Kandy",Medium,Relaxed
+U0892,52,"Yoga, Cultural Tours",,High,Luxury
+U0893,47,"Educational Tours, Swimming",,Medium,Adventurous
+U0894,56,Yoga,"Sigiriya, Arugam Bay",High,Luxury
+U0895,55,Educational Tours,,Medium,Luxury
+U0896,48,"Swimming, Boating, Educational Tours",,Low,Adventurous
+U0897,38,"Animal Watching, Educational Tours",,Low,Luxury
+U0898,23,Yoga,Polonnaruwa,Medium,Balanced
+U0899,36,"Educational Tours, Kit Surfing, Cultural Tours",Gregory Lake,Medium,Adventurous
+U0900,28,Cultural Tours,,Medium,Adventurous
+U0901,33,"Animal Watching, Yoga, Rafting","Trincomalee, Gregory Lake",High,Relaxed
+U0902,40,Rafting,"Polonnaruwa, Ella",Low,Adventurous
+U0903,19,Yoga,,Low,Balanced
+U0904,34,Rafting,,Low,Relaxed
+U0905,33,Educational Tours,,Low,Relaxed
+U0906,44,"Boating, Animal Watching, Kit Surfing","Yala, Trincomalee",High,Backpacking
+U0907,57,Cultural Tours,"Polonnaruwa, Kandy",High,Relaxed
+U0908,31,"Yoga, Rafting, Boating","Sigiriya, Arugam Bay",High,Luxury
+U0909,53,Swimming,Kandy,Medium,Balanced
+U0910,60,Animal Watching,Ella,Medium,Relaxed
+U0911,57,"Swimming, Cultural Tours, Yoga",,High,Adventurous
+U0912,23,"Rafting, Kit Surfing",,High,Backpacking
+U0913,21,Swimming,"Polonnaruwa, Sigiriya",High,Luxury
+U0914,33,"Rafting, Boating, Yoga","Kandy, Arugam Bay",High,Backpacking
+U0915,22,"Educational Tours, Kit Surfing, Yoga",,High,Balanced
+U0916,56,"Animal Watching, Yoga, Cultural Tours",Yala,Medium,Relaxed
+U0917,52,"Animal Watching, Boating, Yoga","Arugam Bay, Kandy",High,Backpacking
+U0918,32,Yoga,,Medium,Adventurous
+U0919,50,Animal Watching,"Gregory Lake, Trincomalee",High,Balanced
+U0920,26,Swimming,Polonnaruwa,Low,Luxury
+U0921,30,"Yoga, Kit Surfing",,Medium,Balanced
+U0922,50,"Kit Surfing, Rafting, Boating",,High,Adventurous
+U0923,22,Rafting,"Sigiriya, Ella",High,Luxury
+U0924,44,"Rafting, Boating, Cultural Tours",,Medium,Relaxed
+U0925,47,Kit Surfing,"Polonnaruwa, Arugam Bay",Medium,Backpacking
+U0926,47,Animal Watching,,High,Relaxed
+U0927,58,"Rafting, Educational Tours","Gregory Lake, Kandy",Medium,Balanced
+U0928,25,"Kit Surfing, Yoga, Boating",Arugam Bay,High,Balanced
+U0929,38,"Rafting, Educational Tours, Swimming",Polonnaruwa,High,Relaxed
+U0930,45,"Boating, Swimming",Kandy,Low,Relaxed
+U0931,32,Yoga,Trincomalee,Medium,Balanced
+U0932,48,Cultural Tours,,Medium,Balanced
+U0933,37,"Swimming, Kit Surfing",,Low,Luxury
+U0934,44,"Educational Tours, Animal Watching, Boating",,High,Luxury
+U0935,41,"Educational Tours, Cultural Tours, Kit Surfing",,Low,Adventurous
+U0936,31,Kit Surfing,,Low,Relaxed
+U0937,39,Yoga,,Low,Balanced
+U0938,60,"Animal Watching, Swimming",,Medium,Adventurous
+U0939,18,"Swimming, Kit Surfing, Rafting",,High,Balanced
+U0940,52,"Boating, Rafting",,Low,Balanced
+U0941,58,"Cultural Tours, Rafting",,Low,Balanced
+U0942,47,"Kit Surfing, Animal Watching, Boating",,High,Backpacking
+U0943,23,"Boating, Rafting",,Medium,Balanced
+U0944,50,Yoga,"Polonnaruwa, Trincomalee",High,Balanced
+U0945,60,"Cultural Tours, Educational Tours",Ella,Medium,Relaxed
+U0946,53,Cultural Tours,Gregory Lake,Medium,Relaxed
+U0947,51,"Rafting, Animal Watching",,High,Relaxed
+U0948,60,Yoga,,High,Backpacking
+U0949,25,"Kit Surfing, Yoga, Educational Tours","Trincomalee, Gregory Lake",Medium,Balanced
+U0950,30,Animal Watching,,Medium,Relaxed
+U0951,50,"Educational Tours, Swimming","Yala, Arugam Bay",High,Adventurous
+U0952,25,Swimming,,High,Adventurous
+U0953,35,Animal Watching,,High,Adventurous
+U0954,48,"Educational Tours, Kit Surfing, Yoga",Sigiriya,Medium,Adventurous
+U0955,40,Rafting,,Medium,Adventurous
+U0956,29,"Yoga, Boating, Swimming",,Medium,Adventurous
+U0957,43,"Swimming, Animal Watching",Polonnaruwa,High,Balanced
+U0958,32,"Boating, Cultural Tours, Yoga",,Low,Luxury
+U0959,60,"Rafting, Swimming, Educational Tours","Polonnaruwa, Kandy",High,Balanced
+U0960,34,"Kit Surfing, Boating, Cultural Tours",,Medium,Luxury
+U0961,22,"Animal Watching, Kit Surfing, Cultural Tours",Arugam Bay,High,Adventurous
+U0962,45,Animal Watching,,Low,Relaxed
+U0963,31,"Yoga, Swimming, Animal Watching",,High,Backpacking
+U0964,33,"Boating, Swimming, Animal Watching","Arugam Bay, Trincomalee",High,Backpacking
+U0965,21,"Swimming, Educational Tours, Boating",,Low,Adventurous
+U0966,41,Swimming,"Sigiriya, Yala",Medium,Adventurous
+U0967,21,Kit Surfing,Trincomalee,Medium,Luxury
+U0968,25,"Kit Surfing, Swimming, Animal Watching",,Medium,Relaxed
+U0969,22,Kit Surfing,"Polonnaruwa, Gregory Lake",High,Adventurous
+U0970,26,"Yoga, Swimming",,High,Backpacking
+U0971,57,"Rafting, Kit Surfing","Trincomalee, Gregory Lake",Medium,Backpacking
+U0972,44,"Yoga, Animal Watching",Ella,Medium,Balanced
+U0973,42,"Rafting, Kit Surfing, Swimming","Ella, Yala",Medium,Relaxed
+U0974,55,Cultural Tours,"Polonnaruwa, Yala",High,Backpacking
+U0975,57,"Boating, Yoga, Animal Watching",Trincomalee,Medium,Luxury
+U0976,19,"Animal Watching, Yoga",Polonnaruwa,Medium,Balanced
+U0977,41,"Rafting, Yoga, Swimming","Trincomalee, Polonnaruwa",High,Luxury
+U0978,27,Swimming,"Yala, Kandy",Low,Balanced
+U0979,28,"Animal Watching, Kit Surfing",,High,Relaxed
+U0980,42,"Yoga, Boating, Rafting",Arugam Bay,Medium,Balanced
+U0981,53,Kit Surfing,,High,Adventurous
+U0982,53,"Rafting, Boating, Yoga","Kandy, Trincomalee",High,Luxury
+U0983,30,Kit Surfing,,High,Adventurous
+U0984,45,Cultural Tours,,Medium,Adventurous
+U0985,26,Educational Tours,,Low,Balanced
+U0986,30,Cultural Tours,Yala,Medium,Luxury
+U0987,45,"Rafting, Kit Surfing",,Medium,Balanced
+U0988,51,Rafting,"Arugam Bay, Trincomalee",Low,Adventurous
+U0989,32,"Animal Watching, Educational Tours, Yoga",,High,Balanced
+U0990,52,"Cultural Tours, Animal Watching","Polonnaruwa, Trincomalee",Medium,Relaxed
+U0991,60,Yoga,,Medium,Adventurous
+U0992,58,"Swimming, Boating, Cultural Tours",,High,Balanced
+U0993,49,Swimming,Kandy,Medium,Adventurous
+U0994,40,"Yoga, Kit Surfing","Yala, Gregory Lake",High,Backpacking
+U0995,27,"Kit Surfing, Swimming",,Medium,Balanced
+U0996,44,Rafting,,Low,Luxury
+U0997,29,Yoga,Gregory Lake,High,Adventurous
+U0998,58,"Boating, Swimming, Cultural Tours","Trincomalee, Arugam Bay",High,Adventurous
+U0999,22,Rafting,Polonnaruwa,Medium,Luxury
+U1000,31,"Animal Watching, Yoga",Polonnaruwa,High,Relaxed

@@ -1,0 +1,151 @@
+Group_ID,Group_Name,Status,Budget,Travel_Style,Destinations_Planned,Group_Interest,Current_Members
+G0001,Radiant Nomads,Active,High,Relaxed,"Wilpattu National Park, Sinharaja Forest Reserve, Diyaluma Falls","Kite Surfing, Agricultural Workshops",9
+G0002,Adventurous Nomads,Inactive,Medium,Relaxed,"Ravana Ella Falls, Samadhi Statue, Brief Garden - Bevis Bawa, Ritigala Forest Monastery","Hiking, Fruit Picking",0
+G0003,Thrilling Questers,Active,High,Adventurous,"Brief Garden - Bevis Bawa, Ceylon Tea Museum, Sigiriya The Ancient Rock Fortress, Pigeon Island National Park","Swimming, Agricultural Workshops",6
+G0004,Wanderlust Discoverers,Inactive,Low,Relaxed,"Pedro Tea Factory, Pigeon Island National Park","Animal Watching, Swimming",0
+G0005,Radiant Sojourners,Inactive,Medium,Luxury,"Diyaluma Falls, Ariyapala Mask Museum, Brief Garden - Bevis Bawa","Cultural Tours, Hiking ",0
+G0006,Lively Wanderers,Inactive,Low,Balanced,"Colombo National Museum, Pigeon Island National Park, World Buddhist Museum","Sightseeing, Hiking",0
+G0007,Elite Pioneers,Active,Medium,Adventurous,"Kandy Lake, Polonnaruwa","Tea Plucking, Rafting",2
+G0008,Energetic Pathfinders,Active,High,Balanced,"National Zoological Gardens of Sri Lanka, Marble Beach, Bundala National Park","Animal Watching, Fishing",10
+G0009,Epic Drifters,Inactive,Low,Backpacker,"Bluefield Tea Gardens, Royal Botanical Gardens","Educational Tours, Historical Exploration",0
+G0010,Cheerful Wanderers,Inactive,High,Adventurous,"Wilpattu National Park, Victoria Park of Nuwara Eliya, Mihintale","Fishing, Kite Surfing",0
+G0011,Epic Pioneers,Active,High,Adventurous,"Jaya Sri Maha Bodhi, New Ranweli Spice Garden, Udawalawe National Park","Sightseeing, Wildlife Safaris",7
+G0012,Brave Travellers,Active,Medium,Backpacker,"Ariyapala Mask Museum, Udawattekele Sanctuary, Udawalawe National Park, Pigeon Island National Park","Swimming, Boating",6
+G0013,Relaxing Pioneers,Active,Medium,Backpacker,"Marble Beach, Tissa Wewa, Baker's Falls","Nature Photography, Boating",1
+G0014,Relaxing Sojourners,Active,Medium,Adventurous,Samadhi Statue,"Hiking , Kit Surfing",2
+G0015,Majestic Adventurers,Inactive,High,Balanced,Mount Lavinia Beach,"Hiking , Meditation",0
+G0016,Cultural Globetrotters,Active,Low,Backpacker,"World Buddhist Museum, Samadhi Statue, Ramboda Waterfall, Community Tsunami Museum, Ruwanwelisaya","Trekking, Animal Watching",10
+G0017,Majestic Seekers,Inactive,Medium,Backpacker,"Wilpattu National Park, Sea Turtle Farm Galle Mahamodara","Photography, Cultural Exploration",0
+G0018,Explorer Adventurers,Inactive,Low,Backpacker,"Abhayagiri Dagaba, Baker's Falls, Udawattekele Sanctuary","Animal Watching, Hiking ",0
+G0019,Vibrant Escapists,Active,High,Adventurous,"Kandy Lake, St Clair's Falls, Nilaveli Beach","Animal Watching, Architectural Marvel",5
+G0020,Energetic Escapists,Active,High,Relaxed,"Jaffna Fort, Polonnaruwa, Dagoba of Thuparama, Samadhi Statue, Glenloch Tea Factory","Nature Walks, Surfing",8
+G0021,Thrilling Dreamers,Active,Low,Balanced,"Colombo National Museum, Koneswaram Temple, Ambewela Farms","Tea Plucking, Animal Watching",3
+G0022,Majestic Dreamers,Active,Low,Relaxed,"Twin Baths (Kuttam Pokuna), Gangaramaya (Vihara) Buddhist Temple","Learning History, Wildlife Spotting",8
+G0023,Epic Travellers,Active,Medium,Backpacker,"Sigiriya Museum, Galle Fort, Glenloch Tea Factory","Worship, Cultural Tours",4
+G0024,Wanderlust Pioneers,Inactive,High,Luxury,"Lover's Leap Falls, World Buddhist Museum, Ritigala Forest Monastery, Ravana Ella Falls, Arugam Bay","Educational Tours, Kit Surfing",0
+G0025,Vibrant Explorers,Active,Low,Adventurous,"Diyaluma Falls, Ariyapala Mask Museum, Brief Garden - Bevis Bawa","Architectural Marvel, Hiking ",1
+G0026,Fearless Globetrotters,Active,Low,Relaxed,"Kumana National Park, Abhayagiri Dagaba, Martin Wickramasinghe Folk Museum Complex","Boating, Surfing",7
+G0027,Spirited Seekers,Inactive,Medium,Backpacker,Jaffna Fort,"Farm Tours, Sightseeing",0
+G0028,Lively Navigators,Inactive,High,Adventurous,"Marble Beach, Kalametiya Eco Bird Watching, Wilpattu National Park, Baker's Falls, Isurumuniya Temple","Learning History, Guided Tours",0
+G0029,Cultural Trailblazers,Active,Medium,Relaxed,"Wilpattu National Park, Jethawanaramaya Stupa, Pedro Tea Factory","Relaxation, Kit Surfing",7
+G0030,Fearless Wanderers,Inactive,Low,Backpacker,"Jaya Sri Maha Bodhi, Nallur Kovil, Damro Labookellie Tea Centre and Tea Garden, Passikudah Beach, Twin Baths (Kuttam Pokuna)","Swimming, Hiking",0
+G0031,Fearless Nomads,Active,Medium,Luxury,"Ramboda Waterfall, Brief Garden - Bevis Bawa, Dagoba of Thuparama","Trekking, Agricultural Workshops",2
+G0032,Radiant Travellers,Active,Medium,Balanced,"Baker's Falls, Mirissa Beach, Colombo National Museum, Nallur Kovil","Tea Plucking, Kit Surfing",3
+G0033,Lively Trailblazers,Active,Low,Balanced,"Diyaluma Falls, Kandy Lake, Ruwanwelisaya, Brief Garden - Bevis Bawa","Farm Tours, Nature Walks",8
+G0034,Radiant Discoverers,Active,Low,Balanced,"Nilaveli Beach, Pedro Tea Factory, World Buddhist Museum, Lover's Leap Falls","Beach Hopping, Photography",6
+G0035,Spirited Sojourners,Active,Medium,Backpacker,"Abhayagiri Dagaba, Damro Labookellie Tea Centre and Tea Garden, Mount Lavinia Beach, Kandy Lake, Abhayagiri Dagaba","Meditation, Beach Hopping",10
+G0036,Thrilling Globetrotters,Inactive,High,Balanced,"Sigiriya The Ancient Rock Fortress, Community Tsunami Museum, Udawalawe National Park","Swimming, Sightseeing",0
+G0037,Majestic Pathfinders,Active,Low,Backpacker,"Marble Beach, Tissa Wewa, Baker's Falls, St Clair's Falls, Pedro Tea Factory","Rafting, Boat Tours",8
+G0038,Relaxing Escapists,Inactive,Low,Balanced,"Pigeon Island National Park, Jaffna Fort, Gregory Lake, Sinharaja Forest Reserve","Meditation, Wildlife Spotting",0
+G0039,Adventurous Trailblazers,Active,Medium,Balanced,"Sigiriya The Ancient Rock Fortress, Pigeon Island National Park, Kaudulla National Park, Royal Botanical Gardens","Walking Trails, Sunbathing",5
+G0040,Dynamic Escapists,Inactive,High,Adventurous,"Gangaramaya (Vihara) Buddhist Temple, Polonnaruwa, Dagoba of Thuparama, Mount Lavinia Beach, Kumana National Park","Kayaking, Farm Tours",0
+G0041,Vibrant Questers,Active,Medium,Balanced,"Udawalawe National Park, Minneriya National Park, Pedro Tea Factory, Dagoba of Thuparama","Kite Surfing, Worship",1
+G0042,Dynamic Navigators,Active,High,Balanced,"Horton Plains National Park, National Zoological Gardens of Sri Lanka, Wilpattu National Park","Snorkeling, Swimming",10
+G0043,Cheerful Globetrotters,Inactive,High,Adventurous,"Kelaniya Raja Maha Vihara, Kalametiya Eco Bird Watching","Photography, Wildlife Spotting",0
+G0044,Radiant Pioneers,Active,Medium,Luxury,"Sigiriya Museum, Lover's Leap Falls","Fruit Picking, Relaxation",9
+G0045,Epic Seekers,Active,High,Adventurous,"Dambatenne Tea Factory, Jaya Sri Maha Bodhi, Ariyapala Mask Museum","Snorkeling, Nature Walks",4
+G0046,Radiant Drifters,Inactive,High,Adventurous,"Colombo National Museum, Koneswaram Temple, Ambewela Farms, Samadhi Statue, Glenloch Tea Factory","Fishing, Educational Tours",0
+G0047,Serene Adventurers,Active,Medium,Luxury,"Tissa Wewa, Ambewela Farms, Mihintale, Ramboda Waterfall, Pigeon Island National Park","Kit Surfing, Swimming",1
+G0048,Serene Voyagers,Inactive,Medium,Luxury,"Dambulla Cave Temple, Bentota Beach, Arugam Bay, Jungle Beach","Meditation, Cultural Exploration",0
+G0049,Lively Wayfarers,Active,High,Relaxed,"Sea Turtle Farm Galle Mahamodara, Bundala National Park, Pigeon Island National Park, Udawalawe National Park, Handunugoda Tea Estate","Boating, Cultural Tours",6
+G0050,Thrilling Wanderers,Active,Low,Balanced,"Baker's Falls, Kandy Lake, Mount Lavinia Beach","Wildlife Safaris, Hiking ",2
+G0051,Epic Explorers,Inactive,Medium,Luxury,"Mirissa Beach, Diyaluma Falls, Negombo Beach","Tea Plucking, Sunbathing",0
+G0052,Majestic Trailblazers,Inactive,Low,Relaxed,"Dambulla Cave Temple, Twin Baths (Kuttam Pokuna), Horton Plains National Park, National Zoological Gardens of Sri Lanka, Wilpattu National Park","Hiking , Jeep Safaris",0
+G0053,Mystic Seekers,Active,Medium,Luxury,Bluefield Tea Gardens,"Cultural Exploration, Animal Watching",7
+G0054,Radiant Explorers,Inactive,Medium,Adventurous,"Sea Turtle Farm Galle Mahamodara, Samadhi Statue, Bluefield Tea Gardens, Ambewela Farms","Swimming, Nature Photography",0
+G0055,Cheerful Questers,Inactive,High,Backpacker,"Hikkaduwa Beach, Sinharaja Forest Reserve, Negombo Beach, Tissa Wewa, St Clair's Falls","Rafting, Beach Hopping",0
+G0056,Cultural Sojourners,Inactive,Low,Backpacker,"Wilpattu National Park, Twin Baths (Kuttam Pokuna), Nilaveli Beach, Brief Garden - Bevis Bawa","Swimming, Walking Trails",0
+G0057,Elite Questers,Active,High,Balanced,"Victoria Park of Nuwara Eliya, Lover's Leap Falls, Udawattekele Sanctuary, Koneswaram Temple, Samadhi Statue","Kayaking, Trekking",3
+G0058,Epic Discoverers,Inactive,Low,Luxury,"Nilaveli Beach, Wilpattu National Park, Sinharaja Forest Reserve, Diyaluma Falls","Trekking, Kit Surfing",0
+G0059,Vibrant Navigators,Inactive,Low,Adventurous,"Brief Garden - Bevis Bawa, Ceylon Tea Museum","Guided Tours, Nature Walks",0
+G0060,Fearless Questers,Active,Low,Balanced,"Kandy Lake, Polonnaruwa","Bird Watching, Yoga",7
+G0061,Majestic Discoverers,Inactive,High,Backpacker,"Jaya Sri Maha Bodhi, Colombo National Museum, Jethawanaramaya Stupa","Boat Tours, Walking Trails",0
+G0062,Relaxing Travellers,Active,High,Backpacker,"Nilaveli Beach, New Ranweli Spice Garden, Colombo National Museum, Kalutara Beach, Mihintale","Fruit Picking, Wildlife Safaris",9
+G0063,Serene Questers,Inactive,High,Backpacker,"Community Tsunami Museum, Bundala National Park, Diyaluma Falls","Farm Tours, Nature Photography",0
+G0064,Explorer Navigators,Inactive,High,Adventurous,"Dagoba of Thuparama, Victoria Park of Nuwara Eliya, Lover's Leap Falls","Tea Plucking, Worship",0
+G0065,Serene Dreamers,Inactive,Medium,Backpacker,Sigiriya The Ancient Rock Fortress,"Photography, Fishing",0
+G0066,Fearless Trailblazers,Active,Low,Balanced,"Koneswaram Temple, Ceylon Tea Museum, Community Tsunami Museum, Kaudulla National Park","Cultural Exploration, Fishing",8
+G0067,Explorer Trailblazers,Active,Low,Relaxed,"Jethawanaramaya Stupa, Dambatenne Tea Factory","Rafting, Farm Tours",3
+G0068,Vibrant Wanderers,Inactive,High,Backpacker,"Kaudulla National Park, Jethawanaramaya Stupa, Kandy Lake, Diyaluma Falls","Snorkeling, Guided Tours",0
+G0069,Mystic Navigators,Inactive,Medium,Backpacker,"Jaya Sri Maha Bodhi, Mount Lavinia Beach, Hikkaduwa Beach, Sigiriya Museum, Community Tsunami Museum, New Ranweli Spice Garden","Rafting, Sunbathing",0
+G0070,Cheerful Travellers,Inactive,Low,Luxury,"Pedro Tea Factory, Pigeon Island National Park","Rafting, Hiking",0
+G0071,Vibrant Seekers,Active,Low,Adventurous,"Royal Botanical Gardens, Minneriya National Park, Diyaluma Falls, Minneriya Tusker Safaris","Hiking , Beach Hopping",6
+G0072,Majestic Navigators,Active,High,Relaxed,"Tissa Wewa, Glenloch Tea Factory, Diyaluma Falls","Guided Tours, Sunbathing",6
+G0073,Epic Escapists,Inactive,Medium,Balanced,"Royal Botanical Gardens, Passikudah Beach","Kit Surfing, Farm Tours",0
+G0074,Relaxing Navigators,Inactive,Medium,Backpacker,"Temple of the Sacred Tooth Relic, Mihintale, Victoria Park of Nuwara Eliya","Hiking , Beach Hopping",0
+G0075,Cultural Escapists,Active,High,Backpacker,"Negombo Beach, Abhayagiri Dagaba, Mount Lavinia Beach, Minneriya National Park, Glenloch Tea Factory","Meditation, Hiking",6
+G0076,Explorer Escapists,Inactive,High,Relaxed,"Dambulla Cave Temple, Tissa Wewa, Gangaramaya (Vihara) Buddhist Temple, Martin Wickramasinghe Folk Museum Complex, Negombo Beach","Fishing, Snorkeling",0
+G0077,Adventurous Wanderers,Active,Medium,Backpacker,"Sigiriya The Ancient Rock Fortress, Martin Wickramasinghe Folk Museum Complex, Sigiriya Museum, Kelaniya Raja Maha Vihara, Ariyapala Mask Museum","Cultural Tours, Rafting",1
+G0078,Spirited Travellers,Active,Medium,Balanced,"Martin Wickramasinghe Folk Museum Complex, Lover's Leap Falls","Learning History, Photography",1
+G0079,Serene Pathfinders,Inactive,Low,Relaxed,"Kalutara Beach, Tissa Wewa, Koneswaram Temple, Minneriya National Park","Trekking, Kayaking",0
+G0080,Fearless Discoverers,Inactive,Low,Relaxed,"Marble Beach, Jaffna Fort, Dambulla Cave Temple, Damro Labookellie Tea Centre and Tea Garden, Ramboda Waterfall","Boating, Bird Watching",0
+G0081,Thrilling Nomads,Inactive,Medium,Adventurous,"Sea Turtle Farm Galle Mahamodara, Lover's Leap Falls","Nature Walks, Kit Surfing",0
+G0082,Wanderlust Voyagers,Inactive,Medium,Luxury,"Koneswaram Temple, Minneriya National Park, Nallur Kovil, Minneriya National Park, Pigeon Island National Park","Historical Exploration, Sunbathing",0
+G0083,Majestic Explorers,Active,Medium,Adventurous,"Pinnawala Elephant Orphanage, Kalametiya Eco Bird Watching, Ramboda Waterfall, Brief Garden - Bevis Bawa, Dagoba of Thuparama","Cultural Activities, Boat Tours",2
+G0084,Relaxing Voyagers,Active,Medium,Luxury,"Diyaluma Falls, Ruwanwelisaya, Kumana National Park","Fishing, Fruit Picking",9
+G0085,Dynamic Dreamers,Inactive,Low,Luxury,"New Ranweli Spice Garden, Kalutara Beach, Sigiriya The Ancient Rock Fortress, Galle Fort, Ramboda Waterfall","Snorkeling, Hiking ",0
+G0086,Energetic Wayfarers,Inactive,Low,Relaxed," Kandy Lake, Hakgala Botanic Gardens","Photography, Farm Tours",0
+G0087,Spirited Pioneers,Inactive,High,Luxury,"Samadhi Statue, Glenloch Tea Factory, Brief Garden - Bevis Bawa, Samadhi Statue, Udawattekele Sanctuary","Walking Trails, Sunbathing",0
+G0088,Brave Navigators,Inactive,Low,Adventurous,"Bentota Beach, Brief Garden - Bevis Bawa, Ruwanwelisaya, Dambatenne Tea Factory","Jeep Safaris, Boating",0
+G0089,Energetic Adventurers,Inactive,High,Backpacker,"Mount Lavinia Beach, Nallur Kovil, Samadhi Statue","Agricultural Workshops, Sightseeing",0
+G0090,Majestic Travellers,Active,High,Luxury,"Jaya Sri Maha Bodhi, Colombo National Museum, Sigiriya Museum, Lover's Leap Falls","Trekking, Surfing",6
+G0091,Relaxing Dreamers,Inactive,Medium,Balanced,"St Clair's Falls, Brief Garden - Bevis Bawa, Kelaniya Raja Maha Vihara","Fruit Picking, Exploring Exhibits",0
+G0092,Cultural Seekers,Active,High,Backpacker,"Bundala National Park, Galle Fort, Community Tsunami Museum","Relaxation, Learning History",4
+G0093,Fearless Explorers,Active,Medium,Adventurous,"Kumana National Park, Baker's Falls, St Clair's Falls, Brief Garden - Bevis Bawa, Kelaniya Raja Maha Vihara","Wildlife, Rafting",3
+G0094,Spirited Questers,Active,High,Relaxed,"Koneswaram Temple, Pinnawala Elephant Orphanage","Educational Tours, Wildlife",5
+G0095,Lively Nomads,Active,Medium,Balanced,"Jethawanaramaya Stupa, Ariyapala Mask Museum, Samadhi Statue, Victoria Park of Nuwara Eliya, Ariyapala Mask Museum","Wildlife, Fishing",3
+G0096,Mystic Escapists,Active,Medium,Relaxed,"Nilaveli Beach, Gangaramaya (Vihara) Buddhist Temple, St Clair's Falls","Fruit Picking, Nature Photography",5
+G0097,Spirited Nomads,Inactive,Low,Balanced,"Kaudulla National Park, Royal Botanical Gardens, Kelaniya Raja Maha Vihara, Ariyapala Mask Museum","Learning History, Beach Hopping",0
+G0098,Brave Adventurers,Inactive,Medium,Luxury,"Temple of the Sacred Tooth Relic, Polonnaruwa, Pigeon Island National Park, Sigiriya The Ancient Rock Fortress, Pigeon Island National Park","Trekking, Animal Watching",0
+G0099,Dynamic Trailblazers,Inactive,Medium,Luxury,"Baker's Falls, Mirissa Beach","Guided Tours, Boat Tours",0
+G0100,Vibrant Sojourners,Inactive,Medium,Luxury,"Glenloch Tea Factory, Kandy Lake, Arugam Bay, Ambewela Farms, Minneriya Tusker Safaris","Bird Watching, Cultural Exploration",0
+G0101,Elite Wayfarers,Active,High,Backpacker,"Tissa Wewa, Dambulla Cave Temple, Minneriya National Park, Mount Lavinia Beach, Ramboda Waterfall, Mirissa Beach","Hiking , Fishing",5
+G0102,Epic Nomads,Inactive,Medium,Luxury,"Baker's Falls, Mirissa Beach, Ravana Ella Falls, Arugam Bay","Wildlife Spotting, Wildlife Safaris",0
+G0103,Mystic Sojourners,Active,Medium,Luxury,"Tissa Wewa, Twin Baths (Kuttam Pokuna), Bluefield Tea Gardens, Kumana National Park, Koneswaram Temple","Historical Exploration, Bird Watching",3
+G0104,Relaxing Adventurers,Inactive,Low,Luxury,"Kaudulla National Park, Gregory Lake, Bundala National Park, Bluefield Tea Gardens, Handunugoda Tea Estate","Hiking , Beach Hopping",0
+G0105,Lively Discoverers,Inactive,High,Luxury,"Royal Botanical Gardens, Samadhi Statue, Hikkaduwa Beach, Colombo National Museum, Community Tsunami Museum, Hikkaduwa Beach","Hiking , Surfing",0
+G0106,Fearless Travellers,Inactive,High,Adventurous,"Hakgala Botanic Gardens, Kaudulla National Park, Ariyapala Mask Museum, New Ranweli Spice Garden, Sigiriya Museum","Sightseeing, Rafting",0
+G0107,Adventurous Drifters,Inactive,Medium,Balanced,"Pinnawala Elephant Orphanage, Kalametiya Eco Bird Watching","Cultural Activities, Farm Tours",0
+G0108,Lively Drifters,Inactive,Low,Luxury,"Ramboda Waterfall, Pigeon Island National Park, Udawattekele Sanctuary, Koneswaram Temple, Samadhi Statue","Fruit Picking, Sightseeing",0
+G0109,Explorer Drifters,Active,Low,Adventurous,"Galle Fort, Community Tsunami Museum, Jaya Sri Maha Bodhi, Mount Lavinia Beach, Hikkaduwa Beach","Nature Walks, Boat Tours",4
+G0110,Relaxing Nomads,Inactive,Medium,Balanced,"Sinharaja Forest Reserve, Sigiriya Museum, Marble Beach, Diyaluma Falls","Educational Tours, Kayaking",0
+G0111,Fearless Pathfinders,Active,High,Adventurous,"Wilpattu National Park, Jethawanaramaya Stupa, Negombo Beach, Bundala National Park","Bird Watching, Jeep Safaris",10
+G0112,Energetic Travellers,Inactive,Medium,Backpacker,"Diyaluma Falls, Sea Turtle Farm Galle Mahamodara","Hiking , Meditation",0
+G0113,Cheerful Pioneers,Inactive,High,Luxury,Bundala National Park,"Photography, Sunbathing",0
+G0114,Lively Escapists,Inactive,High,Luxury,"Handunugoda Tea Estate, Isurumuniya Temple","Walking Trails, Agricultural Workshops",0
+G0115,Brave Wanderers,Inactive,Medium,Luxury,"Kumana National Park, Minneriya National Park, Dambatenne Tea Factory","Bird Watching, Animal Watching",0
+G0116,Elite Escapists,Inactive,Low,Relaxed,"Minneriya Tusker Safaris, Negombo Beach, Kumana National Park","Exploring Exhibits, Learning History",0
+G0117,Lively Pathfinders,Inactive,Medium,Relaxed,"Mount Lavinia Beach, Marble Beach","Sunbathing, Yoga",0
+G0118,Thrilling Navigators,Inactive,Low,Relaxed,"Victoria Park of Nuwara Eliya, Mirissa Beach","Sightseeing, Snorkeling",0
+G0119,Lively Travellers,Active,High,Luxury,"Mount Lavinia Beach, National Zoological Gardens of Sri Lanka","Sightseeing, Wildlife",9
+G0120,Mystic Voyagers,Active,Medium,Balanced,"Jaya Sri Maha Bodhi, Gregory Lake","Cultural Tours, Agricultural Workshops",7
+G0121,Fearless Voyagers,Active,Low,Balanced,"Kandy Lake, Polonnaruwa, Sinharaja Forest Reserve, Jungle Beach, Sigiriya The Ancient Rock Fortress","Jet Skiing, Nature Photography",3
+G0122,Adventurous Globetrotters,Active,Low,Luxury,"Negombo Beach, Abhayagiri Dagaba, Horton Plains National Park, New Ranweli Spice Garden, Jungle Beach","Agricultural Workshops, Nature Photography",8
+G0123,Spirited Drifters,Inactive,Low,Adventurous,"Polonnaruwa, Kelaniya Raja Maha Vihara, Jungle Beach, Diyaluma Falls, Hakgala Botanic Gardens","Wildlife Safaris, Boat Tours",0
+G0124,Dynamic Pathfinders,Active,High,Balanced,"Martin Wickramasinghe Folk Museum Complex, New Ranweli Spice Garden, New Ranweli Spice Garden, Sigiriya Museum","Sunbathing, Historical Exploration",3
+G0125,Energetic Nomads,Active,Medium,Luxury,"Kandy Lake, Kumana National Park","Guided Tours, Worship",2
+G0126,Elite Voyagers,Active,Medium,Relaxed,Damro Labookellie Tea Centre and Tea Garden,"Nature Walks, Hiking",8
+G0127,Serene Globetrotters,Inactive,Medium,Adventurous,"Tissa Wewa, Dambulla Cave Temple, Minneriya National Park","Tea Plucking, Beach Hopping",0
+G0128,Wanderlust Travellers,Inactive,High,Luxury,"Hikkaduwa Beach, Sinharaja Forest Reserve, Ramboda Waterfall, Sigiriya Museum, Horton Plains National Park","Jeep Safaris, Boat Tours",0
+G0129,Cheerful Drifters,Active,Medium,Balanced,"Kalametiya Eco Bird Watching, Abhayagiri Dagaba, Mount Lavinia Beach, Handunugoda Tea Estate","Fruit Picking, Photography",9
+G0130,Cheerful Voyagers,Active,Medium,Backpacker,"Martin Wickramasinghe Folk Museum Complex, Nilaveli Beach","Educational Tours, Historical Exploration",3
+G0131,Fearless Drifters,Active,Medium,Luxury,Mihintale,"Worship, Sightseeing",5
+G0132,Cheerful Wayfarers,Inactive,High,Luxury,"Jungle Beach, Ritigala Forest Monastery, Mirissa Beach","Meditation, Tea Plucking",0
+G0133,Vibrant Dreamers,Inactive,Low,Luxury,"Gangaramaya (Vihara) Buddhist Temple, Dagoba of Thuparama, Koneswaram Temple, Marble Beach","Nature Photography, Cultural Activities",0
+G0134,Majestic Questers,Active,Low,Adventurous,"Nallur Kovil, Kaudulla National Park","Meditation, Kit Surfing",9
+G0135,Elite Nomads,Inactive,Medium,Adventurous,"Samadhi Statue, Brief Garden - Bevis Bawa, Ritigala Forest Monastery, Kumana National Park, Ramboda Waterfall","Hiking, Fishing",0
+G0136,Brave Pioneers,Inactive,Low,Backpacker,"Twin Baths (Kuttam Pokuna), Sinharaja Forest Reserve, Jaya Sri Maha Bodhi","Yoga, Guided Tours",0
+G0137,Thrilling Sojourners,Active,Medium,Balanced,"Brief Garden - Bevis Bawa, Sigiriya The Ancient Rock Fortress","Architectural Marvel, Kit Surfing",1
+G0138,Energetic Sojourners,Inactive,Low,Luxury,"Martin Wickramasinghe Folk Museum Complex, Jaffna Fort, Gangaramaya (Vihara) Buddhist Temple, Martin Wickramasinghe Folk Museum Complex, Negombo Beach","Hiking, Kite Surfing",0
+G0139,Spirited Dreamers,Inactive,Medium,Relaxed,"Kandy Lake, Kumana National Park, Negombo Beach, Ruwanwelisaya, Diyaluma Falls","Surfing, Cultural Tours",0
+G0140,Lively Adventurers,Inactive,High,Relaxed,"Hikkaduwa Beach, Ravana Ella Falls, Ambewela Farms","Boat Tours, Fruit Picking",0
+G0141,Mystic Explorers,Inactive,Medium,Backpacker,"Mihintale, Ravana Ella Falls","Tea Plucking, Jet Skiing",0
+G0142,Wanderlust Drifters,Inactive,Medium,Relaxed,"New Ranweli Spice Garden, Kalutara Beach, Sigiriya Museum, Bluefield Tea Gardens","Wildlife Spotting, Educational Tours",0
+G0143,Thrilling Discoverers,Active,High,Adventurous,"Dambulla Cave Temple, Twin Baths (Kuttam Pokuna)","Hiking , Agricultural Workshops",7
+G0144,Spirited Wayfarers,Active,Low,Adventurous,"Udawalawe National Park, Polonnaruwa, Dambatenne Tea Factory","Fruit Picking, Learning History",8
+G0145,Epic Trailblazers,Active,Medium,Adventurous,"Kumana National Park, Pigeon Island National Park, Ravana Ella Falls","Jet Skiing, Fishing",2
+G0146,Dynamic Drifters,Active,Medium,Backpacker,"Passikudah Beach, Isurumuniya Temple, Samadhi Statue, Victoria Park of Nuwara Eliya, Ariyapala Mask Museum","Cultural Exploration, Relaxation",10
+G0147,Majestic Escapists,Inactive,Low,Luxury,"Ramboda Waterfall, Sigiriya Museum, Lover's Leap Falls","Historical Exploration, Kit Surfing",0
+G0148,Serene Discoverers,Inactive,High,Luxury,"Bluefield Tea Gardens, Glenloch Tea Factory","Relaxation, Educational Tours",0
+G0149,Explorer Globetrotters,Inactive,High,Adventurous,"Sea Turtle Farm Galle Mahamodara, Kandy Lake, Minneriya Tusker Safaris, Damro Labookellie Tea Centre and Tea Garden","Educational Tours, Boat Tours",0
+G0150,Cultural Drifters,Inactive,Medium,Relaxed,"Mihintale, Kandy Lake, Colombo National Museum, Kalutara Beach, Bentota Beach, Jethawanaramaya Stupa","Snorkeling, Kit Surfing",0
