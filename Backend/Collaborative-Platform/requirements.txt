@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+motor
+pydantic
+python-dotenv
+joblib
+lightgbm
+pandas
+numpy
+scikit-learn
+sentence-transformers
