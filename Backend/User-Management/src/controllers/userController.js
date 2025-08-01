@@ -29,6 +29,7 @@ const registerUser = async (req, res) => {
             travel_companion,
             location_types,
             preferred_activities,
+            budget,
         } = req.body;
 
         if (await User.findOne({ email })) {
@@ -47,6 +48,7 @@ const registerUser = async (req, res) => {
             travel_companion,
             location_types,
             preferred_activities,
+            budget
         });
 
         await user.save();
@@ -65,6 +67,7 @@ const registerUser = async (req, res) => {
                 travel_companion: user.travel_companion,
                 location_types: user.location_types,
                 preferred_activities: user.preferred_activities,
+                budget: user.budget,
                 status: user.status,
             },
             token,
@@ -104,6 +107,7 @@ const loginUser = async (req, res) => {
                 travel_companion: user.travel_companion,
                 location_types: user.location_types,
                 preferred_activities: user.preferred_activities,
+                budget: user.budget,
                 status: user.status,
             },
             message: "Login successful",
@@ -130,6 +134,7 @@ const updateUserProfile = async (req, res) => {
             travel_companion,
             location_types,
             preferred_activities,
+            budget,
         } = req.body;
 
         const user = await User.findById(req.user._id);
@@ -147,6 +152,7 @@ const updateUserProfile = async (req, res) => {
         if (travel_companion) user.travel_companion = travel_companion;
         if (location_types) user.location_types = location_types;
         if (preferred_activities) user.preferred_activities = preferred_activities;
+        if (budget) user.budget = budget;
 
         await user.save();
         res.json({
@@ -161,6 +167,7 @@ const updateUserProfile = async (req, res) => {
                 travel_companion: user.travel_companion,
                 location_types: user.location_types,
                 preferred_activities: user.preferred_activities,
+                budget: user.budget,
                 status: user.status,
             },
             message: "Profile updated successfully",

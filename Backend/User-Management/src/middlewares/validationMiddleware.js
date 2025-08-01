@@ -14,6 +14,7 @@ const registerValidationRules = [
     body("age_group").isIn(ageGroups).withMessage("Invalid age group"),
     body("gender").isIn(genders).withMessage("Invalid gender"),
     body("travel_companion").notEmpty().withMessage("Travel companion is required"),
+    body("budget").optional().notEmpty().withMessage("Budget is required"),
     body("location_types").isArray().withMessage("Location types must be an array"),
     body("preferred_activities").isArray().withMessage("Preferred activities must be an array"),
 ];
@@ -32,6 +33,7 @@ const updateProfileValidationRules = [
     body("age_group").optional().isIn(ageGroups).withMessage("Invalid age group"),
     body("gender").optional().isIn(genders).withMessage("Invalid gender"),
     body("travel_companion").optional().notEmpty().withMessage("Travel companion is required"),
+    body("budget").optional().notEmpty().withMessage("Budget is required"),
     body("location_types").optional().isArray().withMessage("Location types must be an array"),
     body("preferred_activities").optional().isArray().withMessage("Preferred activities must be an array"),
 ];

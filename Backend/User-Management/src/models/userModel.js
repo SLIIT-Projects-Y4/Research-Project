@@ -46,6 +46,9 @@ const userSchema = new mongoose.Schema(
             enum: ["active", "inactive"],
             default: "active"
         },
+        budget: {
+            type: String
+        }
     },
     {timestamps: true}
 );
