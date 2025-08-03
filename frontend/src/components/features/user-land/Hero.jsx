@@ -20,7 +20,7 @@ export const Hero = () => (
           </div>
         </div>
       </div>
-      <div className="relative h-full flex items-center justify-center">
+      <div className="absolute right-10 h-[500px] w-[780px] flex items-center justify-center">
         <img src={TravelerImage} alt={'main-image'}/>
       </div>
     </div>

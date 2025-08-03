@@ -75,8 +75,8 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex justify-between items-center py-4">
           <Link to="/" className="flex items-center space-x-3" aria-label="Jadoo homepage">
-            <span className="text-3xl font-bold text-gray-800">Jadoo</span>
-            <PlaneTakeoff className="text-red-500" />
+            <span className="text-3xl font-bold text-gray-800">Chaloo</span>
+            <PlaneTakeoff className="text-yellow-700" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -102,11 +102,11 @@ export const Navbar = () => {
               </div>
             ) : (
               <>
-                <Link to="/login" className="text-gray-600 hover:text-red-500 transition-colors font-medium">
+                <Link to="/login" className="py-[4px] px-3.5 border rounded-[5px] text-gray-600 hover:text-red-500 transition-colors font-medium">
                   Login
                 </Link>
                 <Link to="/register">
-                  <Button className="bg-gray-800 hover:bg-gray-900 text-white shadow-sm hover:shadow-md transition-shadow">
+                  <Button className="py-[5px] px-3.5 bg-gray-800 border hover:bg-gray-900 hover:cursor-pointer rounded-[5px] text-white shadow-sm hover:shadow-md transition-shadow">
                     Sign up
                   </Button>
                 </Link>

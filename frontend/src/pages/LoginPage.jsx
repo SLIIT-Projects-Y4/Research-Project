@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Input, Button } from '@mantine/core';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-toastify';
+import LoginImage from '../components/features/user-onboard/assets/Cartoon.webp'
 
 // --- Social Login Button Component ---
 const SocialButton = ({ icon, label }) => (
@@ -79,9 +80,9 @@ const LoginPage = () => {
         {/* Left Visual Panel */}
         <div className="hidden lg:flex flex-col items-center justify-center p-12 bg-[#FFF7F5]">
           <img
-            src="https://i.imgur.com/8k5XkCg.png"
+            src={LoginImage}
             alt="Illustration of a character planning a task"
-            className="max-w-sm w-full"
+            className="w-full"
             onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/400x400/FFF7F5/333333?text=Illustration'; }}
           />
         </div>
