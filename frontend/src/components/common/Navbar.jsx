@@ -94,7 +94,7 @@ export const Navbar = () => {
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors font-medium"
+                  className="flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors font-medium hover:cursor-pointer"
                 >
                   <LogOut size={16} />
                   Logout
