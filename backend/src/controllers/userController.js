@@ -27,6 +27,7 @@ const registerUser = async (req, res) => {
             age_group,
             gender,
             travel_companion,
+            travel_style,
             location_types,
             preferred_activities,
             budget,
@@ -46,6 +47,7 @@ const registerUser = async (req, res) => {
             age_group,
             gender,
             travel_companion,
+            travel_style,
             location_types,
             preferred_activities,
             budget
@@ -66,6 +68,7 @@ const registerUser = async (req, res) => {
                 gender: user.gender,
                 travel_companion: user.travel_companion,
                 location_types: user.location_types,
+                travel_style: user.travel_style,
                 preferred_activities: user.preferred_activities,
                 budget: user.budget,
                 status: user.status,
@@ -106,6 +109,7 @@ const loginUser = async (req, res) => {
                 gender: user.gender,
                 travel_companion: user.travel_companion,
                 location_types: user.location_types,
+                travel_style: user.travel_style,
                 preferred_activities: user.preferred_activities,
                 budget: user.budget,
                 status: user.status,
@@ -132,6 +136,7 @@ const updateUserProfile = async (req, res) => {
             age_group,
             gender,
             travel_companion,
+            travel_style,
             location_types,
             preferred_activities,
             budget,
@@ -150,6 +155,7 @@ const updateUserProfile = async (req, res) => {
         if (age_group) user.age_group = age_group;
         if (gender) user.gender = gender;
         if (travel_companion) user.travel_companion = travel_companion;
+        if (travel_style) user.travel_style = travel_style;
         if (location_types) user.location_types = location_types;
         if (preferred_activities) user.preferred_activities = preferred_activities;
         if (budget) user.budget = budget;
@@ -165,6 +171,7 @@ const updateUserProfile = async (req, res) => {
                 age_group: user.age_group,
                 gender: user.gender,
                 travel_companion: user.travel_companion,
+                travel_style: user.travel_style,
                 location_types: user.location_types,
                 preferred_activities: user.preferred_activities,
                 budget: user.budget,

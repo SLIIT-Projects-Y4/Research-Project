@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema(
         travel_companion: {
             type: String
         },
+        travel_style: {
+            type: String
+        },
         location_types: [{
             type: String
         }],
