@@ -17,7 +17,7 @@ app.use(express.json());
 // db
 mongoose
   .connect(process.env.DB_URI, { autoIndex: true })
-  .then(() => console.log("MongoDB connected"))
+  .then(() => console.log("🔌 MongoDB connected"))
   .catch((err) => {
     console.error("MongoDB connection error:", err.message);
     process.exit(1);
@@ -34,4 +34,4 @@ app.get("/healthz", (req, res) => res.json({ status: "ok" }));
 
 // boot
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Users API listening on :${port}`));
+app.listen(port, () => console.log(`🚀 Users API listening on :${port}`));
