@@ -34,4 +34,4 @@ app.get("/healthz", (req, res) => res.json({ status: "ok" }));
 
 // boot
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`🚀 Users API listening on :${port}`));
+app.listen(port, () => console.log(`🚀 Users API listening on : ${port}`));
