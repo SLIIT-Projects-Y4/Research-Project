@@ -4,6 +4,7 @@ import { Input, Button } from '@mantine/core';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-toastify';
 import LoginImage from '../components/features/user-onboard/assets/Cartoon.webp'
+import {BookingCard} from "../components/features/location/LocationCard.jsx";
 
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -167,6 +168,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+      <BookingCard />
     </div>
   );
 };
