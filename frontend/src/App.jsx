@@ -1,20 +1,24 @@
 import React from 'react';
-import {Routes, Route} from 'react-router-dom';
-import {Layout} from './components/common/Layout.jsx';
-import {LandingPage} from './pages/LandingPage.jsx';
-import LoginPage from "./pages/LoginPage.jsx";
-import TestingPage from "./pages/TestingPage.jsx";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import PreferencesWizard from './pages/Onboarding/PreferencesWizard.jsx';
+import HomePage from './pages/HomePage.jsx';
 
-function App() {
+export default function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<LandingPage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/test" element={<TestingPage/>}/>
-      </Routes>
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/login" element={<LoginPage />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/onboarding" element={<PreferencesWizard />} />
+        <Route path="/home" element={<HomePage />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/home" replace />} />
+    </Routes>
   );
 }
-
-export default App;

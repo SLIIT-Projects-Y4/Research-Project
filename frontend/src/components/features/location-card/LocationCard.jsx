@@ -24,7 +24,7 @@ const LocationCard = ({
     }
 
     return (
-      <div className={`border border-welded-iron/30 rounded-2xl`}>
+      <div className={`border border-welded-iron/30 rounded-2xl w-[350px]`}>
 
           <div className="relative">
               <button
@@ -37,29 +37,30 @@ const LocationCard = ({
                     fill={isHeartClicked ? "white" : "transparent"}
                   />
               </button>
-
               <img
                 src="/assets/beach.jpg"
-                className="rounded-t-2xl object-center object-cover"
+                className="rounded-t-2xl object-center object-cover h-48 w-[350px]"
                 alt={`${name} cover`}
               />
           </div>
 
-          <div className="py-[30px] px-[25px]">
+          <div className="pb-3 px-[25px]">
               <div className="flex flex-col">
-                  <div className={`px-3`}>
+                  <div className={`pt-3 px-3`}>
                       <LocationRating noOfRatings={noOfRatings} rating={rating}/>
                   </div>
                   <LocationContent name={name} city={city} province={province} description={description} type={type}/>
-                  <div className="pt-5 flex items-center justify-between gap-10">
+                  <div className="pt-3 flex items-center justify-between text-xs">
                       <button
                         onClick={onDetailsButtonClick}
-                        className="py-2 w-full bg-lemon-dream rounded-lg text-white text-sm font-semibold">
+                        className="py-2 px-4 bg-lemon-dream rounded-lg text-white font-display font-semibold hover:cursor-pointer"
+                      >
                           Details
                       </button>
                       <button
                         onClick={onAddToPlanPoolButtonClick}
-                        className="py-2 w-full bg-dusty-orange rounded-lg text-white text-sm font-semibold">
+                        className="py-2 px-4 bg-dusty-orange rounded-lg text-white font-display font-semibold hover:cursor-pointer"
+                      >
                           Add to Plan
                       </button>
                   </div>

@@ -1,11 +1,7 @@
 @import "tailwindcss";
 @import "flowbite";
 
-
-/* Import Google Fonts once here */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
-
-/* Tailwind v4 Design Tokens */
+/* Theme tokens used by your components */
 @theme {
     /* Fonts */
     --font-sans: "Inter", system-ui, -apple-system, sans-serif; /* default text */
