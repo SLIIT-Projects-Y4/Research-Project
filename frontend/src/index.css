@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+/* Import Google Fonts once here */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* Tailwind v4 Design Tokens */
+@theme {
+  /* Fonts */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif; /* default text */
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif; /* headings */
+
+  /* Custom colors */
+  --color-midnight-dreams: #001C33;
+  --color-heart-of-ice: #E6F2FF;
+  --color-desert-lilly: #FFE8D6;
+  --color-lynx-white: #F7F7F7;
+  --color-rust-red: #B74134;
+
+  /* Optional semantic aliases */
+  --color-primary: var(--color-midnight-dreams);
+  --color-accent: var(--color-rust-red);
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Utility helpers */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-sans);
+}
