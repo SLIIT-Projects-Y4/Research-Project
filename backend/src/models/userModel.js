@@ -21,20 +21,36 @@ const SavedItinerarySchema = new mongoose.Schema(
   { _id: false }
 );
 
-// NEW: per-location structure for saved recommendations
+// NEW: Plan pool entry (what we save when user clicks "Add to Plan")
+const PlanPoolItemSchema = new mongoose.Schema(
+  {
+    location_id: { type: String, required: true },
+    name: { type: String, required: true },          // Location_Name
+    city: { type: String, default: "" },             // located_city
+    province: { type: String, default: "" },
+    lat: { type: Number, default: null },
+    lng: { type: Number, default: null },
+    avg_rating: { type: Number, default: null },
+    rating_count: { type: Number, default: null },
+    description: { type: String, default: "" },
+    activities: { type: [String], default: [] },
+  },
+  { _id: false }
+);
+
 const RecommendedLocationSchema = new mongoose.Schema(
   {
     location_id: String,
-    name: String,               // from Location_Name
+    name: String,
     province: String,
-    city: String,               // from located_city
+    city: String,
     lat: Number,
     lng: Number,
     avg_rating: Number,
     rating_count: Number,
     description: String,
     activities: [String],
-    final_score: Number,        // from Final_Score
+    final_score: Number,
   },
   { _id: false }
 );
@@ -49,13 +65,11 @@ const LastRecommendationsSchema = new mongoose.Schema(
       preferred_activities: [String],
       top_n: Number,
     },
-    // NEW: store weights for transparency (cbf/cf/ml)
     weights: {
       cbf: Number,
       cf: Number,
       ml: Number,
     },
-    // Keep a normalized copy as well
     results: { type: [RecommendedLocationSchema], default: [] },
   },
   { _id: false }
@@ -79,13 +93,14 @@ const UserSchema = new mongoose.Schema(
 
     onboarding_completed: { type: Boolean, default: false },
 
-    plan_pool: { type: [String], default: [] },
+    // CHANGED: from [String] to array of objects with location details
+    plan_pool: { type: [PlanPoolItemSchema], default: [] },
+
     saved_itineraries: { type: [SavedItinerarySchema], default: [] },
 
-    // Already existed — now with weights + normalized results
     last_recommendations: { type: LastRecommendationsSchema, default: null },
 
-    // NEW: flat array “like plan_pool” for quick access/render
+    // kept from your model
     recommended_locations: { type: [RecommendedLocationSchema], default: [] },
 
     lastLoginAt: { type: Date, default: null },

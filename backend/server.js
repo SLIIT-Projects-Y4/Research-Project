@@ -7,6 +7,8 @@ const authRoutes = require("./src/routes/authRoutes");
 const preferencesRoute = require("./src/routes/preferencesRoute");
 const recoProxy = require("./src/routes/recoProxy");
 const usersRoute = require("./src/routes/usersRoute"); // /api/users/me
+const locationsRoute = require('./src/routes/locationsRoute');
+const planRoute = require('./src/routes/planRoute');
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api", preferencesRoute);
 app.use("/api", recoProxy);
 app.use("/api", usersRoute);
+app.use('/api', locationsRoute);
+app.use('/api', planRoute);
 
 // health
 app.get("/healthz", (req, res) => res.json({ status: "ok" }));

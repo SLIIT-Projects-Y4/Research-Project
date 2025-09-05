@@ -3,13 +3,17 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { fromProfile } from '../api/recommendations';
 import { toast } from 'react-toastify';
 import { useAuth } from '../store/auth.jsx';
+import { useNavigate } from 'react-router-dom';
+import { addToPlanPool } from '../api/planpool';
 
 // ⚠️ Keep the path you already use for your card component.
 // If your file lives elsewhere, just adjust this import.
 import LocationCard from '../components/features/location-card/LocationCard.jsx';
+import PlanPoolCard from "../components/features/plan-pool/PlanPoolCard.js";
 
 export default function HomePage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
   const [weights, setWeights] = useState(null);
@@ -71,6 +75,32 @@ export default function HomePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cacheKey]);
 
+  // Map ML result → plan pool payload
+  const toPlanPoolItem = (loc) => ({
+    location_id: loc.location_id,
+    name: loc.Location_Name,
+    city: loc.located_city || '',
+    province: loc.province || '',
+    lat: loc.lat ?? null,
+    lng: loc.lng ?? null,
+    avg_rating: loc.avg_rating ?? null,
+    rating_count: loc.rating_count ?? null,
+    description: loc.description || '',
+    activities: Array.isArray(loc.activities) ? loc.activities : [],
+  });
+
+  const handleAddToPlan = async (loc) => {
+    try {
+      await addToPlanPool(toPlanPoolItem(loc));
+      toast.success('Added to plan');
+    } catch (err) {
+      const status = err?.response?.status;
+      const msg = err?.response?.data?.error;
+      if (status === 409) toast.info('Already in plan');
+      else toast.error(msg || 'Failed to add to plan');
+    }
+  };
+
   // Robust adapter → pass *all likely* prop names so your LocationCard picks what it uses
   const toCardProps = (loc) => ({
     // names
@@ -96,11 +126,15 @@ export default function HomePage() {
 
     // image (common for now)
     imageUrl: '/assets/beach.jpg',
+
+    // add-to-plan hook up (uses your card's onAddToPlanPoolButtonClick)
+    onAddToPlanPoolButtonClick: () => handleAddToPlan(loc),
   });
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="mx-auto">
+        <PlanPoolCard name={'Colombo Temple'} city={'Colombo'} province={'Western Province'} onRemoveLocationIconClick={() => {}} />
         <div className="flex items-end justify-between mb-6">
           <div>
             <h1 className="text-2xl font-semibold">Recommended Locations</h1>
@@ -112,6 +146,14 @@ export default function HomePage() {
           </div>
 
           <div className="flex gap-2">
+            {/* NEW: Go to Plan Pool */}
+            <button
+              onClick={() => navigate('/plan-pool')}
+              className="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm"
+            >
+              Plan Pool
+            </button>
+
             <button
               onClick={fetchRecommendations}
               className="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm"
