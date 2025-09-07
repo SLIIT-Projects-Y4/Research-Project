@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.jsx';
 import PlanPoolPage from "./pages/PlanPoolPage.jsx";
 import PlanBuilder from "./pages/PlanBuilder.jsx";
 import PlanItinerary from "./pages/PlanItinerary.jsx";
+import SavedItineraries from "@/pages/SavedItineraries.jsx";
 
 export default function App() {
     return (
@@ -22,6 +23,7 @@ export default function App() {
               <Route path="/plan-pool" element={<PlanPoolPage/>}/>
               <Route path="/plan/build" element={<PlanBuilder/>}/>
               <Route path="/plan/itinerary" element={<PlanItinerary/>}/>
+              <Route path="/plan/saved" element={<SavedItineraries/>}/>
           </Route>
 
           <Route path="*" element={<Navigate to="/home" replace/>}/>

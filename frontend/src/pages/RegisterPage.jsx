@@ -1,4 +1,3 @@
-// src/pages/RegisterPage.jsx
 import React, { useState } from 'react';
 import { register as apiRegister } from '../api/auth';
 import { useNavigate, Link } from 'react-router-dom';

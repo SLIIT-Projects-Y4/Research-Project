@@ -9,6 +9,9 @@ const recoProxy = require("./src/routes/recoProxy");
 const usersRoute = require("./src/routes/usersRoute");
 const locationsRoute = require('./src/routes/locationsRoute');
 const planRoute = require('./src/routes/planRoute');
+const itineraryProxy = require("./src/routes/itineraryProxy");
+const plannerProxy = require("./src/routes/plannerProxy");
+const locationsProxy = require("./src/routes/locationsProxy");
 
 const app = express();
 
@@ -29,6 +32,11 @@ app.use("/api", recoProxy);
 app.use("/api", usersRoute);
 app.use('/api', locationsRoute);
 app.use('/api', planRoute);
+app.use('/api', itineraryProxy)
+app.use('/api', plannerProxy)
+app.use('/api', itineraryProxy);
+app.use('/api', plannerProxy);
+app.use('/api', locationsProxy);
 
 app.get("/healthz", (req, res) => res.json({ status: "ok" }));
 
