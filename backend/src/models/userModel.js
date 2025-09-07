@@ -110,7 +110,7 @@ const UserSchema = new mongoose.Schema(
   {timestamps: true}
 );
 
-userSchema.pre("save", async function (next) {
+UserSchema.pre("save", async function (next) {
     if (!this.isNew || this.userID) return next();
 
     try {
