@@ -6,7 +6,7 @@ const cors = require("cors");
 const authRoutes = require("./src/routes/authRoutes");
 const preferencesRoute = require("./src/routes/preferencesRoute");
 const recoProxy = require("./src/routes/recoProxy");
-const usersRoute = require("./src/routes/usersRoute"); // /api/users/me
+const usersRoute = require("./src/routes/usersRoute");
 const locationsRoute = require('./src/routes/locationsRoute');
 const planRoute = require('./src/routes/planRoute');
 
