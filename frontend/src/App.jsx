@@ -1,18 +1,30 @@
 import React from 'react';
-import {Routes, Route} from 'react-router-dom';
-import {Layout} from './components/common/Layout.jsx';
-import {LandingPage} from './pages/LandingPage.jsx';
-import LoginPage from "./pages/LoginPage.jsx";
+import {Routes, Route, Navigate} from 'react-router-dom';
+import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import PreferencesWizard from './pages/Onboarding/PreferencesWizard.jsx';
+import HomePage from './pages/HomePage.jsx';
+import PlanPoolPage from "./pages/PlanPoolPage.jsx";
+import PlanBuilder from "./pages/PlanBuilder.jsx";
+import PlanItinerary from "./pages/PlanItinerary.jsx";
 
-function App() {
-  return (
-    <Layout>
+export default function App() {
+    return (
       <Routes>
-        <Route path="/" element={<LandingPage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-      </Routes>
-    </Layout>
-  );
-}
+          <Route path="/" element={<Navigate to="/login" replace/>}/>
+          <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
 
-export default App;
+          <Route element={<ProtectedRoute/>}>
+              <Route path="/onboarding" element={<PreferencesWizard/>}/>
+              <Route path="/home" element={<HomePage/>}/>
+              <Route path="/plan-pool" element={<PlanPoolPage/>}/>
+              <Route path="/plan/build" element={<PlanBuilder/>}/>
+              <Route path="/plan/itinerary" element={<PlanItinerary/>}/>
+          </Route>
+
+          <Route path="*" element={<Navigate to="/home" replace/>}/>
+      </Routes>
+    );
+}

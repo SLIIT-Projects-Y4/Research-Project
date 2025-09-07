@@ -1,1 +1,46 @@
 @import "tailwindcss";
+@import "flowbite";
+
+/* Theme tokens used by your components */
+@theme {
+    /* Fonts */
+    --font-sans: "Inter", system-ui, -apple-system, sans-serif; /* default text */
+    --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif; /* headings */
+    /* Custom colors */
+    --color-midnight-dreams: #001C33;
+    --color-heart-of-ice: #E6F2FF;
+    --color-desert-lilly: #FFE8D6;
+    --color-lynx-white: #F7F7F7;
+    --color-rust-red: #B74134;
+    --color-welded-iron: #6E6E6E;
+    --color-brave-orange: #FD661E;
+    --color-drippy-honey: #F0BB1F;
+    --color-hot-embers: #F15A2B;
+    --color-ocean-depths: #006380;
+    --color-lemon-dream: #F1A501;
+    --color-fly-by-night: #181E4B;
+    --color-dusty-orange: #DF6951;
+    --color-malibu-sun: #FFF1DA;
+
+    /* Optional semantic aliases */
+    --color-primary: var(--color-midnight-dreams);
+    --color-accent: var(--color-rust-red);
+}
+
+/* Base styles */
+body {
+    font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+}
+
+/* Utility helpers */
+.font-display {
+    font-family: var(--font-display);
+}
+
+.font-body {
+    font-family: var(--font-sans);
+}
