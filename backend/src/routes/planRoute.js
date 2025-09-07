@@ -1,15 +1,12 @@
-// routes/planRoute.js
 const router = require('express').Router();
 const auth = require('../middlewares/authMiddleware');
 const User = require('../models/userModel');
-const http = require('../utils/httpClient'); // axios preconfigured to RECOMMENDER_API_URL
+const http = require('../utils/httpClient');
 const { haversineKm } = require('../utils/geo');
 
-// ---------- helpers ----------
 
 const norm = (s) => String(s || '').trim().toLowerCase();
 
-// Minimal canon: do NOT remap provinces; just trim and null-guard
 const canonProvince = (p) => {
   if (!p) return null;
   const v = String(p).trim();
@@ -19,7 +16,6 @@ const isUnknownProvince = (p) =>
   /^unknown/i.test(String(p || '').trim());
 
 function pickCityPOI(catalog, { city, province, coords }) {
-  // Prefer same city; if none, same province; rank by proximity (if coords) then rating_count then avg_rating
   let candidates = catalog.filter((c) => norm(c.city) === norm(city));
   if (candidates.length === 0 && province) {
     candidates = catalog.filter((c) => norm(c.province) === norm(province));
@@ -55,7 +51,6 @@ function rebuildDistances(items) {
   });
 }
 
-// Build a simple catalog from user data
 function buildCatalog(user) {
   const arr = [];
   const push = (x) => {
@@ -79,7 +74,6 @@ function buildCatalog(user) {
   (user?.recommended_locations || []).forEach(push);
   (user?.last_recommendations?.results || []).forEach(push);
 
-  // dedupe by name+city (keep best rating_count)
   const byKey = new Map();
   for (const p of arr) {
     const key = `${norm(p.name)}|${norm(p.city)}`;
@@ -89,7 +83,6 @@ function buildCatalog(user) {
   return Array.from(byKey.values());
 }
 
-// Validate body against ML contract
 function validate(body) {
   if (!body) return 'Missing body';
   const {
@@ -115,7 +108,6 @@ function validate(body) {
     }
   }
   if (!Array.isArray(plan_pool) || plan_pool.length === 0) {
-    // ok – we will derive from user plan_pool if not provided
   }
   return null;
 }
@@ -124,7 +116,6 @@ function normalizeItinerary(mlData, user) {
   if (!mlData || !Array.isArray(mlData.itinerary)) return mlData;
   const catalog = buildCatalog(user);
 
-  // --- replace city anchors & canonize provinces ---
   const replaced = mlData.itinerary.map((it) => {
     const isCityAnchor =
       String(it.type || (it.is_city ? 'City' : '')).toLowerCase() === 'city' || it.is_city;
@@ -162,7 +153,6 @@ function normalizeItinerary(mlData, user) {
     };
   });
 
-  // --- drop consecutive duplicates (same place) ---
   const toRad = (d) => (d * Math.PI) / 180;
   const distKm = (a, b) => {
     if (
@@ -199,10 +189,8 @@ function normalizeItinerary(mlData, user) {
     }
   }
 
-  // --- recompute distances after dedupe ---
   const withDistances = rebuildDistances(deduped);
 
-  // --- rebuild corridor from normalized items; drop "Unknown Province" ---
   const corridor = [];
   const seen = new Set();
   for (const it of withDistances) {
@@ -229,11 +217,8 @@ function normalizeItinerary(mlData, user) {
   };
 }
 
-// ---------- route ----------
-
 router.post('/plan/generate', auth, async (req, res) => {
   try {
-    // Fill defaults / derive plan_pool if missing
     let {
       start_city = null,
       end_city,
@@ -258,7 +243,6 @@ router.post('/plan/generate', auth, async (req, res) => {
     });
     if (vErr) return res.status(400).json({ error: vErr });
 
-    // derive plan_pool (names only) if not provided
     if (!Array.isArray(plan_pool) || plan_pool.length === 0) {
       const u = await User.findById(req.user.id, 'plan_pool').lean();
       plan_pool = Array.isArray(u?.plan_pool) ? u.plan_pool.map((x) => x?.name).filter(Boolean) : [];
@@ -280,17 +264,14 @@ router.post('/plan/generate', auth, async (req, res) => {
       mlBody.city_attraction_radius_km = Number(city_attraction_radius_km);
     }
 
-    // Call ML
     const r = await http.post('/plan/generate', mlBody);
     const mlData = r?.data || {};
 
-    // Fetch user datasets once for normalization
     const user = await User.findById(
       req.user.id,
       'plan_pool recommended_locations last_recommendations'
     ).lean();
 
-    // Normalize city anchors -> dataset POIs, fill province/coords, recompute distances
     const payload = normalizeItinerary(mlData, user);
 
     return res.status(200).json(payload);

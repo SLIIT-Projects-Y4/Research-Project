@@ -6,17 +6,16 @@ require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const generateToken = (user) =>
-    jwt.sign(
-        {
-            userId: user._id,
-            role: user.role,
-            email: user.email,
-        },
-        JWT_SECRET,
-        { expiresIn: "7d" }
-    );
+  jwt.sign(
+    {
+        userId: user._id,
+        role: user.role,
+        email: user.email,
+    },
+    JWT_SECRET,
+    {expiresIn: "7d"}
+  );
 
-// Register new user
 const registerUser = async (req, res) => {
     try {
         const {
@@ -33,8 +32,8 @@ const registerUser = async (req, res) => {
             budget,
         } = req.body;
 
-        if (await User.findOne({ email })) {
-            return res.status(409).json({ error: "Email already registered" });
+        if (await User.findOne({email})) {
+            return res.status(409).json({error: "Email already registered"});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -62,6 +61,7 @@ const registerUser = async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                userID: user.userID,
                 role: user.role,
                 country: user.country,
                 age_group: user.age_group,
@@ -77,23 +77,22 @@ const registerUser = async (req, res) => {
             message: "User registered successfully",
         });
     } catch (error) {
-        res.status(500).json({ error: "Registration failed" });
+        res.status(500).json({error: "Registration failed"});
     }
 };
 
-// Login
 const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const {email, password} = req.body;
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email});
         if (!user || user.status !== "active") {
-            return res.status(400).json({ error: "Invalid credentials or inactive account" });
+            return res.status(400).json({error: "Invalid credentials or inactive account"});
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid)
-            return res.status(400).json({ error: "Invalid credentials or inactive account" });
+            return res.status(400).json({error: "Invalid credentials or inactive account"});
 
         const token = generateToken(user);
 
@@ -103,6 +102,7 @@ const loginUser = async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                userID: user.userID,
                 role: user.role,
                 country: user.country,
                 age_group: user.age_group,
@@ -117,16 +117,14 @@ const loginUser = async (req, res) => {
             message: "Login successful",
         });
     } catch (error) {
-        res.status(500).json({ error: "Login failed" });
+        res.status(500).json({error: "Login failed"});
     }
 };
 
-// Logout (JWT - frontend should delete token)
 const logoutUser = (req, res) => {
-    res.json({ message: "Logout successful (remove token client-side)" });
+    res.json({message: "Logout successful (remove token client-side)"});
 };
 
-// Update own profile
 const updateUserProfile = async (req, res) => {
     try {
         const {
@@ -143,11 +141,11 @@ const updateUserProfile = async (req, res) => {
         } = req.body;
 
         const user = await User.findById(req.user._id);
-        if (!user) return res.status(404).json({ error: "User not found" });
+        if (!user) return res.status(404).json({error: "User not found"});
 
         if (email && email !== user.email) {
-            const exists = await User.findOne({ email });
-            if (exists) return res.status(409).json({ error: "Email already taken" });
+            const exists = await User.findOne({email});
+            if (exists) return res.status(409).json({error: "Email already taken"});
             user.email = email;
         }
         if (name) user.name = name;
@@ -180,57 +178,54 @@ const updateUserProfile = async (req, res) => {
             message: "Profile updated successfully",
         });
     } catch (error) {
-        res.status(500).json({ error: "Profile update failed" });
+        res.status(500).json({error: "Profile update failed"});
     }
 };
 
-// Delete own profile
 const deleteUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
-        if (!user) return res.status(404).json({ error: "User not found" });
+        if (!user) return res.status(404).json({error: "User not found"});
 
-        await User.deleteOne({ _id: user._id });
-        res.json({ message: "User profile deleted successfully" });
+        await User.deleteOne({_id: user._id});
+        res.json({message: "User profile deleted successfully"});
     } catch (error) {
-        res.status(500).json({ error: "Delete profile failed" });
+        res.status(500).json({error: "Delete profile failed"});
     }
 };
 
-// Admin: update user role
 const updateUserRole = async (req, res) => {
     try {
-        if (req.user.role !== "admin") return res.status(403).json({ error: "Unauthorized" });
+        if (req.user.role !== "admin") return res.status(403).json({error: "Unauthorized"});
         const userId = req.params.userId;
-        const { role } = req.body;
+        const {role} = req.body;
 
         const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ error: "User not found" });
+        if (!user) return res.status(404).json({error: "User not found"});
 
         if (!["user", "merchant", "admin"].includes(role))
-            return res.status(400).json({ error: "Invalid role" });
+            return res.status(400).json({error: "Invalid role"});
 
         user.role = role;
         await user.save();
-        res.json({ user, message: "User role updated successfully" });
+        res.json({user, message: "User role updated successfully"});
     } catch (error) {
-        res.status(500).json({ error: "Role update failed" });
+        res.status(500).json({error: "Role update failed"});
     }
 };
 
-// Admin: delete any user
 const deleteUser = async (req, res) => {
     try {
-        if (req.user.role !== "admin") return res.status(403).json({ error: "Unauthorized" });
+        if (req.user.role !== "admin") return res.status(403).json({error: "Unauthorized"});
 
         const userId = req.params.userId;
         const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ error: "User not found" });
+        if (!user) return res.status(404).json({error: "User not found"});
 
-        await User.deleteOne({ _id: user._id });
-        res.json({ message: "User deleted successfully" });
+        await User.deleteOne({_id: user._id});
+        res.json({message: "User deleted successfully"});
     } catch (error) {
-        res.status(500).json({ error: "User delete failed" });
+        res.status(500).json({error: "User delete failed"});
     }
 };
 

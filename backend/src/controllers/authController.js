@@ -37,7 +37,6 @@ exports.register = async (req, res) => {
       onboarding_completed: false,
     });
 
-    // No auto-login here (as requested)
     return res.status(201).json({
       status: "created",
       user: {

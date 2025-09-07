@@ -3,9 +3,6 @@ const auth = require("../middlewares/authMiddleware");
 const User = require("../models/userModel");
 const http = require("../utils/httpClient");
 
-/**
- * Normalize one ML location item -> stored schema
- */
 function mapMlLocation(r) {
   return {
     location_id: r.location_id,
@@ -22,10 +19,6 @@ function mapMlLocation(r) {
   };
 }
 
-/**
- * From saved profile (no body from client). JWT required.
- * Also PERSISTS the generated recommendations on the user.
- */
 router.post("/recommendations/from-profile", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).lean();
@@ -45,7 +38,6 @@ router.post("/recommendations/from-profile", auth, async (req, res) => {
       });
     }
 
-    // accept top_n from body OR query (your UI posts body: { top_n })
     const top_n = Number(
       (req.body && req.body.top_n) || req.query.top_n || 10
     );
@@ -58,16 +50,13 @@ router.post("/recommendations/from-profile", auth, async (req, res) => {
       top_n,
     };
 
-    // Call ML (http client already points to RECOMMENDER_API_URL)
     const r = await http.post("/recommendations", input);
     const ml = r?.data || {};
     const weights = ml?.weights || null;
     const mlResults = Array.isArray(ml?.results) ? ml.results : [];
 
-    // normalize for storage
     const normalized = mlResults.map(mapMlLocation);
 
-    // persist on the user
     await User.findByIdAndUpdate(
       req.user.id,
       {
@@ -97,9 +86,6 @@ router.post("/recommendations/from-profile", auth, async (req, res) => {
   }
 });
 
-/**
- * OPTIONAL: what-if body (doesn't save to DB).
- */
 router.post("/recommendations", auth, async (req, res) => {
   try {
     const { age_group, gender, travel_companion, preferred_activities, top_n = 10 } = req.body || {};

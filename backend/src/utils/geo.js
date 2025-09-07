@@ -1,4 +1,3 @@
-// utils/geo.js
 function toRad(d) { return (d * Math.PI) / 180; }
 
 function haversineKm(a, b) {
