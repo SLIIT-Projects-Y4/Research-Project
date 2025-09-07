@@ -1,4 +1,3 @@
-// src/api/preferences.js
 import { api } from './client';
 
 export async function getMyPreferences() {

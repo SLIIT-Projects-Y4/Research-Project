@@ -1,8 +1,6 @@
-// src/api/client.js
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-// IMPORTANT: set VITE_API_BASE_URL in your frontend .env, e.g. http://localhost:3000
 const baseURL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/+$/, '');
 
 export const api = axios.create({
@@ -24,7 +22,6 @@ api.interceptors.response.use(
       err?.response?.data?.error ||
       err?.message ||
       'Something went wrong';
-    // Show both API-provided and our fallback text
     toast.error(`Request failed: ${msg}`);
 
     if (err?.response?.status === 401) {

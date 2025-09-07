@@ -1,4 +1,3 @@
-// src/api/planpool.js
 import { api } from './client';
 
 export async function getPlanPool() {
