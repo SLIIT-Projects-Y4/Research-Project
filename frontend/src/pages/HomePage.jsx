@@ -1,13 +1,9 @@
-// src/pages/HomePage.jsx
 import React, { useEffect, useMemo, useState } from 'react';
 import { fromProfile } from '../api/recommendations';
 import { toast } from 'react-toastify';
 import { useAuth } from '../store/auth.jsx';
 import { useNavigate } from 'react-router-dom';
 import { addToPlanPool } from '../api/planpool';
-
-// ⚠️ Keep the path you already use for your card component.
-// If your file lives elsewhere, just adjust this import.
 import LocationCard from '../components/features/location-card/LocationCard.jsx';
 import PlanPoolCard from "../components/features/plan-pool/PlanPoolCard.js";
 
@@ -18,7 +14,6 @@ export default function HomePage() {
   const [results, setResults] = useState([]);
   const [weights, setWeights] = useState(null);
 
-  // Cache key per user
   const cacheKey = useMemo(
     () => (user?.id ? `recs:${user.id}` : `recs:anon`),
     [user?.id]
@@ -68,14 +63,11 @@ export default function HomePage() {
     }
   };
 
-  // On first load: show cache if present; otherwise call API once.
   useEffect(() => {
     const hadCache = hydrateFromCache();
     if (!hadCache) fetchRecommendations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cacheKey]);
 
-  // Map ML result → plan pool payload
   const toPlanPoolItem = (loc) => ({
     location_id: loc.location_id,
     name: loc.Location_Name,
@@ -101,33 +93,26 @@ export default function HomePage() {
     }
   };
 
-  // Robust adapter → pass *all likely* prop names so your LocationCard picks what it uses
   const toCardProps = (loc) => ({
-    // names
     name: loc.Location_Name,
     locationName: loc.Location_Name,
 
-    // geography
     province: loc.province || '',
     locationProvince: loc.province || '',
     city: loc.located_city || '',
     locationCity: loc.located_city || '',
 
-    // rating
     rating: typeof loc.avg_rating === 'number' ? loc.avg_rating : undefined,
     averageRating: typeof loc.avg_rating === 'number' ? loc.avg_rating : undefined,
     noOfRatings: typeof loc.rating_count === 'number' ? loc.rating_count : undefined,
     ratingCount: typeof loc.rating_count === 'number' ? loc.rating_count : undefined,
 
-    // misc
     description: loc.description || '',
     activities: Array.isArray(loc.activities) ? loc.activities : [],
     score: typeof loc.Final_Score === 'number' ? loc.Final_Score : undefined,
 
-    // image (common for now)
     imageUrl: '/assets/beach.jpg',
 
-    // add-to-plan hook up (uses your card's onAddToPlanPoolButtonClick)
     onAddToPlanPoolButtonClick: () => handleAddToPlan(loc),
   });
 
@@ -146,7 +131,6 @@ export default function HomePage() {
           </div>
 
           <div className="flex gap-2">
-            {/* NEW: Go to Plan Pool */}
             <button
               onClick={() => navigate('/plan-pool')}
               className="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm"

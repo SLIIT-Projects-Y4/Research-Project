@@ -6,7 +6,7 @@ import { Footer } from './Footer';
 export const Layout = ({ children }) => {
   const location = useLocation();
 
-  const hideOnRoutes = ['/login', '/register', '/test'];
+  const hideOnRoutes = ['/login', '/register'];
 
   const shouldHideLayout = hideOnRoutes.includes(location.pathname);
 

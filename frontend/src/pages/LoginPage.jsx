@@ -1,4 +1,3 @@
-// src/pages/LoginPage.jsx
 import React, { useState } from 'react';
 import { login as apiLogin } from '../api/auth';
 import { useAuth } from '../store/auth.jsx';

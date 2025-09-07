@@ -1,4 +1,3 @@
-// src/store/auth.jsx
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const AuthContext = createContext(null);
