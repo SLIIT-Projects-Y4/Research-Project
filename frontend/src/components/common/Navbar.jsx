@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@mantine/core';
-import { User, LogOut, PlaneTakeoff, Menu as MenuIcon } from 'lucide-react';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@mantine/core";
+import { User, LogOut, PlaneTakeoff, Menu as MenuIcon } from "lucide-react";
+import { toast } from "react-toastify";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,8 +11,8 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const checkUser = () => {
-    const storedUser = localStorage.getItem('user');
-    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
     if (storedUser && storedToken) {
       try {
@@ -37,12 +37,12 @@ export const Navbar = () => {
       checkUser();
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('userStateChange', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("userStateChange", handleStorageChange);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('userStateChange', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("userStateChange", handleStorageChange);
     };
   }, []);
 
@@ -51,13 +51,13 @@ export const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUser(null);
     toast.success("You have been logged out successfully!");
 
@@ -65,25 +65,44 @@ export const Navbar = () => {
     window.dispatchEvent(new Event("userStateChange"));
     window.dispatchEvent(new Event("storage"));
 
-    navigate('/');
+    navigate("/");
   };
 
-  const navLinks = ["Destinations", "Hotels", "Flights", "Bookings"];
+  const navLinks = [
+    { label: "Dashboard", path: "/destinations" },
+    { label: "Itinerary Planner", path: "/hotels" },
+    { label: "Budget Planner", path: "/flights" },
+    { label: "Explore Groups", path: "/explore-groups" },
+  ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isOpen ? 'bg-white/95 shadow-lg backdrop-blur-sm' : 'bg-transparent'}`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled || isOpen
+          ? "bg-white/95 shadow-lg backdrop-blur-sm"
+          : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex justify-between items-center py-4">
-          <Link to="/" className="flex items-center space-x-3" aria-label="Jadoo homepage">
-            <span className="text-3xl font-bold text-gray-800">Chaloo</span>
+          <Link
+            to="/"
+            className="flex items-center space-x-3"
+            aria-label="Jadoo homepage"
+          >
+            <span className="text-3xl font-bold text-gray-800">Travel Machan</span>
             <PlaneTakeoff className="text-yellow-700" />
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navLinks.map(link => (
-              <Link key={link} to={`/${link.toLowerCase()}`} className="text-gray-600 hover:text-red-500 transition-colors">
-                {link}
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="text-gray-600 hover:text-red-500 transition-colors"
+              >
+                {link.label}
               </Link>
             ))}
 
@@ -102,7 +121,10 @@ export const Navbar = () => {
               </div>
             ) : (
               <>
-                <Link to="/login" className="py-[4px] px-3.5 border rounded-[5px] text-gray-600 hover:text-red-500 transition-colors font-medium">
+                <Link
+                  to="/login"
+                  className="py-[4px] px-3.5 border rounded-[5px] text-gray-600 hover:text-red-500 transition-colors font-medium"
+                >
                   Login
                 </Link>
                 <Link to="/register">
@@ -116,7 +138,11 @@ export const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu" className="text-gray-800">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+              className="text-gray-800"
+            >
               <MenuIcon size={24} />
             </button>
           </div>
@@ -124,16 +150,20 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-96" : "max-h-0"
+        }`}
+      >
         <nav className="flex flex-col items-center space-y-4 py-6 border-t border-gray-200 bg-white/95">
-          {navLinks.map(link => (
+          {navLinks.map((link) => (
             <Link
-              key={link}
-              to={`/${link.toLowerCase()}`}
+              key={link.path}
+              to={link.path}
               className="text-gray-600 hover:text-red-500 transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              {link}
+              {link.label}
             </Link>
           ))}
           {user ? (
@@ -164,9 +194,16 @@ export const Navbar = () => {
               >
                 Login
               </Link>
-              <Link to="/register" className="w-3/4" onClick={() => setIsOpen(false)}>
-                <Button fullWidth className="bg-gray-800 hover:bg-gray-900 text-white">
-                    Sign up
+              <Link
+                to="/register"
+                className="w-3/4"
+                onClick={() => setIsOpen(false)}
+              >
+                <Button
+                  fullWidth
+                  className="bg-gray-800 hover:bg-gray-900 text-white"
+                >
+                  Sign up
                 </Button>
               </Link>
             </>
