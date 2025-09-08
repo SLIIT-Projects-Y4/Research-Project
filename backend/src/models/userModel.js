@@ -1,7 +1,19 @@
 const mongoose = require("mongoose");
 
+const counterSchema = new mongoose.Schema({
+    name: { type: String, required: true, unique: true },
+    seq: { type: Number, default: 0 }
+});
+
+const Counter = mongoose.model("Counter", counterSchema);
+
 const userSchema = new mongoose.Schema(
     {
+        
+        userID: {                      
+            type: String,
+            unique: true
+        },
         name: {
             type: String,
             required: true,
@@ -55,6 +67,23 @@ const userSchema = new mongoose.Schema(
     },
     {timestamps: true}
 );
+
+userSchema.pre("save", async function (next) {
+    if (!this.isNew || this.userID) return next();
+
+    try {
+        const counter = await Counter.findOneAndUpdate(
+            { name: "user" },
+            { $inc: { seq: 1 } },
+            { new: true, upsert: true }
+        );
+
+        this.userID = `U${String(counter.seq).padStart(4, "0")}`; // e.g. U0001
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
