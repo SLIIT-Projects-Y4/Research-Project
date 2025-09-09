@@ -5,7 +5,8 @@ import { useAuth } from '../store/auth.jsx';
 import { useNavigate } from 'react-router-dom';
 import { addToPlanPool } from '../api/planpool';
 import LocationCard from '../components/features/location-card/LocationCard.jsx';
-import PlanPoolCard from "../components/features/plan-pool/PlanPoolCard.js";
+import PlanPoolCard from "../components/features/plan-pool/PlanPoolCard.jsx";
+import Hero from "@/components/common/Hero.jsx";
 
 export default function HomePage() {
   const { user } = useAuth();
@@ -40,8 +41,8 @@ export default function HomePage() {
         cacheKey,
         JSON.stringify({ ...payload, ts: Date.now() })
       );
-    } catch {
-      /* ignore quota issues */
+    } catch(e) {
+        console.log("Failed to save recommendations to cache", e);
     }
   };
 
@@ -117,6 +118,8 @@ export default function HomePage() {
   });
 
   return (
+    <>
+    <Hero />
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="mx-auto">
         <PlanPoolCard name={'Colombo Temple'} city={'Colombo'} province={'Western Province'} onRemoveLocationIconClick={() => {}} />
@@ -176,5 +179,7 @@ export default function HomePage() {
         )}
       </div>
     </div>
+    </>
+
   );
 }
