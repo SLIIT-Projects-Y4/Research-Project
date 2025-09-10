@@ -9,13 +9,16 @@ import MultiSelectPills from '../../components/forms/MultiSelectPills';
 const AGE_GROUPS = ['18-25', '26-35', '36-50', '51+'];
 const GENDERS = ['Female', 'Male', 'Other'];
 const TRAVEL_COMPANIONS = ['Couple', 'Family', 'Friends', 'Solo'];
+const TRAVEL_STYLES = ['Backpacker', 'Luxury', 'Balanced', 'Adventurous', 'Relaxed'];
+const BUDGETS = ['Low', 'Medium', 'High'];
+
 const ACTIVITIES = [
-  'Agricultural Workshops','Animal Watching','Architectural Marvel','Beach Hopping','Bird Watching',
-  'Boat Tours','Boating','Cultural Activities','Cultural Exploration','Cultural Tours','Educational Tours',
-  'Exploring Exhibits','Factory Tours','Guided Tours','Hiking','Historical Exploration','Jet Skiing','Kayaking',
-  'Kit Surfing','Kite Surfing','Learning History','Meditation','Nature Photography','Nature Walks','Photography',
-  'Rafting','Relaxation','Sightseeing','Snorkeling','Sunbathing','Surfing','Swimming','Trekking',
-  'Walking Trails','Wildlife Safaris','Wildlife Spotting','Worship','Yoga'
+  'Agricultural Workshops', 'Animal Watching', 'Architectural Marvel', 'Beach Hopping', 'Bird Watching',
+  'Boat Tours', 'Boating', 'Cultural Activities', 'Cultural Exploration', 'Cultural Tours', 'Educational Tours',
+  'Exploring Exhibits', 'Factory Tours', 'Guided Tours', 'Hiking', 'Historical Exploration', 'Jet Skiing', 'Kayaking',
+  'Kit Surfing', 'Kite Surfing', 'Learning History', 'Meditation', 'Nature Photography', 'Nature Walks', 'Photography',
+  'Rafting', 'Relaxation', 'Sightseeing', 'Snorkeling', 'Sunbathing', 'Surfing', 'Swimming', 'Trekking',
+  'Walking Trails', 'Wildlife Safaris', 'Wildlife Spotting', 'Worship', 'Yoga'
 ];
 
 const STEPS = ['Demographics', 'Companion', 'Activities', 'Style & Budget'];
@@ -24,6 +27,7 @@ export default function PreferencesWizard() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [showAllActivities, setShowAllActivities] = useState(false);
 
   const [form, setForm] = useState({
     age_group: '',
@@ -39,8 +43,21 @@ export default function PreferencesWizard() {
     (async () => {
       try {
         const res = await getMyPreferences();
-        if (res?.data) setForm((prev) => ({ ...prev, ...res.data }));
-      } catch { /* ignore */ }
+        if (res?.data) {
+          // Ensure null values become empty strings
+          setForm({
+            age_group: res.data.age_group || '',
+            gender: res.data.gender || '',
+            country: res.data.country || '',
+            travel_companion: res.data.travel_companion || '',
+            preferred_activities: res.data.preferred_activities || [],
+            travel_style: res.data.travel_style || '',
+            budget: res.data.budget || '',
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, []);
 
@@ -53,7 +70,10 @@ export default function PreferencesWizard() {
   }, [step, form]);
 
   const saveAndNext = async () => {
-    if (!canNext) { toast.error('Please complete this step before continuing'); return; }
+    if (!canNext) { 
+      toast.error('Please complete this step before continuing'); 
+      return; 
+    }
     try {
       setLoading(true);
       const res = await updateMyPreferences({ ...form });
@@ -72,118 +92,171 @@ export default function PreferencesWizard() {
 
   const back = () => setStep((s) => Math.max(0, s - 1));
 
+  const dropdownStyle = "w-full border rounded-lg px-3 py-2 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 transition text-gray-800";
+
+  // Limit activities display
+  const displayedActivities = showAllActivities ? ACTIVITIES : ACTIVITIES.slice(0, 9);
+
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="mx-auto max-w-3xl">
+    <div
+      className="min-h-screen bg-cover bg-center p-4 md:p-8 flex items-center justify-center"
+      style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?travel,adventure,landscape')" }}
+    >
+      <div className="w-full max-w-3xl">
+        {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-semibold">Tell us your travel preferences</h1>
-          <div className="text-sm text-gray-600">Step {step + 1} / {STEPS.length}</div>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 drop-shadow-sm">
+            Tell us your travel preferences
+          </h1>
+          <div className="text-sm text-gray-800 drop-shadow-sm">{step + 1} / {STEPS.length}</div>
         </div>
 
+        {/* Steps Progress */}
         <div className="flex gap-2 mb-6">
           {STEPS.map((label, i) => (
             <div
               key={label}
-              className={`px-3 py-2 rounded-full text-sm border ${i === step ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300'}`}
+              className={`flex-1 text-center px-3 py-2 rounded-full text-sm font-semibold transition-colors duration-300
+                ${i === step ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white shadow-lg' : 'bg-white/90 text-gray-800 border border-gray-300'}`}
             >
               {i + 1}. {label}
             </div>
           ))}
         </div>
 
-        <Paper shadow="sm" p="lg" className="space-y-6">
-          {step === 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm mb-1">Age Group</label>
-                <select
-                  className="w-full border rounded px-3 py-2"
-                  value={form.age_group}
-                  onChange={(e) => setForm((f) => ({ ...f, age_group: e.target.value }))}
-                >
-                  <option value="">Select</option>
-                  {AGE_GROUPS.map((g) => <option key={g} value={g}>{g}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm mb-1">Gender</label>
-                <select
-                  className="w-full border rounded px-3 py-2"
-                  value={form.gender}
-                  onChange={(e) => setForm((f) => ({ ...f, gender: e.target.value }))}
-                >
-                  <option value="">Select</option>
-                  {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm mb-1">Country</label>
-                <input
-                  className="w-full border rounded px-3 py-2"
-                  placeholder="e.g., Sri Lanka"
-                  value={form.country}
-                  onChange={(e) => setForm((f) => ({ ...f, country: e.target.value }))}
-                />
-              </div>
-            </div>
-          )}
+        {/* Form Card with Gradient Border */}
+        <div className="rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-400 to-green-500 shadow-lg">
+          <Paper shadow="xl" radius="2xl" p="lg" className="bg-white/95 backdrop-blur-md space-y-6">
 
-          {step === 1 && (
-            <div>
-              <label className="block text-sm mb-1">Travel Companion</label>
-              <select
-                className="w-full border rounded px-3 py-2 max-w-md"
-                value={form.travel_companion}
-                onChange={(e) => setForm((f) => ({ ...f, travel_companion: e.target.value }))}
+            {/* Step 0: Demographics */}
+            {step === 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm mb-1 font-semibold text-gray-800">Age Group</label>
+                  <select
+                    className={dropdownStyle}
+                    value={form.age_group}
+                    onChange={(e) => setForm((f) => ({ ...f, age_group: e.target.value }))}
+                  >
+                    <option value="">Select</option>
+                    {AGE_GROUPS.map((g) => <option key={g} value={g}>{g}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm mb-1 font-semibold text-gray-800">Gender</label>
+                  <select
+                    className={dropdownStyle}
+                    value={form.gender}
+                    onChange={(e) => setForm((f) => ({ ...f, gender: e.target.value }))}
+                  >
+                    <option value="">Select</option>
+                    {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm mb-1 font-semibold text-gray-800">Country</label>
+                  <input
+                    className={dropdownStyle}
+                    placeholder="e.g., Sri Lanka"
+                    value={form.country}
+                    onChange={(e) => setForm((f) => ({ ...f, country: e.target.value }))}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Step 1: Travel Companion */}
+            {step === 1 && (
+              <div>
+                <label className="block text-sm mb-1 font-semibold text-gray-800">Travel Companion</label>
+                <select
+                  className={dropdownStyle + " max-w-md"}
+                  value={form.travel_companion}
+                  onChange={(e) => setForm((f) => ({ ...f, travel_companion: e.target.value }))}
+                >
+                  <option value="">Select</option>
+                  {TRAVEL_COMPANIONS.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+            )}
+
+            {/* Step 2: Activities */}
+            {step === 2 && (
+              <div>
+                <label className="block text-sm mb-2 font-semibold text-gray-800">
+                  Preferred Activities (pick at least 2)
+                </label>
+                <MultiSelectPills
+                  options={displayedActivities}
+                  value={form.preferred_activities}
+                  onChange={(val) => setForm((f) => ({ ...f, preferred_activities: val }))}
+                />
+                {ACTIVITIES.length > 9 && (
+                  <div className="flex justify-center mt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowAllActivities(!showAllActivities)}
+                      className="text-blue-600 font-semibold hover:underline text-center"
+                    >
+                      {showAllActivities ? 'See Less ▲' : 'See More ▼'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 3: Style & Budget */}
+            {step === 3 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm mb-1 font-semibold text-gray-800">Travel Style</label>
+                  <select
+                    className={dropdownStyle}
+                    value={form.travel_style}
+                    onChange={(e) => setForm((f) => ({ ...f, travel_style: e.target.value }))}
+                  >
+                    <option value="">Select</option>
+                    {TRAVEL_STYLES.map((s) => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm mb-1 font-semibold text-gray-800">Budget</label>
+                  <select
+                    className={dropdownStyle}
+                    value={form.budget}
+                    onChange={(e) => setForm((f) => ({ ...f, budget: e.target.value }))}
+                  >
+                    <option value="">Select</option>
+                    {BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
+                  </select>
+                </div>
+              </div>
+            )}
+
+            {/* Navigation Buttons */}
+            <div className="flex items-center justify-between pt-2">
+              <Button
+                variant="default"
+                onClick={back}
+                disabled={step === 0 || loading}
+                className="rounded-lg shadow-sm hover:bg-gray-100 text-gray-800 transition"
               >
-                <option value="">Select</option>
-                {TRAVEL_COMPANIONS.map((c) => <option key={c} value={c}>{c}</option>)}
-              </select>
+                Back
+              </Button>
+              <Button
+                onClick={saveAndNext}
+                loading={loading}
+                className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-lg shadow-lg transition"
+              >
+                {step === STEPS.length - 1 ? 'Finish' : 'Save & Continue'}
+              </Button>
             </div>
-          )}
-
-          {step === 2 && (
-            <div>
-              <label className="block text-sm mb-2">Preferred Activities (pick at least 2)</label>
-              <MultiSelectPills
-                options={ACTIVITIES}
-                value={form.preferred_activities}
-                onChange={(val) => setForm((f) => ({ ...f, preferred_activities: val }))}
-              />
-            </div>
-          )}
-
-          {step === 3 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm mb-1">Travel Style</label>
-                <input
-                  className="w-full border rounded px-3 py-2"
-                  placeholder="e.g., Backpacking"
-                  value={form.travel_style}
-                  onChange={(e) => setForm((f) => ({ ...f, travel_style: e.target.value }))}
-                />
-              </div>
-              <div>
-                <label className="block text-sm mb-1">Budget</label>
-                <input
-                  className="w-full border rounded px-3 py-2"
-                  placeholder="e.g., Low / Medium / High"
-                  value={form.budget}
-                  onChange={(e) => setForm((f) => ({ ...f, budget: e.target.value }))}
-                />
-              </div>
-            </div>
-          )}
-
-          <div className="flex items-center justify-between pt-2">
-            <Button variant="default" onClick={back} disabled={step === 0 || loading}>Back</Button>
-            <Button onClick={saveAndNext} loading={loading}>
-              {step === STEPS.length - 1 ? 'Finish' : 'Save & Continue'}
-            </Button>
-          </div>
-        </Paper>
+          </Paper>
+        </div>
       </div>
     </div>
   );
 }
+
+
+
