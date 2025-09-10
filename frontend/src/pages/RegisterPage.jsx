@@ -24,16 +24,16 @@ export default function RegisterPage() {
       return;
     }
 
-    try {
-      setLoading(true);
-      const res = await apiRegister(form);
-      toast.success(res?.message || 'Registration successful. Please log in.');
-      navigate('/login');
-    } catch {
-      toast.error('Registration failed. Please check your details and try again.');
-    } finally {
-      setLoading(false);
-    }
+try {
+  setLoading(true);
+  const res = await apiRegister(form);
+  toast.success(res?.message || 'Registration successful. Please log in.');
+  navigate('/login');
+} catch {
+  toast.error('Registration failed. Please check your details and try again.');
+} finally {
+  setLoading(false);
+}
   };
 
   return (
