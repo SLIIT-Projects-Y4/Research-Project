@@ -12,7 +12,6 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-
   const onBlur = (field) => () => setTouched({ ...touched, [field]: true });
 
   const onSubmit = async (e) => {
@@ -24,74 +23,79 @@ export default function RegisterPage() {
       return;
     }
 
-try {
-  setLoading(true);
-  const res = await apiRegister(form);
-  toast.success(res?.message || 'Registration successful. Please log in.');
-  navigate('/login');
-} catch {
-  toast.error('Registration failed. Please check your details and try again.');
-} finally {
-  setLoading(false);
-}
+    try {
+      setLoading(true);
+      const res = await apiRegister(form);
+      toast.success(res?.message || 'Registration successful. Please log in.');
+      navigate('/login');
+    } catch {
+      toast.error('Registration failed. Please check your details and try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div
       className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
-      style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?travel,city,airplane')" }}
+      style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?travel,adventure,sky')" }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
       {/* Registration Card */}
-      <div className="relative z-10 w-full max-w-md p-6">
-        <Paper shadow="xl" radius="xl" p="xl" className="bg-white/80 backdrop-blur-md">
-          <h1 className="text-3xl font-bold text-center mb-2">Create Your Account</h1>
-          <p className="text-center text-gray-600 mb-6">
-            Start your journey with us today
+      <div className="relative z-10 w-full max-w-md p-6 animate-fadeIn">
+        <Paper shadow="2xl" radius="xl" p="xl" className="bg-white/90 backdrop-blur-lg border border-gray-200">
+          <h1 className="text-4xl font-extrabold text-center mb-2 text-gray-900 tracking-wide">
+            Join the Journey
+          </h1>
+          <p className="text-center text-gray-600 mb-8">
+            Create your account and start exploring new horizons
           </p>
 
-          <form onSubmit={onSubmit} className="space-y-5">
+          <form onSubmit={onSubmit} className="space-y-6">
             <TextInput
-              label="Name"
+              label="Full Name"
               name="name"
-              placeholder="Your full name"
+              placeholder="Enter your full name"
               value={form.name}
               onChange={onChange}
               onBlur={onBlur('name')}
               error={touched.name && !form.name ? 'Name is required' : null}
               classNames={{
-                input: "rounded-lg shadow-sm border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition",
-                label: "font-medium text-gray-700",
+                input:
+                  "rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 transition",
+                label: "font-semibold text-gray-700",
               }}
             />
 
             <TextInput
-              label="Email"
+              label="Email Address"
               name="email"
-              placeholder="you@example.com"
+              placeholder="traveler@example.com"
               value={form.email}
               onChange={onChange}
               onBlur={onBlur('email')}
               error={touched.email && !form.email ? 'Email is required' : null}
               classNames={{
-                input: "rounded-lg shadow-sm border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition",
-                label: "font-medium text-gray-700",
+                input:
+                  "rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 transition",
+                label: "font-semibold text-gray-700",
               }}
             />
 
             <PasswordInput
               label="Password"
               name="password"
-              placeholder="••••••••"
+              placeholder="Choose a strong password"
               value={form.password}
               onChange={onChange}
               onBlur={onBlur('password')}
               error={touched.password && !form.password ? 'Password is required' : null}
               classNames={{
-                input: "rounded-lg shadow-sm border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition",
-                label: "font-medium text-gray-700",
+                input:
+                  "rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 transition",
+                label: "font-semibold text-gray-700",
               }}
             />
 
@@ -100,16 +104,16 @@ try {
               loading={loading}
               fullWidth
               size="md"
-              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg transition rounded-lg"
+              className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg transition rounded-lg font-semibold tracking-wide"
             >
-              Register
+              {loading ? 'Preparing your journey...' : 'Start Exploring'}
             </Button>
           </form>
 
-          <p className="mt-4 text-center text-sm text-gray-700">
-            Already have an account?{' '}
-            <Link to="/login" className="text-blue-600 hover:underline font-medium">
-              Log in
+          <p className="mt-6 text-center text-sm text-gray-700">
+            Already a traveler?{' '}
+            <Link to="/login" className="text-indigo-600 hover:underline font-medium">
+              Log in and continue
             </Link>
           </p>
         </Paper>

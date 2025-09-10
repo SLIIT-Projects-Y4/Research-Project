@@ -44,7 +44,6 @@ export default function PreferencesWizard() {
       try {
         const res = await getMyPreferences();
         if (res?.data) {
-          // Ensure null values become empty strings
           setForm({
             age_group: res.data.age_group || '',
             gender: res.data.gender || '',
@@ -56,7 +55,7 @@ export default function PreferencesWizard() {
           });
         }
       } catch (error) {
-        console.error(error);
+        console.error('Error loading preferences:', error);
       }
     })();
   }, []);
@@ -70,20 +69,23 @@ export default function PreferencesWizard() {
   }, [step, form]);
 
   const saveAndNext = async () => {
-    if (!canNext) { 
-      toast.error('Please complete this step before continuing'); 
-      return; 
+    if (!canNext) {
+      toast.error('Please complete this step before continuing');
+      return;
     }
     try {
       setLoading(true);
       const res = await updateMyPreferences({ ...form });
       if (res?.status === 'ok') toast.success('Preferences saved');
-      if (step < STEPS.length - 1) setStep(step + 1);
-      else {
+
+      if (step < STEPS.length - 1) {
+        setStep(step + 1);
+      } else {
         toast.success('All set! Generating recommendations…');
         navigate('/home');
       }
-    } catch {
+    } catch (err) {
+      console.error('Error updating preferences:', err);
       toast.error('Could not save preferences. Please try again.');
     } finally {
       setLoading(false);
@@ -92,9 +94,9 @@ export default function PreferencesWizard() {
 
   const back = () => setStep((s) => Math.max(0, s - 1));
 
-  const dropdownStyle = "w-full border rounded-lg px-3 py-2 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 transition text-gray-800";
+  const dropdownStyle =
+    'w-full border rounded-lg px-3 py-2 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 transition text-gray-800';
 
-  // Limit activities display
   const displayedActivities = showAllActivities ? ACTIVITIES : ACTIVITIES.slice(0, 9);
 
   return (
@@ -108,7 +110,9 @@ export default function PreferencesWizard() {
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 drop-shadow-sm">
             Tell us your travel preferences
           </h1>
-          <div className="text-sm text-gray-800 drop-shadow-sm">{step + 1} / {STEPS.length}</div>
+          <div className="text-sm text-gray-800 drop-shadow-sm">
+            {step + 1} / {STEPS.length}
+          </div>
         </div>
 
         {/* Steps Progress */}
@@ -117,17 +121,20 @@ export default function PreferencesWizard() {
             <div
               key={label}
               className={`flex-1 text-center px-3 py-2 rounded-full text-sm font-semibold transition-colors duration-300
-                ${i === step ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white shadow-lg' : 'bg-white/90 text-gray-800 border border-gray-300'}`}
+                ${
+                  i === step
+                    ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white shadow-lg'
+                    : 'bg-white/90 text-gray-800 border border-gray-300'
+                }`}
             >
               {i + 1}. {label}
             </div>
           ))}
         </div>
 
-        {/* Form Card with Gradient Border */}
+        {/* Form Card */}
         <div className="rounded-2xl p-[2px] bg-gradient-to-r from-green-400 via-emerald-400 to-green-500 shadow-lg">
           <Paper shadow="xl" radius="2xl" p="lg" className="bg-white/95 backdrop-blur-md space-y-6">
-
             {/* Step 0: Demographics */}
             {step === 0 && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -139,7 +146,11 @@ export default function PreferencesWizard() {
                     onChange={(e) => setForm((f) => ({ ...f, age_group: e.target.value }))}
                   >
                     <option value="">Select</option>
-                    {AGE_GROUPS.map((g) => <option key={g} value={g}>{g}</option>)}
+                    {AGE_GROUPS.map((g) => (
+                      <option key={g} value={g}>
+                        {g}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -150,7 +161,11 @@ export default function PreferencesWizard() {
                     onChange={(e) => setForm((f) => ({ ...f, gender: e.target.value }))}
                   >
                     <option value="">Select</option>
-                    {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
+                    {GENDERS.map((g) => (
+                      <option key={g} value={g}>
+                        {g}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -170,12 +185,16 @@ export default function PreferencesWizard() {
               <div>
                 <label className="block text-sm mb-1 font-semibold text-gray-800">Travel Companion</label>
                 <select
-                  className={dropdownStyle + " max-w-md"}
+                  className={dropdownStyle + ' max-w-md'}
                   value={form.travel_companion}
                   onChange={(e) => setForm((f) => ({ ...f, travel_companion: e.target.value }))}
                 >
                   <option value="">Select</option>
-                  {TRAVEL_COMPANIONS.map((c) => <option key={c} value={c}>{c}</option>)}
+                  {TRAVEL_COMPANIONS.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
                 </select>
               </div>
             )}
@@ -216,7 +235,11 @@ export default function PreferencesWizard() {
                     onChange={(e) => setForm((f) => ({ ...f, travel_style: e.target.value }))}
                   >
                     <option value="">Select</option>
-                    {TRAVEL_STYLES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    {TRAVEL_STYLES.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -227,7 +250,11 @@ export default function PreferencesWizard() {
                     onChange={(e) => setForm((f) => ({ ...f, budget: e.target.value }))}
                   >
                     <option value="">Select</option>
-                    {BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
+                    {BUDGETS.map((b) => (
+                      <option key={b} value={b}>
+                        {b}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -257,6 +284,3 @@ export default function PreferencesWizard() {
     </div>
   );
 }
-
-
-

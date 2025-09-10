@@ -14,7 +14,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-
   const onBlur = (field) => () => setTouched({ ...touched, [field]: true });
 
   const onSubmit = async (e) => {
@@ -30,7 +29,7 @@ export default function LoginPage() {
       setLoading(true);
       const res = await apiLogin(form);
       login(res.token, res.user);
-      toast.success('Login successful');
+      toast.success('Welcome aboard, traveler!');
       if (res.user?.onboarding_needed) navigate('/onboarding');
       else navigate('/home');
     } catch {
@@ -43,43 +42,54 @@ export default function LoginPage() {
   return (
     <div
       className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
-      style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?travel,airplane')" }}
+      style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?travel,journey,explore')" }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
       {/* Login Card */}
-      <div className="relative z-10 w-full max-w-md p-6">
-        <Paper shadow="xl" radius="xl" p="xl" className="bg-white/80 backdrop-blur-md">
-          <h1 className="text-3xl font-bold text-center mb-2">Log in</h1>
-          <p className="text-center text-gray-600 mb-6">Welcome back! Enter your credentials to continue</p>
+      <div className="relative z-10 w-full max-w-md p-6 animate-fadeIn">
+        <Paper
+          shadow="2xl"
+          radius="xl"
+          p="xl"
+          className="bg-white/90 backdrop-blur-lg border border-gray-200"
+        >
+          <h1 className="text-4xl font-extrabold text-center mb-2 text-gray-900 tracking-wide">
+            Welcome Back
+          </h1>
+          <p className="text-center text-gray-600 mb-8">
+            Log in to continue your adventure across the world
+          </p>
 
-          <form onSubmit={onSubmit} className="space-y-5">
+          <form onSubmit={onSubmit} className="space-y-6">
             <TextInput
-              label="Email"
+              label="Email Address"
               name="email"
-              placeholder="you@example.com"
+              placeholder="traveler@example.com"
               value={form.email}
               onChange={onChange}
               onBlur={onBlur('email')}
               error={touched.email && !form.email ? 'Email is required' : null}
               classNames={{
-                input: "rounded-lg shadow-sm border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition",
-                label: "font-medium text-gray-700",
+                input:
+                  'rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 transition',
+                label: 'font-semibold text-gray-700',
               }}
             />
 
             <PasswordInput
               label="Password"
               name="password"
-              placeholder="••••••••"
+              placeholder="Your secret passport key"
               value={form.password}
               onChange={onChange}
               onBlur={onBlur('password')}
               error={touched.password && !form.password ? 'Password is required' : null}
               classNames={{
-                input: "rounded-lg shadow-sm border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition",
-                label: "font-medium text-gray-700",
+                input:
+                  'rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 transition',
+                label: 'font-semibold text-gray-700',
               }}
             />
 
@@ -88,15 +98,15 @@ export default function LoginPage() {
               loading={loading}
               fullWidth
               size="md"
-              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg transition rounded-lg"
+              className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg transition rounded-lg font-semibold tracking-wide"
             >
-              Log in
+              {loading ? 'Checking your boarding pass...' : 'Log In & Explore'}
             </Button>
           </form>
 
-          <p className="mt-4 text-center text-sm text-gray-700">
-            New here?{' '}
-            <Link to="/register" className="text-blue-600 hover:underline font-medium">
+          <p className="mt-6 text-center text-sm text-gray-700">
+            New to the journey?{' '}
+            <Link to="/register" className="text-indigo-600 hover:underline font-medium">
               Create an account
             </Link>
           </p>
@@ -105,3 +115,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
