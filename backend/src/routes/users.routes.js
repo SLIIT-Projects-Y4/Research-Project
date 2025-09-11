@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const auth = require("../middlewares/auth");
+const auth = require("../middlewares/authMiddleware");
 const User = require("../models/User");
 
 // ---------------- existing endpoints ----------------

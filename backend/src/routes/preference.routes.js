@@ -1,8 +1,9 @@
-const router = require("express").Router();
-const auth = require("../middlewares/auth");
-const { getMyPreferences, updatePreferences } = require("../controllers/preference.controller");
+// src/routes/preferences.routes.js
+const router = require('express').Router();
+const auth = require('../middlewares/authMiddleware');
+const ctrl = require('../controllers/preferences.controller');
 
-router.get("/", auth, getMyPreferences);
-router.put("/", auth, updatePreferences);
+router.get('/', auth, ctrl.getMine);
+router.put('/', auth, ctrl.updateMine);
 
 module.exports = router;
