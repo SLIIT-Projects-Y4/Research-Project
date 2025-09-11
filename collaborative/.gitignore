@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# IDE and editor settings
+.vscode/
+.idea/
+info.txt
+
+# Logs and debug
+*.log
+
+# Jupyter Notebook checkpoints (if any)
+.ipynb_checkpoints/
+
+# PyInstaller
+*.spec
+
+# MyPy cache
+.mypy_cache/
