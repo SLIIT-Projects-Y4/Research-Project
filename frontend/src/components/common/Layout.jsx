@@ -11,7 +11,7 @@ export const Layout = ({children}) => {
     const shouldHideLayout = hideOnRoutes.includes(location.pathname);
 
     return (
-      <div className="font-sans bg-gray-50 min-h-screen flex flex-col">
+      <div className=" min-h-screen flex flex-col">
           {!shouldHideLayout && <Navbar/>}
           <main className="flex-grow">{children}</main>
           {!shouldHideLayout && <Footer/>}

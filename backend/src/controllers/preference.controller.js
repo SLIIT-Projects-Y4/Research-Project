@@ -1,4 +1,4 @@
-const User = require("../models/userModel");
+const User = require("../models/User");
 
 exports.getMyPreferences = async (req, res) => {
     const userId = req.user && req.user.id;

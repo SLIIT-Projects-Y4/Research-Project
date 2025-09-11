@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const auth = require("../middlewares/authMiddleware");
-const User = require("../models/userModel");
+const auth = require("../middlewares/auth");
+const User = require("../models/User");
 const http = require("../utils/httpClient");
 
 function mapMlLocation(r) {
@@ -19,7 +19,7 @@ function mapMlLocation(r) {
   };
 }
 
-router.post("/recommendations/from-profile", auth, async (req, res) => {
+router.post("/from-profile", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).lean();
     if (!user) return res.status(404).json({ error: "User not found" });
@@ -50,7 +50,7 @@ router.post("/recommendations/from-profile", auth, async (req, res) => {
       top_n,
     };
 
-    const r = await http.post("/recommendations", input);
+    const r = await http.post("/", input);
     const ml = r?.data || {};
     const weights = ml?.weights || null;
     const mlResults = Array.isArray(ml?.results) ? ml.results : [];
@@ -86,7 +86,7 @@ router.post("/recommendations/from-profile", auth, async (req, res) => {
   }
 });
 
-router.post("/recommendations", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const { age_group, gender, travel_companion, preferred_activities, top_n = 10 } = req.body || {};
     if (
@@ -107,12 +107,14 @@ router.post("/recommendations", auth, async (req, res) => {
       preferred_activities: preferred_activities.map((s) => String(s).trim()),
       top_n: Number(top_n),
     };
-    const r = await http.post("/recommendations", payload);
+    const r = await http.post("/", payload);
     return res.status(r.status).json(r.data);
   } catch (err) {
     console.error("what-if error:", err?.response?.data || err.message);
     return res.status(502).json({ error: "Recommendation service unavailable" });
   }
 });
+
+router.get('/healthz', (_req,res)=>res.json({status:'ok'}));
 
 module.exports = router;

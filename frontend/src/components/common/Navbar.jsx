@@ -95,7 +95,7 @@ export const Navbar = () => {
           ? 'bg-white backdrop-blur-xl shadow-2xl shadow-black/5'
           : isHomePage
             ? 'bg-transparent'
-            : 'bg-desert-lilly/40'
+            : 'bg-desert-lilly/30'
       }`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
               <div className="flex justify-between items-center py-4 lg:py-5">

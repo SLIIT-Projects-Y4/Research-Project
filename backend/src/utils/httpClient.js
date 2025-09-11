@@ -1,15 +1,13 @@
-const axios = require("axios");
-
-const BASE = process.env.RECOMMENDER_API_URL || "http://localhost:8000";
-const INTERNAL_TOKEN = process.env.RECOMMENDER_INTERNAL_TOKEN || null;
+const axios = require('axios');
 
 const client = axios.create({
-  baseURL: BASE,
-  timeout: 120000,
+  baseURL: process.env.RECOMMENDER_API_URL || 'http://localhost:8000',
+  timeout: 30000
 });
 
 client.interceptors.request.use((config) => {
-  if (INTERNAL_TOKEN) config.headers["X-Internal-Token"] = INTERNAL_TOKEN;
+  const token = process.env.RECOMMENDER_INTERNAL_TOKEN;
+  if (token) config.headers['X-Internal-Token'] = token;
   return config;
 });
 

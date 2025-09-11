@@ -9,24 +9,27 @@ import PlanPoolPage from "./pages/PlanPoolPage.jsx";
 import PlanBuilder from "./pages/PlanBuilder.jsx";
 import PlanItinerary from "./pages/PlanItinerary.jsx";
 import SavedItineraries from "@/pages/SavedItineraries.jsx";
+import {Layout} from "@/components/common/Layout.jsx";
 
 export default function App() {
     return (
-      <Routes>
-          <Route path="/" element={<Navigate to="/login" replace/>}/>
-          <Route path="/register" element={<RegisterPage/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
+      <Layout>
+          <Routes>
+              <Route path="/" element={<Navigate to="/login" replace/>}/>
+              <Route path="/register" element={<RegisterPage/>}/>
+              <Route path="/login" element={<LoginPage/>}/>
 
-          <Route element={<ProtectedRoute/>}>
-              <Route path="/onboarding" element={<PreferencesWizard/>}/>
-              <Route path="/home" element={<HomePage/>}/>
-              <Route path="/plan-pool" element={<PlanPoolPage/>}/>
-              <Route path="/plan/build" element={<PlanBuilder/>}/>
-              <Route path="/plan/itinerary" element={<PlanItinerary/>}/>
-              <Route path="/plan/saved" element={<SavedItineraries/>}/>
-          </Route>
+              <Route element={<ProtectedRoute/>}>
+                  <Route path="/onboarding" element={<PreferencesWizard/>}/>
+                  <Route path="/home" element={<HomePage/>}/>
+                  <Route path="/plan-pool" element={<PlanPoolPage/>}/>
+                  <Route path="/plan/build" element={<PlanBuilder/>}/>
+                  <Route path="/plan/itinerary" element={<PlanItinerary/>}/>
+                  <Route path="/plan/saved" element={<SavedItineraries/>}/>
+              </Route>
 
-          <Route path="*" element={<Navigate to="/home" replace/>}/>
-      </Routes>
+              <Route path="*" element={<Navigate to="/home" replace/>}/>
+          </Routes>
+      </Layout>
     );
 }

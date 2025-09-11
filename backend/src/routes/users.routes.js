@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const auth = require("../middlewares/authMiddleware");
-const User = require("../models/userModel");
+const auth = require("../middlewares/auth");
+const User = require("../models/User");
 
 // ---------------- existing endpoints ----------------
 
-router.get("/users/me", auth, async (req, res) => {
+router.get("/me", auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id, "-password_hash").lean();
         if (!user) return res.status(404).json({error: "User not found"});
@@ -38,12 +38,12 @@ router.get("/users/me", auth, async (req, res) => {
             },
         });
     } catch (err) {
-        console.error("users/me error:", err);
+        console.error("/me error:", err);
         return res.status(500).json({error: "Failed to fetch user"});
     }
 });
 
-router.get("/users/me/recommendations", auth, async (req, res) => {
+router.get("/me/recommendations", auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id, "last_recommendations").lean();
         const lr = user?.last_recommendations || null;
@@ -54,7 +54,7 @@ router.get("/users/me/recommendations", auth, async (req, res) => {
     }
 });
 
-router.get("/users/me/plan-pool", auth, async (req, res) => {
+router.get("/me/plan-pool", auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id, "plan_pool").lean();
         return res.json({status: "ok", data: user?.plan_pool || []});
@@ -64,7 +64,7 @@ router.get("/users/me/plan-pool", auth, async (req, res) => {
     }
 });
 
-router.post("/users/me/plan-pool", auth, async (req, res) => {
+router.post("/me/plan-pool", auth, async (req, res) => {
     try {
         const {
             location_id,
@@ -117,7 +117,7 @@ router.post("/users/me/plan-pool", auth, async (req, res) => {
     }
 });
 
-router.delete("/users/me/plan-pool/:location_id", auth, async (req, res) => {
+router.delete("/me/plan-pool/:location_id", auth, async (req, res) => {
     try {
         const {location_id} = req.params;
         if (!location_id) return res.status(400).json({error: "location_id is required"});
@@ -147,7 +147,7 @@ router.delete("/users/me/plan-pool/:location_id", auth, async (req, res) => {
  * Saves into user.saved_itineraries using your current schema:
  *   { title, items: [{ name, lat, lng, type, province }], total_distance_km, createdAt }
  */
-router.post("/users/me/itineraries", auth, async (req, res) => {
+router.post("/me/itineraries", auth, async (req, res) => {
     try {
         const { title, plan } = req.body || {};
         if (!plan || plan.status !== 'ok' || !Array.isArray(plan.itinerary)) {
@@ -195,7 +195,7 @@ router.post("/users/me/itineraries", auth, async (req, res) => {
  * GET /api/users/me/itineraries
  * Returns array (newest last since we push; we can reverse for newest first)
  */
-router.get("/users/me/itineraries", auth, async (req, res) => {
+router.get("/me/itineraries", auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id, "saved_itineraries").lean();
         if (!user) return res.status(404).json({ error: "User not found" });
@@ -216,7 +216,7 @@ router.get("/users/me/itineraries", auth, async (req, res) => {
  * Because your schema uses _id:false for saved_itineraries subdocs, we delete by array index.
  * (If you prefer deleting by id, we can flip the schema to _id:true on that subdoc.)
  */
-router.delete("/users/me/itineraries/:index", auth, async (req, res) => {
+router.delete("/me/itineraries/:index", auth, async (req, res) => {
     try {
         const idx = Number(req.params.index);
         if (!Number.isInteger(idx) || idx < 0) {

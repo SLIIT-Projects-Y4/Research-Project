@@ -16,27 +16,29 @@ import { optimizePlan } from '../api/plan';
 
 // ---------- utils ----------
 const km = (n) => (typeof n === 'number' && isFinite(n) ? `${n.toFixed(1)} km` : '—');
+
 const toNum = (v) => {
-  if (v == null) return null;
   const n = typeof v === 'string' ? parseFloat(v) : v;
   return typeof n === 'number' && isFinite(n) ? n : null;
 };
 
-// tolerant coordinate finder (kept for distances / maps, but NOT required for replace)
+// Accept many possible coord key names coming from ML
 const getCoords = (obj) => {
   if (!obj) return null;
-  const candidates = [
-    [obj.lat, obj.lng],
-    [obj.latitude, obj.longitude],
-    [obj.Latitude, obj.Longitude],
-    [obj.lat, obj.long],
-    [obj.Lat, obj.Lng],
-  ];
-  for (const [a, b] of candidates) {
-    const lat = toNum(a), lng = toNum(b);
-    if (lat !== null && lng !== null) return { lat, lng };
+  const latCands = [obj.lat, obj.latitude, obj.Latitude, obj.LAT];
+  const lngCands = [obj.lng, obj.lon, obj.long, obj.longitude, obj.Longitude, obj.LNG];
+
+  let lat = null, lng = null;
+
+  for (const c of latCands) {
+    const n = toNum(c);
+    if (n !== null) { lat = n; break; }
   }
-  return null;
+  for (const c of lngCands) {
+    const n = toNum(c);
+    if (n !== null) { lng = n; break; }
+  }
+  return (lat !== null && lng !== null) ? { lat, lng } : null;
 };
 
 function haversineKm(a, b) {
@@ -57,11 +59,10 @@ function recomputeDistances(itin) {
   const next = itin.map((p) => ({ ...p }));
   let total = 0;
   for (let i = 0; i < next.length; i++) {
-    if (i === 0) {
-      next[i].distance_from_prev = 0;
-    } else {
+    if (i === 0) next[i].distance_from_prev = 0;
+    else {
       const d = haversineKm(getCoords(next[i - 1]), getCoords(next[i]));
-      next[i].distance_from_prev = typeof d === 'number' ? d : null; // leave null if we can’t compute now
+      next[i].distance_from_prev = typeof d === 'number' ? d : next[i].distance_from_prev ?? null;
       if (typeof d === 'number') total += d;
     }
   }
@@ -70,14 +71,31 @@ function recomputeDistances(itin) {
 
 function itinerarySignature(itin) {
   return JSON.stringify(
-    itin.map((x) => ({ n: x.name || '', x: getCoords(x)?.lat ?? null, y: getCoords(x)?.lng ?? null }))
+    itin.map((x) => {
+      const c = getCoords(x);
+      return {
+        n: x.name || '',
+        x: c ? +c.lat.toFixed(6) : null,
+        y: c ? +c.lng.toFixed(6) : null,
+      };
+    })
   );
 }
 
+// ---------- component ----------
 export default function PlanItinerary() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Drawer state
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerLoading, setDrawerLoading] = useState(false);
+  const [drawerTitle, setDrawerTitle] = useState('');
+  const [drawerData, setDrawerData] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [baseStop, setBaseStop] = useState(null);
+
+  // Initial payload (nav state or session)
   const payload = useMemo(() => {
     if (location.state && location.state.status === 'ok') return location.state;
     try {
@@ -87,25 +105,19 @@ export default function PlanItinerary() {
     } catch { return null; }
   }, [location.state]);
 
+  // Working plan
   const [plan, setPlan] = useState(payload || null);
   const [saving, setSaving] = useState(false);
   const [optimizing, setOptimizing] = useState(false);
 
-  const [baselineSig, setBaselineSig] = useState(
+  // Show "Optimize route" only when changed
+  const [baselineSig, setBaselineSig] = useState(() =>
     payload?.itinerary ? itinerarySignature(payload.itinerary) : null
   );
   const needsOptimize = useMemo(() => {
     if (!plan?.itinerary?.length) return false;
     return itinerarySignature(plan.itinerary) !== baselineSig;
   }, [plan?.itinerary, baselineSig]);
-
-  // Drawer state
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [drawerLoading, setDrawerLoading] = useState(false);
-  const [drawerTitle, setDrawerTitle] = useState('');
-  const [drawerData, setDrawerData] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(null);
-  const [baseStop, setBaseStop] = useState(null);
 
   useEffect(() => {
     setPlan(payload || null);
@@ -135,6 +147,9 @@ export default function PlanItinerary() {
     corridor_radius_km,
   } = plan;
 
+  const startProvince = start?.province || itinerary[0]?.province || 'Unknown Province';
+  const endProvince = end?.province || itinerary[itinerary.length - 1]?.province || 'Unknown Province';
+
   const openInMaps = (lat, lng, name) => {
     const c = getCoords({ lat, lng });
     if (!c) { toast.info('No coordinates available'); return; }
@@ -152,7 +167,8 @@ export default function PlanItinerary() {
   const onSave = async () => {
     try {
       setSaving(true);
-      const res = await saveItinerary(plan, defaultTitle);
+      const title = defaultTitle;
+      const res = await saveItinerary(plan, title);
       if (res?.status === 'created') toast.success('Itinerary saved');
       else toast.error('Unexpected response while saving');
     } catch (err) {
@@ -172,7 +188,7 @@ export default function PlanItinerary() {
 
       const body = {
         location_name: loc.name,
-        included_provinces: province_corridor?.length ? province_corridor : undefined,
+        included_provinces: province_corridor && province_corridor.length ? province_corridor : undefined,
         radius_km: 50,
         top_n: 8,
         start_lat: start?.lat ?? itinerary[0]?.lat,
@@ -188,12 +204,23 @@ export default function PlanItinerary() {
         return;
       }
 
-      // Filter out places already in itinerary (by name; proximity handled server-side on optimize)
-      const present = new Set(itinerary.map(s => String(s.name||'').trim().toLowerCase()));
+      // Filter out places already in itinerary (by name and ~50m proximity)
+      const presentNames = new Set(itinerary.map(s => String(s.name||'').trim().toLowerCase()));
       const filterList = (arr) =>
         (Array.isArray(arr) ? arr : []).filter(x => {
           const nm = String((x.location || x.name || '')).trim().toLowerCase();
-          return nm && !present.has(nm);
+          if (!nm || presentNames.has(nm)) return false;
+          const xc = getCoords(x);
+          if (xc) {
+            for (const s of itinerary) {
+              const sc = getCoords(s);
+              if (sc) {
+                const d = haversineKm(xc, sc);
+                if (d != null && d < 0.05) return false; // ~50m
+              }
+            }
+          }
+          return true;
         });
 
       setDrawerData({
@@ -211,19 +238,25 @@ export default function PlanItinerary() {
     }
   };
 
-  // -------- replace a stop (coords OPTIONAL) --------
+  // -------- replace a stop locally (requires coords, but now we read many key names) --------
   const replaceStopAt = (index, candidate) => {
     if (!plan?.itinerary?.length) return;
+
     if (index === 0 || index === plan.itinerary.length - 1) {
       toast.info('Start and End cannot be replaced');
       return;
     }
 
-    const c = getCoords(candidate); // may be null — that’s fine
+    const c = getCoords(candidate);
+    if (!c) {
+      toast.error('This suggestion has no coordinates. Please pick one that includes lat/lng.');
+      return;
+    }
+
     const newStop = {
       name: candidate.location || candidate.name || 'Unknown',
-      // only set coords if we have them; ML/Node will hydrate later on optimize
-      ...(c ? { lat: c.lat, lng: c.lng } : {}),
+      lat: c.lat,
+      lng: c.lng,
       type: candidate.type || null,
       province: candidate.province || candidate.Located_Province || null,
       city: candidate.city || candidate.Located_City || null,
@@ -243,43 +276,63 @@ export default function PlanItinerary() {
 
     setPlan(updated);
     try { sessionStorage.setItem('lastPlan', JSON.stringify(updated)); } catch {}
-    toast.success('Stop replaced (run Optimize to re-route)');
+    toast.success('Stop replaced (pending optimization)');
     setDrawerOpen(false);
   };
 
+  // -------- optimize route only when needed --------
   const onOptimize = async () => {
     try {
       setOptimizing(true);
 
-      // Send what we have; backend/ML will hydrate missing coords by name.
-      const payloadItin = (plan.itinerary || []).map((s, i, arr) => ({
-        name: s.name,
-        lat: s.lat, // may be undefined
-        lng: s.lng, // may be undefined
-        type: (i === 0 || i === arr.length - 1) ? (s.type || 'City') : s.type,
-        province: s.province,
-        city: s.city,
-        rating: s.rating,
-        is_city: (i === 0 || i === arr.length - 1) ? true : !!s.is_city,
-        distance_from_prev: s.distance_from_prev
-      }));
+      const itin = plan.itinerary || [];
+      if (itin.length < 2) return;
+
+      // Mark endpoints as cities; send only supported fields
+      const payloadItin = itin.map((s, i, arr) => {
+        const c = getCoords(s);
+        return {
+          name: s.name,
+          lat: c?.lat,
+          lng: c?.lng,
+          type: (i === 0 || i === arr.length - 1) ? (s.type || 'City') : s.type,
+          province: s.province,
+          city: s.city,
+          rating: s.rating,
+          is_city: (i === 0 || i === arr.length - 1) ? true : !!s.is_city,
+          distance_from_prev: s.distance_from_prev
+        };
+      });
 
       const resp = await optimizePlan({
         itinerary: payloadItin,
         corridor_radius_km: corridor_radius_km ?? undefined,
       });
 
-      if (resp?.status === 'ok' && Array.isArray(resp.itinerary)) {
+      if (resp?.status === 'ok' && Array.isArray(resp.itinerary) && resp.itinerary.length === itin.length) {
+        let newItin = resp.itinerary;
+        let newTotal = resp.total_distance_km;
+        if (!Array.isArray(newItin) || typeof newTotal !== 'number') {
+          const r = recomputeDistances(resp.itinerary || itin);
+          newItin = r.next;
+          newTotal = r.total;
+        }
         const nextPlan = {
           ...plan,
-          itinerary: resp.itinerary,
-          total_distance_km: resp.total_distance_km,
-          start: resp.itinerary[0]
-            ? { name: resp.itinerary[0].name, province: resp.itinerary[0].province, lat: resp.itinerary[0].lat, lng: resp.itinerary[0].lng }
-            : plan.start,
-          end: resp.itinerary.at(-1)
-            ? { name: resp.itinerary.at(-1).name, province: resp.itinerary.at(-1).province, lat: resp.itinerary.at(-1).lat, lng: resp.itinerary.at(-1).lng }
-            : plan.end,
+          itinerary: newItin,
+          total_distance_km: newTotal,
+          start: {
+            name: newItin[0]?.name,
+            province: newItin[0]?.province,
+            lat: newItin[0]?.lat,
+            lng: newItin[0]?.lng,
+          },
+          end: {
+            name: newItin[newItin.length - 1]?.name,
+            province: newItin[newItin.length - 1]?.province,
+            lat: newItin[newItin.length - 1]?.lat,
+            lng: newItin[newItin.length - 1]?.lng,
+          }
         };
         setPlan(nextPlan);
         setBaselineSig(itinerarySignature(nextPlan.itinerary));
@@ -296,7 +349,7 @@ export default function PlanItinerary() {
     }
   };
 
-  // -------- drawer list (distance from selected stop if coords available) --------
+  // -------- drawer list (distance from selected stop) --------
   const ListBlock = ({ items }) => (
     <Stack gap="sm">
       {(!items || items.length === 0) ? (
@@ -309,6 +362,8 @@ export default function PlanItinerary() {
           : (baseC && xC ? haversineKm(baseC, xC) : null);
 
         const isEndpoint = activeIndex === 0 || activeIndex === (plan.itinerary.length - 1);
+        const hasCoords = !!xC;
+        const disabledReason = isEndpoint ? 'Start/End cannot be replaced' : (!hasCoords ? 'No coordinates' : null);
 
         return (
           <Card key={`${x.location || x.name}-${i}`} withBorder radius="md" p="md" className="hover:shadow-sm transition-all">
@@ -331,17 +386,13 @@ export default function PlanItinerary() {
                 </Group>
               </div>
               <Group gap="xs">
-                {xC ? (
+                {hasCoords && (
                   <Button size="xs" variant="default" onClick={() => openInMaps(xC.lat, xC.lng, x.location || x.name)}>
                     Map
                   </Button>
-                ) : (
-                  <Tooltip label="No coordinates available for map">
-                    <Button size="xs" variant="default" disabled>Map</Button>
-                  </Tooltip>
                 )}
-                {isEndpoint ? (
-                  <Tooltip label="Start/End cannot be replaced">
+                {disabledReason ? (
+                  <Tooltip label={disabledReason}>
                     <Button size="xs" variant="default" disabled leftSection={<Lock size={14} />}>
                       Replace
                     </Button>
@@ -359,9 +410,6 @@ export default function PlanItinerary() {
     </Stack>
   );
 
-  const startProvince = start?.province || itinerary[0]?.province || 'Unknown Province';
-  const endProvince = end?.province || itinerary[itinerary.length - 1]?.province || 'Unknown Province';
-
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="mx-auto max-w-5xl space-y-12">
@@ -375,7 +423,12 @@ export default function PlanItinerary() {
           </div>
           <Group gap="xs">
             {needsOptimize && (
-              <Button onClick={onOptimize} loading={optimizing} leftSection={<Sparkles size={16} />} variant="filled">
+              <Button
+                onClick={onOptimize}
+                loading={optimizing}
+                leftSection={<Sparkles size={16} />}
+                variant="filled"
+              >
                 Optimize route
               </Button>
             )}
@@ -484,13 +537,7 @@ export default function PlanItinerary() {
                       <div className="flex items-center gap-2">
                         {toNum(item.rating) !== null && (<Badge variant="light" leftSection={<Star size={12} />}>{toNum(item.rating).toFixed(2)}</Badge>)}
                         {distance != null && (<Badge variant="light">{km(distance)} from previous</Badge>)}
-                        {c ? (
-                          <Button size="xs" variant="default" onClick={() => openInMaps(c.lat, c.lng, item.name)}>Open in Maps</Button>
-                        ) : (
-                          <Tooltip label="No coordinates available for map">
-                            <Button size="xs" variant="default" disabled>Open in Maps</Button>
-                          </Tooltip>
-                        )}
+                        {c && (<Button size="xs" variant="default" onClick={() => openInMaps(c.lat, c.lng, item.name)}>Open in Maps</Button>)}
                         <Button size="xs" variant="default" onClick={() => fetchOptionsFor(idx, item)}>Explore</Button>
                       </div>
                     </div>
