@@ -19,6 +19,8 @@ export default function RecommendPage() {
   const [waiting, setWaiting] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
 
+  const serverUrl = "http://localhost:8000";
+
   // Confirm modal state
   const [confirmState, setConfirmState] = useState({
     open: false,
@@ -85,8 +87,8 @@ export default function RecommendPage() {
     const fetchGroups = async () => {
       try {
         const [joinedRes, recRes] = await Promise.all([
-          fetch(`http://localhost:8000/groups/joined/${userId}`),
-          fetch("http://localhost:8000/recommend/", {
+          fetch(`${serverUrl}/groups/joined/${userId}`),
+          fetch(`${serverUrl}/recommend/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -125,7 +127,7 @@ export default function RecommendPage() {
   const handleJoin = async (groupId) => {
     try {
       const groupRes = await fetch(
-        `http://localhost:8000/groups/details/${groupId}`
+        `${serverUrl}/groups/details/${groupId}`
       );
       const group = await groupRes.json();
 
@@ -141,7 +143,7 @@ export default function RecommendPage() {
       }
 
       const res = await fetch(
-        `http://localhost:8000/groups/join/${groupId}/${userId}`,
+        `${serverUrl}/groups/join/${groupId}/${userId}`,
         {
           method: "POST",
         }
@@ -178,7 +180,7 @@ export default function RecommendPage() {
 
   const handleCreateGroup = async () => {
     try {
-      const res = await fetch("http://localhost:8000/groups/createByML", {
+      const res = await fetch(`${serverUrl}/groups/createByML`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -203,7 +205,7 @@ export default function RecommendPage() {
       const groupId = data.Group_ID;
 
       const joinRes = await fetch(
-        `http://localhost:8000/groups/join/${groupId}/${userId}`,
+        `${serverUrl}/groups/join/${groupId}/${userId}`,
         {
           method: "POST",
         }
@@ -212,7 +214,7 @@ export default function RecommendPage() {
       if (!joinRes.ok) throw new Error("Failed to join group");
 
       const joinedGroupRes = await fetch(
-        `http://localhost:8000/groups/details/${groupId}`
+        `${serverUrl}/groups/details/${groupId}`
       );
       const joinedGroup = await joinedGroupRes.json();
 
@@ -246,7 +248,7 @@ export default function RecommendPage() {
       ];
 
       const res = await fetch(
-        "http://localhost:8000/groups/recommandNewGroup",
+        `${serverUrl}/groups/recommandNewGroup`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -307,8 +309,8 @@ export default function RecommendPage() {
             Find your perfect travel group
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-xl leading-relaxed text-slate-600">
-            Based on your preferences. Join an active group or create a new one and
-            we’ll match additional members automatically.
+            Based on your preferences. Join an active group or create a new one
+            and we’ll match additional members automatically.
           </p>
 
           {/* hero CTAs */}
@@ -445,8 +447,12 @@ export default function RecommendPage() {
                     <span className="font-semibold text-slate-900">
                       Related Destinations:
                     </span>{" "}
-                    {g.Destinations_Planned.join(", ")}
+                    {Array.isArray(g.Destinations_Planned) &&
+                    g.Destinations_Planned.length > 0
+                      ? g.Destinations_Planned.join(", ")
+                      : "No related destinations available"}
                   </p>
+
                   <p className="mt-1 text-sm text-slate-700">
                     <span className="font-semibold text-slate-900">Style:</span>{" "}
                     {g.Travel_Style}
