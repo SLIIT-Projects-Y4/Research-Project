@@ -1,0 +1,213 @@
+message,intent
+Good evening folks!,greet
+Had great street food in Colombo!,share_experience
+I am free first weekend of next month,plan_trip
+Is Hiriketiya crowded in December?,ask_help
+Is anyone interested in a trip to Dambulla?,plan_trip
+Pettah shopping was fun chaos,share_experience
+I’d love to go to Kandy next week,plan_trip
+Do we need to pre-book tickets for Perahera?,ask_help
+How about a historical tour in Anuradhapura?,plan_trip
+Let's organize a food tour in Colombo,plan_trip
+What's the best route to Ella?,ask_help
+"Took the scenic train to Badulla, unforgettable",share_experience
+I'm excited!,general
+Ambuluwawa Tower was totally worth it,share_experience
+How about a trip to Nuwara Eliya?,plan_trip
+My favorite trip was to Haputale,share_experience
+Hey team,greet
+Let's visit a waterfall spot this month,plan_trip
+We can plan a group hike,plan_trip
+Any cheap hostels near Gregory Lake?,ask_help
+Adventure weekend in Knuckles?,plan_trip
+Hey everyone!,greet
+I hiked Little Adam's Peak last year,share_experience
+How about visiting Horton Plains?,plan_trip
+Traveled solo to Arugam Bay - awesome waves,share_experience
+Haha true that,general
+Do trains stop at Demodara loop?,ask_help
+We should travel during Vesak holidays,plan_trip
+That's cool,general
+The beaches in Tangalle are hidden gems,share_experience
+Good morning group!,greet
+Shall we head to Jaffna next month?,plan_trip
+Should we go to Little Adam's Peak?,plan_trip
+"Hi guys, excited to be here!",greet
+Let's gooo!,general
+Best seafood at Negombo fish market,share_experience
+We should plan something in August,plan_trip
+Trip on 22nd okay?,plan_trip
+What's the best place to watch sunrise in Ella?,ask_help
+Best app to book hostels?,ask_help
+Enjoyed cycling around Anuradhapura,share_experience
+Anyone done a budget trip to Arugam?,ask_help
+"Which waterfall is better, Diyaluma or Ravana?",ask_help
+Can we plan a weekend getaway?,plan_trip
+Saw elephants in Udawalawe!,share_experience
+The Galle Fort sunset is the best thing ever,share_experience
+Ella plan confirmed?,plan_trip
+Climbed Pidurangala - better view than Sigiriya!,share_experience
+Nanu Oya station views are stunning,share_experience
+How many are in for a trip to Nuwara?,plan_trip
+Let's do a cultural tour,plan_trip
+Colombo to Ella sounds fun for next week,plan_trip
+Do we need a guide for Horton Plains?,ask_help
+Any tips for first timers in Jaffna?,ask_help
+I loved snorkeling in Trincomalee,share_experience
+Let's do a quick beach trip,plan_trip
+How cold does Nuwara Eliya get?,ask_help
+Do we all agree on Trinco for the 15th?,plan_trip
+The train ride to Nuwara Eliya is awesome!,share_experience
+Any suggestions for budget stays?,ask_help
+Kandy Perahera was a beautiful experience,share_experience
+Are there night trains to Jaffna?,ask_help
+Where can we eat cheap in Trinco?,ask_help
+Finalizing on Hikkaduwa?,plan_trip
+Where's the weather cooler in August?,ask_help
+How much does a day in Galle cost?,ask_help
+Awesome camping in Riverston,share_experience
+Welcome to the group!,greet
+Weligama surf was decent,share_experience
+Tried hoppers for the first time - 10/10,share_experience
+Want to hike in Hanthana range?,plan_trip
+Hi all,greet
+Need help booking a hotel,ask_help
+Camping in Knuckles was unforgettable,share_experience
+Should we book tickets for Kandy?,plan_trip
+Is it safe to travel solo?,ask_help
+Unawatuna Beach is really peaceful,share_experience
+We can travel on a budget to Arugam Bay,plan_trip
+How do we split accommodation costs?,ask_help
+Two-day trip to Sigiriya?,plan_trip
+Rented a scooter in Hiriketiya,share_experience
+Went whale watching in Mirissa,share_experience
+Can someone share their itinerary?,ask_help
+Is there mobile coverage in Knuckles?,ask_help
+Awesome,general
+Sure,general
+Which beaches are best for September?,ask_help
+Who's up for an early morning train trip?,plan_trip
+Let's ride to Galle fort,plan_trip
+Nice plan!,general
+Hello there!,greet
+Let's organize a trip to Mirissa,plan_trip
+Thinking of visiting Sigiriya,plan_trip
+We need to plan something this long weekend,plan_trip
+Had a great tuk tuk driver in Kandy,share_experience
+That sounds great!,general
+Let's visit Trinco this Poya day,plan_trip
+How to reach Lipton's Seat from Haputale?,ask_help
+Best way to visit temple of the tooth?,ask_help
+Shall we plan something before exams?,plan_trip
+Stayed in a treehouse in Dambulla,share_experience
+Polonnaruwa ruins were incredible,share_experience
+Sup travelers!,greet
+Ravana Falls was breathtaking when I visited,share_experience
+Any camping gear rental services?,ask_help
+Great Airbnb in Colombo 5,share_experience
+Should we take the bus or train?,ask_help
+Took a boat ride in Madu Ganga,share_experience
+Where can we go hiking that's beginner-friendly?,ask_help
+I ate the best kottu in Matara,share_experience
+Where should we stay in Nuwara Eliya?,ask_help
+Don't miss Lipton's Seat if you go to Haputale,share_experience
+Sigiriya was hotter than I expected but so worth it,share_experience
+Can we swim in Nilaveli beach?,ask_help
+Loved the nature in Meemure,share_experience
+Anyone know a good taxi from Kandy?,ask_help
+Is Mirissa better than Hikkaduwa?,ask_help
+Let's go to Ella next weekend,plan_trip
+Chilled in Pasikudah,share_experience
+"Ella is good, but avoid weekends - too crowded",share_experience
+Planning a hike in Knuckles?,plan_trip
+"Wow, I love that idea",general
+Let's do a day trip to Galle,plan_trip
+Planning a camping trip to Belihuloya,plan_trip
+I stayed in a cheap hostel near Gregory Lake,share_experience
+Count me in!,general
+Where can we eat vegetarian in Anuradhapura?,ask_help
+Best time to visit Sigiriya?,ask_help
+Where to buy SIM cards?,ask_help
+What's the safest area to stay in Kandy?,ask_help
+"I went to Ella last month, it was amazing",share_experience
+Nice to meet you guys,greet
+What do you say to Nilaveli beach?,plan_trip
+Best hike: Alagalla rock,share_experience
+Looking for help planning the schedule,ask_help
+Next weekend for Jaffna trip?,plan_trip
+What currency is best to carry?,ask_help
+How long is the train ride to Badulla?,ask_help
+I had the best roti at a stall in Matale,share_experience
+I'd love to go to Kandy next week,plan_trip
+I'm free first weekend of next month,plan_trip
+Anyone know if we need advance booking for Ella train?,ask_help
+Hey there!,greet
+Good to be here!,greet
+Hello travel fam!,greet
+Happy to join this group!,greet
+"Hi everyone, excited for this!",greet
+Good evening fellow travelers!,greet
+"Hi team, let’s plan something fun!",greet
+"Hello guys, what’s up?",greet
+Glad to be part of this group!,greet
+"Hey folks, new here!",greet
+Sounds interesting!,general
+That could work!,general
+Let’s see what others think,general
+"Cool idea, I’m in",general
+Good one ??,general
+Nice suggestion,general
+Haha I agree,general
+Totally down for that,general
+"I’m not sure, maybe",general
+Let’s ask the others,general
+Let’s go hiking this weekend,plan_trip
+Anyone up for a road trip to Sigiriya?,plan_trip
+How about a beach trip next month?,plan_trip
+We should plan something for the long weekend,plan_trip
+Let's finalize the destination today,plan_trip
+Can we decide on dates for the trip?,plan_trip
+Thinking about a day trip to Anuradhapura,plan_trip
+We should book tickets early for the Kandy trip,plan_trip
+Let’s plan a camping trip in Meemure,plan_trip
+How about visiting Jaffna this Poya holiday?,plan_trip
+I loved the view from Little Adam’s Peak,share_experience
+The train ride to Badulla is beautiful,share_experience
+I stayed in a treehouse near Ella,share_experience
+Unawatuna was peaceful and clean,share_experience
+I’ve tried surfing in Arugam Bay,share_experience
+We went whale watching in Mirissa,share_experience
+Polonnaruwa had amazing ruins to explore,share_experience
+Camping in Knuckles was a great experience,share_experience
+"Horton Plains is chilly in the morning, but worth it",share_experience
+Weligama had some amazing seafood spots,share_experience
+Can someone help me find a good place to stay?,ask_help
+What’s the cheapest way to travel to Galle?,ask_help
+Should we book our tickets in advance?,ask_help
+What’s the weather like in Nuwara Eliya in August?,ask_help
+Do we need a permit to hike in Knuckles?,ask_help
+Any good guides for Anuradhapura?,ask_help
+Where can we rent bikes in Polonnaruwa?,ask_help
+Which area in Ella is best to stay?,ask_help
+Is public transport available to Meemure?,ask_help
+Any advice for solo travel in Sri Lanka?,ask_help
+Hey everyone! Glad to be here.,greet
+"Hi all, looking forward to planning with you!",greet
+"Hello everyone, happy to join!",greet
+"Good morning, team!",greet
+"Hi folks, excited for our trip discussions!",greet
+"Hello group, where are we headed next?",greet
+"Hey guys, any plans yet?",greet
+"Hi everyone, just joined!",greet
+"Good evening, friends!",greet
+Hello travel buddies!,greet
+Sounds good to me!,general
+I agree with that plan,general
+"Cool, I’m in!",general
+Let’s go with that!,general
+Great suggestion,general
+That place looks awesome,general
+"Wow, love the energy here!",general
+"Sure, works for me",general
+Can’t wait for this!,general
+Looks exciting!,general
