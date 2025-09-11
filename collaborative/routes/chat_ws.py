@@ -288,6 +288,9 @@ async def chat_websocket(websocket: WebSocket, group_id: str, user_id: str):
                 "timestamp": datetime.now(timezone.utc)
                 .isoformat()
                 .replace("+00:00", "Z"),
+                "reporters": [],
+                "report_count": 0,
+                "reports_log": []
             }
             await db.messages.insert_one(message)
 
