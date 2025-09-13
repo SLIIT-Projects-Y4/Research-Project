@@ -3,18 +3,21 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Badge, Button, Group, Paper, Text, Title, Timeline, Divider,
-  Drawer, Tabs, Loader, Card, Stack, Tooltip
+  Drawer, Tabs, Loader, Card, Stack, Tooltip, Container, rem,
+  ActionIcon, Flex, Box, ScrollArea
 } from '@mantine/core';
 import {
   MapPin, Flag, Route as RouteIcon, Star, Info, Compass,
-  ListChecks, ArrowLeftRight as ReplaceIcon, Lock, Sparkles
+  ListChecks, ArrowLeftRight as ReplaceIcon, Lock, Sparkles,
+  Download, Save, ArrowLeft, FolderOpen, Zap, Navigation,
+  Clock, Award, Target, Eye
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { saveItinerary } from '../api/itineraries';
 import { optionsForLocation } from '../api/itinerary';
 import { optimizePlan } from '../api/plan';
 
-// ---------- utils ----------
+// ---------- utils (keeping all existing utility functions) ----------
 const km = (n) => (typeof n === 'number' && isFinite(n) ? `${n.toFixed(1)} km` : '—');
 
 const toNum = (v) => {
@@ -22,7 +25,6 @@ const toNum = (v) => {
   return typeof n === 'number' && isFinite(n) ? n : null;
 };
 
-// Accept many possible coord key names coming from ML
 const getCoords = (obj) => {
   if (!obj) return null;
   const latCands = [obj.lat, obj.latitude, obj.Latitude, obj.LAT];
@@ -82,7 +84,7 @@ function itinerarySignature(itin) {
   );
 }
 
-// ---------- localStorage utility functions ----------
+// localStorage utility functions (keeping all existing)
 const getSavedItineraries = () => {
   try {
     const saved = localStorage.getItem('savedItineraries');
@@ -107,12 +109,398 @@ const getItineraryDetails = (title) => {
   return savedItineraries[title] || null;
 };
 
-// ---------- component ----------
+// ---------- Enhanced Timeline Item Component ----------
+function TimelineStop({ item, idx, totalStops, onExplore, onOpenInMaps, isOptimizing }) {
+  const c = getCoords(item);
+  const distance = item.distance_from_prev;
+  const isStart = idx === 0;
+  const isEnd = idx === totalStops - 1;
+  const isFixed = isStart || isEnd;
+
+  const getBulletColor = () => {
+    if (isStart) return 'var(--color-lemon-dream)';
+    if (isEnd) return 'var(--color-rust-red)';
+    return 'var(--color-brave-orange)';
+  };
+
+  const bullet = (
+    <Paper
+      radius="xl"
+      p="xs"
+      style={{
+        backgroundColor: getBulletColor(),
+        border: '3px solid white',
+        boxShadow: '0 2px 8px rgba(0, 28, 51, 0.15)'
+      }}
+    >
+      {isStart ? <Navigation size={18} color="white"/> :
+       isEnd ? <Target size={18} color="white"/> :
+       <MapPin size={18} color="white"/>}
+    </Paper>
+  );
+
+  return (
+    <Timeline.Item bullet={bullet}>
+      <Card
+        radius="xl"
+        p="xl"
+        withBorder
+        className="hover:shadow-lg transition-all duration-300"
+        style={{
+          backgroundColor: 'white',
+          borderColor: isFixed ? 'var(--color-heart-of-ice)' : 'var(--color-lynx-white)',
+          borderWidth: '2px',
+          marginLeft: rem(-8)
+        }}
+      >
+        {/* Header */}
+        <Group justify="space-between" align="flex-start" mb="md">
+          <div className="flex-1">
+            <Group gap="sm" mb="xs">
+              <button
+                className="text-left font-display font-bold text-xl hover:underline transition-colors"
+                onClick={() => onExplore(idx, item)}
+                style={{color: 'var(--color-midnight-dreams)'}}
+                title="Explore options for this stop"
+              >
+                {idx + 1}. {item.name}
+              </button>
+
+              {isFixed && (
+                <Badge
+                  leftSection={<Lock size={14}/>}
+                  variant="filled"
+                  color="gray"
+                  size="lg"
+                >
+                  Fixed
+                </Badge>
+              )}
+            </Group>
+
+            {/* Location info */}
+            <Group gap="xs" mb="sm" wrap="wrap">
+              {item.type && (
+                <Badge
+                  variant="light"
+                  color="blue"
+                  size="md"
+                >
+                  {(item.type || '').toUpperCase()}
+                </Badge>
+              )}
+
+              {(item.city || item.province) && (
+                <Badge
+                  variant="outline"
+                  color="gray"
+                  size="md"
+                  leftSection={<MapPin size={12}/>}
+                >
+                  {item.city ? `${item.city}` : ''}{item.city && item.province ? ', ' : ''}{item.province || ''}
+                </Badge>
+              )}
+
+              {item.original_city_label && (
+                <Badge
+                  variant="outline"
+                  color="orange"
+                  size="md"
+                  leftSection={<Info size={12}/>}
+                >
+                  from city: {item.original_city_label}
+                </Badge>
+              )}
+            </Group>
+
+            {/* Metrics */}
+            <Group gap="md">
+              {toNum(item.rating) !== null && (
+                <Group gap="xs">
+                  <Paper p="xs" radius="md" style={{backgroundColor: 'var(--color-malibu-sun)'}}>
+                    <Star size={16} style={{color: 'var(--color-lemon-dream)'}}/>
+                  </Paper>
+                  <div>
+                    <Text size="sm" fw={600} style={{color: 'var(--color-midnight-dreams)'}}>
+                      {toNum(item.rating).toFixed(1)}
+                    </Text>
+                    <Text size="xs" c="dimmed">Rating</Text>
+                  </div>
+                </Group>
+              )}
+
+              {distance != null && idx > 0 && (
+                <Group gap="xs">
+                  <Paper p="xs" radius="md" style={{backgroundColor: 'var(--color-heart-of-ice)'}}>
+                    <RouteIcon size={16} style={{color: 'var(--color-ocean-depths)'}}/>
+                  </Paper>
+                  <div>
+                    <Text size="sm" fw={600} style={{color: 'var(--color-midnight-dreams)'}}>
+                      {km(distance)}
+                    </Text>
+                    <Text size="xs" c="dimmed">From previous</Text>
+                  </div>
+                </Group>
+              )}
+            </Group>
+          </div>
+
+          {/* Actions */}
+          <Group gap="xs">
+            {c && (
+              <ActionIcon
+                variant="light"
+                color="blue"
+                size="lg"
+                radius="xl"
+                onClick={() => onOpenInMaps(c.lat, c.lng, item.name)}
+                title="Open in Maps"
+              >
+                <Navigation size={18}/>
+              </ActionIcon>
+            )}
+
+            <Button
+              variant="light"
+              color="orange"
+              leftSection={<Eye size={16}/>}
+              onClick={() => onExplore(idx, item)}
+              radius="xl"
+              size="md"
+            >
+              Explore
+            </Button>
+          </Group>
+        </Group>
+      </Card>
+    </Timeline.Item>
+  );
+}
+
+// ---------- Enhanced Drawer Content ----------
+function OptionsDrawer({ opened, onClose, title, loading, data, activeIndex, plan, onReplace }) {
+  const ListBlock = ({ items, category }) => (
+    <Stack gap="md">
+      {(!items || items.length === 0) ? (
+        <Paper
+          p="xl"
+          radius="lg"
+          ta="center"
+          style={{backgroundColor: 'var(--color-lynx-white)'}}
+        >
+          <Text c="dimmed" size="sm" className="font-body">
+            No {category.toLowerCase()} options found
+          </Text>
+        </Paper>
+      ) : items.map((x, i) => {
+        const xC = getCoords(x);
+        const dBase = typeof x.distance_from_base_km === 'number'
+          ? x.distance_from_base_km
+          : null;
+
+        const isEndpoint = activeIndex === 0 || activeIndex === (plan?.itinerary?.length - 1);
+        const hasCoords = !!xC;
+        const disabledReason = isEndpoint ? 'Start/End cannot be replaced' : (!hasCoords ? 'No coordinates' : null);
+
+        return (
+          <Card
+            key={`${x.location || x.name}-${i}`}
+            withBorder
+            radius="lg"
+            p="lg"
+            className="hover:shadow-md transition-all duration-200"
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'var(--color-heart-of-ice)'
+            }}
+          >
+            <Group justify="space-between" align="flex-start">
+              <div className="flex-1 min-w-0">
+                <Text
+                  fw={600}
+                  size="lg"
+                  className="font-display truncate mb-2"
+                  style={{color: 'var(--color-midnight-dreams)'}}
+                >
+                  {x.location || x.name}
+                </Text>
+
+                <Group gap="xs" mb="md" wrap="wrap">
+                  {x.type && (
+                    <Badge variant="light" color="blue" size="sm">
+                      {x.type}
+                    </Badge>
+                  )}
+
+                  {(x.province || x.Located_Province) && (
+                    <Badge
+                      variant="outline"
+                      color="gray"
+                      size="sm"
+                      leftSection={<MapPin size={12}/>}
+                    >
+                      {x.province || x.Located_Province}
+                    </Badge>
+                  )}
+
+                  {toNum(x.avg_rating) !== null && (
+                    <Badge
+                      variant="light"
+                      color="yellow"
+                      size="sm"
+                      leftSection={<Star size={12}/>}
+                    >
+                      {toNum(x.avg_rating).toFixed(1)}
+                    </Badge>
+                  )}
+
+                  {dBase != null && (
+                    <Badge
+                      variant="light"
+                      color="cyan"
+                      size="sm"
+                      leftSection={<Compass size={12}/>}
+                    >
+                      {km(dBase)}
+                    </Badge>
+                  )}
+                </Group>
+
+                <Group gap="xs">
+                  {hasCoords && (
+                    <Button
+                      size="xs"
+                      variant="light"
+                      color="blue"
+                      leftSection={<Navigation size={14}/>}
+                      onClick={() => {
+                        const url = `https://www.google.com/maps?q=${xC.lat},${xC.lng}(${encodeURIComponent(x.location || x.name || '')})`;
+                        window.open(url, '_blank', 'noopener,noreferrer');
+                      }}
+                    >
+                      View Map
+                    </Button>
+                  )}
+
+                  {disabledReason ? (
+                    <Tooltip label={disabledReason}>
+                      <Button
+                        size="xs"
+                        variant="light"
+                        color="gray"
+                        disabled
+                        leftSection={<Lock size={14}/>}
+                      >
+                        Replace
+                      </Button>
+                    </Tooltip>
+                  ) : (
+                    <Button
+                      size="xs"
+                      variant="filled"
+                      color="orange"
+                      leftSection={<ReplaceIcon size={14}/>}
+                      onClick={() => onReplace(activeIndex, x)}
+                    >
+                      Replace Stop
+                    </Button>
+                  )}
+                </Group>
+              </div>
+            </Group>
+          </Card>
+        );
+      })}
+    </Stack>
+  );
+
+  return (
+    <Drawer
+      opened={opened}
+      onClose={onClose}
+      position="right"
+      size="xl"
+      radius="lg"
+      styles={{
+        header: {
+          backgroundColor: 'var(--color-heart-of-ice)',
+          borderBottom: '2px solid var(--color-lynx-white)'
+        },
+        body: {
+          backgroundColor: 'var(--color-lynx-white)',
+          padding: rem(24)
+        }
+      }}
+      title={
+        <Group gap="md">
+          <Paper p="sm" radius="lg" style={{backgroundColor: 'var(--color-brave-orange)'}}>
+            <ListChecks size={20} color="white"/>
+          </Paper>
+          <div>
+            <Text fw={700} size="xl" className="font-display" style={{color: 'var(--color-midnight-dreams)'}}>
+              Explore Options
+            </Text>
+            <Text size="sm" c="dimmed" className="font-body">
+              {title || 'Alternative destinations'}
+            </Text>
+          </div>
+        </Group>
+      }
+    >
+      {loading ? (
+        <div className="flex items-center justify-center py-20">
+          <Stack align="center" gap="md">
+            <Loader size="xl" color="orange"/>
+            <Text c="dimmed" className="font-body">Finding the best alternatives...</Text>
+          </Stack>
+        </div>
+      ) : !data ? (
+        <Paper p="xl" radius="lg" ta="center" style={{backgroundColor: 'var(--color-heart-of-ice)'}}>
+          <Text c="dimmed" className="font-body">No data available.</Text>
+        </Paper>
+      ) : (
+        <Tabs defaultValue="hybrid" variant="pills" radius="xl">
+          <Tabs.List mb="xl" style={{backgroundColor: 'white', padding: rem(8), borderRadius: rem(16)}}>
+            <Tabs.Tab value="nearby" leftSection={<Compass size={16}/>}>
+              Nearby
+            </Tabs.Tab>
+            <Tabs.Tab value="smart_alternatives" leftSection={<Award size={16}/>}>
+              Smart Alternatives
+            </Tabs.Tab>
+            <Tabs.Tab value="top_rated" leftSection={<Target size={16}/>}>
+              Top Rated
+            </Tabs.Tab>
+            <Tabs.Tab value="similar_activities" leftSection={<Star size={16}/>}>
+             Similar Activities
+            </Tabs.Tab>
+          </Tabs.List>
+
+          <ScrollArea h={600}>
+            <Tabs.Panel value="nearby">
+              <ListBlock items={data.nearby} category="Near By"/>
+            </Tabs.Panel>
+            <Tabs.Panel value="smart_alternatives">
+              <ListBlock items={data.smart_alternatives} category="Smart Alternatives"/>
+            </Tabs.Panel>
+            <Tabs.Panel value="top_rated">
+              <ListBlock items={data.top_rated} category="Top-rated"/>
+            </Tabs.Panel>
+            <Tabs.Panel value="similar_activities">
+              <ListBlock items={data.similar_activities} category="Similar activities"/>
+            </Tabs.Panel>
+          </ScrollArea>
+        </Tabs>
+      )}
+    </Drawer>
+  );
+}
+
+// ---------- Main Component ----------
 export default function PlanItinerary() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Drawer state
+  // All existing state (keeping exactly the same)
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerLoading, setDrawerLoading] = useState(false);
   const [drawerTitle, setDrawerTitle] = useState('');
@@ -120,7 +508,6 @@ export default function PlanItinerary() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [baseStop, setBaseStop] = useState(null);
 
-  // Initial payload (nav state or session)
   const payload = useMemo(() => {
     if (location.state && location.state.status === 'ok') return location.state;
     try {
@@ -130,15 +517,14 @@ export default function PlanItinerary() {
     } catch { return null; }
   }, [location.state]);
 
-  // Working plan
   const [plan, setPlan] = useState(payload || null);
   const [saving, setSaving] = useState(false);
   const [optimizing, setOptimizing] = useState(false);
 
-  // Show "Optimize route" only when changed
   const [baselineSig, setBaselineSig] = useState(() =>
     payload?.itinerary ? itinerarySignature(payload.itinerary) : null
   );
+
   const needsOptimize = useMemo(() => {
     if (!plan?.itinerary?.length) return false;
     return itinerarySignature(plan.itinerary) !== baselineSig;
@@ -149,14 +535,280 @@ export default function PlanItinerary() {
     setBaselineSig(payload?.itinerary ? itinerarySignature(payload.itinerary) : null);
   }, [payload]);
 
+  // All existing functions (keeping exactly the same logic)
+  const openInMaps = (lat, lng, name) => {
+    const c = getCoords({ lat, lng });
+    if (!c) { toast.info('No coordinates available'); return; }
+    const url = `https://www.google.com/maps?q=${c.lat},${c.lng}(${encodeURIComponent(name || '')})`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const defaultTitle = (() => {
+    const s = plan?.start?.name || plan?.itinerary?.[0]?.name || 'Start';
+    const e = plan?.end?.name || plan?.itinerary?.[plan?.itinerary?.length - 1]?.name || 'End';
+    const r = plan?.corridor_radius_km ? ` (${plan.corridor_radius_km}km corridor)` : '';
+    return `${s} → ${e}${r}`;
+  })();
+
+  const onSave = async () => {
+  try {
+    setSaving(true);
+    const title = defaultTitle;
+    const res = await saveItinerary(plan, title);
+
+    if (res?.status === 'created') {
+      const locationIds = plan.itinerary
+        .filter(item => item.location_id !== null && item.location_id !== undefined)
+        .map(item => item.location_id);
+
+      let savedItineraries = {};
+      try {
+        const existing = localStorage.getItem('savedItineraries');
+        savedItineraries = existing ? JSON.parse(existing) : {};
+      } catch (storageError) {
+        console.warn('Failed to read existing itineraries from localStorage:', storageError);
+        savedItineraries = {};
+      }
+
+      savedItineraries[title] = {
+        locationIds: locationIds,
+        savedAt: new Date().toISOString(),
+        totalDistance: plan.total_distance_km,
+        attractionsCount: plan.attractions_count
+      };
+
+      try {
+        localStorage.setItem('savedItineraries', JSON.stringify(savedItineraries));
+        console.log(`Saved itinerary "${title}" with location IDs:`, locationIds);
+      } catch (storageError) {
+        console.warn('Failed to save itinerary to localStorage:', storageError);
+      }
+
+      toast.success('Itinerary saved successfully!');
+    } else {
+      toast.error('Unexpected response while saving');
+    }
+  } catch (err) {
+    toast.error(err?.response?.data?.error || err?.message || 'Failed to save itinerary');
+  } finally {
+    setSaving(false);
+  }
+};
+
+  const fetchOptionsFor = async (idx, loc) => {
+    try {
+      setActiveIndex(idx);
+      setBaseStop(loc);
+      setDrawerTitle(loc.name);
+      setDrawerData(null);
+      setDrawerLoading(true);
+      setDrawerOpen(true);
+
+      const body = {
+        location_name: loc.name,
+        included_provinces: plan?.province_corridor && plan.province_corridor.length ? plan.province_corridor : undefined,
+        radius_km: 50,
+        top_n: 8,
+        start_lat: plan?.start?.lat ?? plan?.itinerary?.[0]?.lat,
+        start_lng: plan?.start?.lng ?? plan?.itinerary?.[0]?.lng,
+        end_lat: plan?.end?.lat ?? plan?.itinerary?.[plan?.itinerary?.length - 1]?.lat,
+        end_lng: plan?.end?.lng ?? plan?.itinerary?.[plan?.itinerary?.length - 1]?.lng,
+        corridor_radius_km: plan?.corridor_radius_km ?? undefined,
+      };
+
+      const res = await optionsForLocation(body);
+      if (res?.data.status !== 'ok') {
+        toast.error('Unexpected itinerary options response');
+        return;
+      }
+
+      const presentNames = new Set(plan.itinerary.map(s => String(s.name||'').trim().toLowerCase()));
+      const filterList = (arr) =>
+        (Array.isArray(arr) ? arr : []).filter(x => {
+          const nm = String((x.location || x.name || '')).trim().toLowerCase();
+          if (!nm || presentNames.has(nm)) return false;
+          const xc = getCoords(x);
+          if (xc) {
+            for (const s of plan.itinerary) {
+              const sc = getCoords(s);
+              if (sc) {
+                const d = haversineKm(xc, sc);
+                if (d != null && d < 0.05) return false;
+              }
+            }
+          }
+          return true;
+        });
+
+      setDrawerData({
+        ...res,
+        nearby: filterList(res.data.nearby),
+          smart_alternatives: filterList(res.data.smart_alternatives),
+        top_rated: filterList(res.data.top_rated),
+        similar_activities: filterList(res.data.similar_activities),
+      });
+      console.log(drawerData);
+    } catch (err) {
+      toast.error(err?.response?.data?.error || err?.message || 'Failed to load location options');
+    } finally {
+      setDrawerLoading(false);
+    }
+  };
+
+  const replaceStopAt = (index, candidate) => {
+  if (!plan?.itinerary?.length) return;
+
+  if (index === 0 || index === plan.itinerary.length - 1) {
+    toast.info('Start and End cannot be replaced');
+    return;
+  }
+
+  const c = getCoords(candidate);
+  if (!c) {
+    toast.error('This suggestion has no coordinates. Please pick one that includes lat/lng.');
+    return;
+  }
+
+  const newStop = {
+    name: candidate.location || candidate.name || 'Unknown',
+    lat: c.lat,
+    lng: c.lng,
+    type: candidate.type || null,
+    province: candidate.province || candidate.Located_Province || null,
+    city: candidate.city || candidate.Located_City || null,
+    rating: toNum(candidate.avg_rating) ?? toNum(candidate.rating) ?? null,
+    is_city: false,
+    // ADDED: Preserve location_id from candidate if available
+    location_id: candidate.location_id || candidate.id || null,
+  };
+
+  const edited = [...plan.itinerary];
+  edited[index] = { ...edited[index], ...newStop };
+
+  const { next, total } = recomputeDistances(edited);
+  const updated = {
+    ...plan,
+    itinerary: next,
+    total_distance_km: Number.isFinite(total) ? total : plan.total_distance_km,
+  };
+
+  setPlan(updated);
+  try { sessionStorage.setItem('lastPlan', JSON.stringify(updated)); } catch {}
+  toast.success('Stop replaced successfully!');
+  setDrawerOpen(false);
+};
+
+  const onOptimize = async () => {
+  try {
+    setOptimizing(true);
+
+    const itin = plan.itinerary || [];
+    if (itin.length < 2) return;
+
+    const payloadItin = itin.map((s, i, arr) => {
+      const c = getCoords(s);
+      return {
+        name: s.name,
+        lat: c?.lat,
+        lng: c?.lng,
+        type: (i === 0 || i === arr.length - 1) ? (s.type || 'City') : s.type,
+        province: s.province,
+        city: s.city,
+        rating: s.rating,
+        is_city: (i === 0 || i === arr.length - 1) ? true : !!s.is_city,
+        distance_from_prev: s.distance_from_prev,
+        // ADDED: Include location_id in payload
+        location_id: s.location_id
+      };
+    });
+
+    const resp = await optimizePlan({
+      itinerary: payloadItin,
+      corridor_radius_km: plan.corridor_radius_km ?? undefined,
+    });
+
+    if (resp.status === 'ok' && Array.isArray(resp.itinerary) && resp.itinerary.length === itin.length) {
+      let newItin = resp.itinerary;
+      let newTotal = resp.total_distance_km;
+
+      // ADDED: Preserve location_ids from original itinerary
+      newItin = newItin.map((item, index) => ({
+        ...item,
+        location_id: item.location_id || itin[index]?.location_id || null
+      }));
+
+      if (!Array.isArray(newItin) || typeof newTotal !== 'number') {
+        const r = recomputeDistances(resp.itinerary || itin);
+        newItin = r.next;
+        newTotal = r.total;
+      }
+      const nextPlan = {
+        ...plan,
+        itinerary: newItin,
+        total_distance_km: newTotal,
+        start: {
+          name: newItin[0]?.name,
+          province: newItin[0]?.province,
+          lat: newItin[0]?.lat,
+          lng: newItin[0]?.lng,
+        },
+        end: {
+          name: newItin[newItin.length - 1]?.name,
+          province: newItin[newItin.length - 1]?.province,
+          lat: newItin[newItin.length - 1]?.lat,
+          lng: newItin[newItin.length - 1]?.lng,
+        }
+      };
+      setPlan(nextPlan);
+      setBaselineSig(itinerarySignature(nextPlan.itinerary));
+      try { sessionStorage.setItem('lastPlan', JSON.stringify(nextPlan)); } catch {}
+      toast.success('Route optimized successfully!');
+    } else {
+      const errMsg = resp?.data?.detail?.error || resp?.error || 'Optimize WW failed';
+      toast.error(errMsg);
+    }
+  } catch (err) {
+    toast.error(err?.response?.data?.error || err?.message || 'Optimize failed');
+  } finally {
+    setOptimizing(false);
+  }
+};
+
   if (!plan) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-        <div className="mx-auto max-w-4xl space-y-4">
-          <Title order={2}>Itinerary</Title>
-          <Paper p="lg">No plan loaded. Please generate a plan first.</Paper>
-          <Button onClick={() => navigate('/plan/build')}>Go to Plan Builder</Button>
-        </div>
+      <div className="min-h-screen" style={{backgroundColor: 'var(--color-lynx-white)'}}>
+        <Container size="lg" py={rem(80)}>
+          <Stack align="center" gap="md">
+            <Paper
+              p="xl"
+              radius="xl"
+              ta="center"
+              withBorder
+              style={{
+                backgroundColor: 'white',
+                borderColor: 'var(--color-heart-of-ice)',
+                borderWidth: '2px'
+              }}
+            >
+              <RouteIcon size={64} style={{color: 'var(--color-welded-iron)', marginBottom: rem(16)}}/>
+              <Title order={2} className="font-display mb-4" style={{color: 'var(--color-midnight-dreams)'}}>
+                No Itinerary Found
+              </Title>
+              <Text c="dimmed" className="font-body mb-6">
+                No plan loaded. Please generate a plan first to view your itinerary.
+              </Text>
+              <Button
+                size="lg"
+                radius="xl"
+                color="orange"
+                leftSection={<ArrowLeft size={20}/>}
+                onClick={() => navigate('/plan/create')}
+              >
+                Go to Plan Builder
+              </Button>
+            </Paper>
+          </Stack>
+        </Container>
       </div>
     );
   }
@@ -175,486 +827,354 @@ export default function PlanItinerary() {
   const startProvince = start?.province || itinerary[0]?.province || 'Unknown Province';
   const endProvince = end?.province || itinerary[itinerary.length - 1]?.province || 'Unknown Province';
 
-  const openInMaps = (lat, lng, name) => {
-    const c = getCoords({ lat, lng });
-    if (!c) { toast.info('No coordinates available'); return; }
-    const url = `https://www.google.com/maps?q=${c.lat},${c.lng}(${encodeURIComponent(name || '')})`;
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
+  return (
+    <div className="min-h-screen" style={{backgroundColor: 'var(--color-lynx-white)'}}>
+      <Container size="xl" py={rem(80)}>
+        {/* Header */}
+        <div className="mb-12">
+          <Group justify="space-between" align="flex-start" mb="lg">
+            <div>
+              <Title
+                order={1}
+                size={rem(48)}
+                className="font-display mb-2"
+                style={{
+                  background: 'linear-gradient(135deg, var(--color-midnight-dreams), var(--color-ocean-depths))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                Your Perfect Itinerary
+              </Title>
+              <Group gap="sm">
+                <Badge
+                  leftSection={<Navigation size={14}/>}
+                  variant="filled"
+                  color="green"
+                  size="lg"
+                >
+                  {(start?.name || itinerary[0]?.name || 'Start')}
+                </Badge>
+                <Text size="lg" fw={500} style={{color: 'var(--color-welded-iron)'}}>→</Text>
+                <Badge
+                  leftSection={<Flag size={14}/>}
+                  variant="filled"
+                  color="red"
+                  size="lg"
+                >
+                  {(end?.name || itinerary[itinerary.length - 1]?.name || 'End')}
+                </Badge>
+              </Group>
+            </div>
 
-  const defaultTitle = (() => {
-    const s = start?.name || itinerary[0]?.name || 'Start';
-    const e = end?.name || itinerary[itinerary.length - 1]?.name || 'End';
-    const r = corridor_radius_km ? ` (${corridor_radius_km}km corridor)` : '';
-    return `${s} → ${e}${r}`;
-  })();
+            <Group gap="md">
+              {needsOptimize && (
+                <Button
+                  size="lg"
+                  radius="xl"
+                  loading={optimizing}
+                  onClick={onOptimize}
+                  leftSection={<Sparkles size={18}/>}
+                  variant="filled"
+                  color="orange"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--color-brave-orange), var(--color-hot-embers))',
+                    boxShadow: '0 4px 15px rgba(253, 102, 30, 0.3)'
+                  }}
+                >
+                  Optimize Route
+                </Button>
+              )}
 
-  const onSave = async () => {
-    try {
-      setSaving(true);
-      const title = defaultTitle;
-      const res = await saveItinerary(plan, title);
-
-      if (res?.status === 'created') {
-        // Extract location_ids from the itinerary
-        const locationIds = plan.itinerary
-          .filter(item => item.location_id !== null && item.location_id !== undefined)
-          .map(item => item.location_id);
-
-        // Get existing saved itineraries from localStorage
-        let savedItineraries = {};
-        try {
-          const existing = localStorage.getItem('savedItineraries');
-          savedItineraries = existing ? JSON.parse(existing) : {};
-        } catch (storageError) {
-          console.warn('Failed to read existing itineraries from localStorage:', storageError);
-          savedItineraries = {};
-        }
-
-        // Add this itinerary with its title as the key
-        savedItineraries[title] = {
-          locationIds: locationIds,
-          savedAt: new Date().toISOString(),
-          totalDistance: plan.total_distance_km,
-          attractionsCount: plan.attractions_count
-        };
-
-        // Store back to localStorage
-        try {
-          localStorage.setItem('savedItineraries', JSON.stringify(savedItineraries));
-          console.log(`Saved itinerary "${title}" with location IDs:`, locationIds);
-        } catch (storageError) {
-          console.warn('Failed to save itinerary to localStorage:', storageError);
-        }
-
-        toast.success('Itinerary saved');
-      } else {
-        toast.error('Unexpected response while saving');
-      }
-    } catch (err) {
-      toast.error(err?.response?.data?.error || err?.message || 'Failed to save itinerary');
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  // -------- fetch per-stop options (from ML) --------
-  const fetchOptionsFor = async (idx, loc) => {
-    try {
-      setActiveIndex(idx);
-      setBaseStop(loc);
-      setDrawerTitle(loc.name);
-      setDrawerData(null);
-      setDrawerLoading(true);
-      setDrawerOpen(true);
-
-      const body = {
-        location_name: loc.name,
-        included_provinces: province_corridor && province_corridor.length ? province_corridor : undefined,
-        radius_km: 50,
-        top_n: 8,
-        start_lat: start?.lat ?? itinerary[0]?.lat,
-        start_lng: start?.lng ?? itinerary[0]?.lng,
-        end_lat: end?.lat ?? itinerary[itinerary.length - 1]?.lat,
-        end_lng: end?.lng ?? itinerary[itinerary.length - 1]?.lng,
-        corridor_radius_km: corridor_radius_km ?? undefined,
-      };
-
-      const res = await optionsForLocation(body);
-      if (res?.status !== 'ok') {
-        toast.error('Unexpected itinerary options response');
-        return;
-      }
-
-      // Filter out places already in itinerary (by name and ~50m proximity)
-      const presentNames = new Set(itinerary.map(s => String(s.name||'').trim().toLowerCase()));
-      const filterList = (arr) =>
-        (Array.isArray(arr) ? arr : []).filter(x => {
-          const nm = String((x.location || x.name || '')).trim().toLowerCase();
-          if (!nm || presentNames.has(nm)) return false;
-          const xc = getCoords(x);
-          if (xc) {
-            for (const s of itinerary) {
-              const sc = getCoords(s);
-              if (sc) {
-                const d = haversineKm(xc, sc);
-                if (d != null && d < 0.05) return false; // ~50m
-              }
-            }
-          }
-          return true;
-        });
-
-      setDrawerData({
-        ...res,
-        hybrid: filterList(res.hybrid),
-        nearby: filterList(res.nearby),
-        top_rated: filterList(res.top_rated),
-        same_type: filterList(res.same_type),
-        similar_activities: filterList(res.similar_activities),
-      });
-    } catch (err) {
-      toast.error(err?.response?.data?.error || err?.message || 'Failed to load location options');
-    } finally {
-      setDrawerLoading(false);
-    }
-  };
-
-  // -------- replace a stop locally (requires coords, but now we read many key names) --------
-  const replaceStopAt = (index, candidate) => {
-    if (!plan?.itinerary?.length) return;
-
-    if (index === 0 || index === plan.itinerary.length - 1) {
-      toast.info('Start and End cannot be replaced');
-      return;
-    }
-
-    const c = getCoords(candidate);
-    if (!c) {
-      toast.error('This suggestion has no coordinates. Please pick one that includes lat/lng.');
-      return;
-    }
-
-    const newStop = {
-      name: candidate.location || candidate.name || 'Unknown',
-      lat: c.lat,
-      lng: c.lng,
-      type: candidate.type || null,
-      province: candidate.province || candidate.Located_Province || null,
-      city: candidate.city || candidate.Located_City || null,
-      rating: toNum(candidate.avg_rating) ?? toNum(candidate.rating) ?? null,
-      is_city: false,
-    };
-
-    const edited = [...plan.itinerary];
-    edited[index] = { ...edited[index], ...newStop };
-
-    const { next, total } = recomputeDistances(edited);
-    const updated = {
-      ...plan,
-      itinerary: next,
-      total_distance_km: Number.isFinite(total) ? total : plan.total_distance_km,
-    };
-
-    setPlan(updated);
-    try { sessionStorage.setItem('lastPlan', JSON.stringify(updated)); } catch {}
-    toast.success('Stop replaced (pending optimization)');
-    setDrawerOpen(false);
-  };
-
-  // -------- optimize route only when needed --------
-  const onOptimize = async () => {
-    try {
-      setOptimizing(true);
-
-      const itin = plan.itinerary || [];
-      if (itin.length < 2) return;
-
-      // Mark endpoints as cities; send only supported fields
-      const payloadItin = itin.map((s, i, arr) => {
-        const c = getCoords(s);
-        return {
-          name: s.name,
-          lat: c?.lat,
-          lng: c?.lng,
-          type: (i === 0 || i === arr.length - 1) ? (s.type || 'City') : s.type,
-          province: s.province,
-          city: s.city,
-          rating: s.rating,
-          is_city: (i === 0 || i === arr.length - 1) ? true : !!s.is_city,
-          distance_from_prev: s.distance_from_prev
-        };
-      });
-
-      const resp = await optimizePlan({
-        itinerary: payloadItin,
-        corridor_radius_km: corridor_radius_km ?? undefined,
-      });
-
-      if (resp?.status === 'ok' && Array.isArray(resp.itinerary) && resp.itinerary.length === itin.length) {
-        let newItin = resp.itinerary;
-        let newTotal = resp.total_distance_km;
-        if (!Array.isArray(newItin) || typeof newTotal !== 'number') {
-          const r = recomputeDistances(resp.itinerary || itin);
-          newItin = r.next;
-          newTotal = r.total;
-        }
-        const nextPlan = {
-          ...plan,
-          itinerary: newItin,
-          total_distance_km: newTotal,
-          start: {
-            name: newItin[0]?.name,
-            province: newItin[0]?.province,
-            lat: newItin[0]?.lat,
-            lng: newItin[0]?.lng,
-          },
-          end: {
-            name: newItin[newItin.length - 1]?.name,
-            province: newItin[newItin.length - 1]?.province,
-            lat: newItin[newItin.length - 1]?.lat,
-            lng: newItin[newItin.length - 1]?.lng,
-          }
-        };
-        setPlan(nextPlan);
-        setBaselineSig(itinerarySignature(nextPlan.itinerary));
-        try { sessionStorage.setItem('lastPlan', JSON.stringify(nextPlan)); } catch {}
-        toast.success('Route optimized');
-      } else {
-        const errMsg = resp?.detail?.error || resp?.error || 'Optimize failed';
-        toast.error(errMsg);
-      }
-    } catch (err) {
-      toast.error(err?.response?.data?.error || err?.message || 'Optimize failed');
-    } finally {
-      setOptimizing(false);
-    }
-  };
-
-  // -------- drawer list (distance from selected stop) --------
-  const ListBlock = ({ items }) => (
-    <Stack gap="sm">
-      {(!items || items.length === 0) ? (
-        <Text c="dimmed" size="sm">No results.</Text>
-      ) : items.map((x, i) => {
-        const baseC = getCoords(baseStop);
-        const xC = getCoords(x);
-        const dBase = typeof x.distance_from_base_km === 'number'
-          ? x.distance_from_base_km
-          : (baseC && xC ? haversineKm(baseC, xC) : null);
-
-        const isEndpoint = activeIndex === 0 || activeIndex === (plan.itinerary.length - 1);
-        const hasCoords = !!xC;
-        const disabledReason = isEndpoint ? 'Start/End cannot be replaced' : (!hasCoords ? 'No coordinates' : null);
-
-        return (
-          <Card key={`${x.location || x.name}-${i}`} withBorder radius="md" p="md" className="hover:shadow-sm transition-all">
-            <Group justify="space-between" align="start">
-              <div className="min-w-0">
-                <Text fw={600} className="truncate">{x.location || x.name}</Text>
-                <Group gap="xs" mt={6} wrap="wrap">
-                  {x.type && <Badge variant="outline">{x.type}</Badge>}
-                  {(x.province || x.Located_Province) && <Badge variant="outline">{x.province || x.Located_Province}</Badge>}
-                  {toNum(x.avg_rating) !== null && (
-                    <Badge variant="light" leftSection={<Star size={12} />}>
-                      {toNum(x.avg_rating).toFixed(2)}
-                    </Badge>
-                  )}
-                  {dBase != null && (
-                    <Badge variant="light" leftSection={<Compass size={12} />}>
-                      {km(dBase)}
-                    </Badge>
-                  )}
-                </Group>
-              </div>
               <Group gap="xs">
-                {hasCoords && (
-                  <Button size="xs" variant="default" onClick={() => openInMaps(xC.lat, xC.lng, x.location || x.name)}>
-                    Map
-                  </Button>
-                )}
-                {disabledReason ? (
-                  <Tooltip label={disabledReason}>
-                    <Button size="xs" variant="default" disabled leftSection={<Lock size={14} />}>
-                      Replace
-                    </Button>
-                  </Tooltip>
-                ) : (
-                  <Button size="xs" onClick={() => replaceStopAt(activeIndex, x)} leftSection={<ReplaceIcon size={14} />}>
-                    Replace
-                  </Button>
-                )}
+                <Button
+                  variant="light"
+                  color="gray"
+                  leftSection={<ArrowLeft size={16}/>}
+                  onClick={() => navigate('/plan/create')}
+                  radius="xl"
+                >
+                  Back to Builder
+                </Button>
+
+                <Button
+                  variant="light"
+                  color="blue"
+                  leftSection={<FolderOpen size={16}/>}
+                  onClick={() => navigate('/plan/saved')}
+                  radius="xl"
+                >
+                  View Saved
+                </Button>
+
+                <Button
+                  variant="light"
+                  color="gray"
+                  leftSection={<Download size={16}/>}
+                  onClick={() => {
+                    try {
+                      const blob = new Blob([JSON.stringify(plan, null, 2)], { type: 'application/json' });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url; a.download = 'itinerary.json'; a.click();
+                      URL.revokeObjectURL(url);
+                    } catch { toast.error('Failed to export'); }
+                  }}
+                  radius="xl"
+                >
+                  Export
+                </Button>
+
+                <Button
+                  size="lg"
+                  radius="xl"
+                  loading={saving}
+                  onClick={onSave}
+                  leftSection={<Save size={18}/>}
+                  color="blue"
+                  variant="filled"
+                >
+                  Save Itinerary
+                </Button>
               </Group>
             </Group>
-          </Card>
-        );
-      })}
-    </Stack>
-  );
-
-  return (
-    <div className="min-h-screen mt-20 bg-gray-50 p-4 md:p-8">
-      <div className="mx-auto max-w-5xl space-y-12">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <Title order={2}>Itinerary</Title>
-            <Text size="sm" c="dimmed">
-              {(start?.name || itinerary[0]?.name || 'Start')} → {(end?.name || itinerary[itinerary.length - 1]?.name || 'End')}
-            </Text>
-          </div>
-          <Group gap="xs">
-            {needsOptimize && (
-              <Button
-                onClick={onOptimize}
-                loading={optimizing}
-                leftSection={<Sparkles size={16} />}
-                variant="filled"
-              >
-                Optimize route
-              </Button>
-            )}
-            <Button variant="default" onClick={() => navigate('/plan/build')}>Back to Builder</Button>
-            <Button variant="default" onClick={() => navigate('/plan/saved')}>View Saved</Button>
-            <Button
-              onClick={() => {
-                try {
-                  const blob = new Blob([JSON.stringify(plan, null, 2)], { type: 'application/json' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url; a.download = 'itinerary.json'; a.click();
-                  URL.revokeObjectURL(url);
-                } catch { toast.error('Failed to export'); }
-              }}
-            >
-              Export JSON
-            </Button>
-            <Button loading={saving} onClick={onSave}>Save Itinerary</Button>
           </Group>
         </div>
 
-        {/* Summary */}
-        <Paper withBorder radius="lg" p="lg">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-1">
-              <Text size="sm" c="dimmed">Start</Text>
-              <Group gap="xs" wrap="nowrap">
-                <MapPin size={16} />
-                <Text fw={600}>{start?.name || itinerary[0]?.name || '—'}</Text>
-                <Button size="xs" variant="default" onClick={() => openInMaps(start?.lat ?? itinerary[0]?.lat, start?.lng ?? itinerary[0]?.lng, start?.name ?? itinerary[0]?.name)}>
-                  Open in Maps
-                </Button>
-              </Group>
-              <Text size="sm" c="dimmed">{startProvince ? `Province: ${startProvince}` : ''}</Text>
-            </div>
-
-            <div className="space-y-1">
-              <Text size="sm" c="dimmed">End</Text>
-              <Group gap="xs" wrap="nowrap">
-                <Flag size={16} />
-                <Text fw={600}>{end?.name || itinerary[itinerary.length - 1]?.name || '—'}</Text>
-                <Button size="xs" variant="default" onClick={() => openInMaps(end?.lat ?? itinerary[itinerary.length - 1]?.lat, end?.lng ?? itinerary[itinerary.length - 1]?.lng, end?.name ?? itinerary[itinerary.length - 1]?.name)}>
-                  Open in Maps
-                </Button>
-              </Group>
-              <Text size="sm" c="dimmed">{endProvince ? `Province: ${endProvince}` : ''}</Text>
-            </div>
-
-            <div className="space-y-2">
-              <Text size="sm" c="dimmed">Trip summary</Text>
-              <Group gap="xs">
-                <Badge variant="light" leftSection={<RouteIcon size={14} />}>{km(total_distance_km)}</Badge>
-                <Badge variant="light">{is_day_trip ? 'Day trip' : 'Multi-day'}</Badge>
-                <Badge variant="light">{attractions_count ?? 0} attractions</Badge>
-                <Badge variant="light">{corridor_radius_km} km corridor</Badge>
-              </Group>
-            </div>
-          </div>
-
-          {province_corridor?.length ? (
-            <>
-              <Divider my="md" />
-              <div className="space-y-1">
-                <Text size="sm" c="dimmed">Province corridor</Text>
-                <Group gap="xs">
-                  {province_corridor.map((p) => (<Badge key={p} variant="outline">{p}</Badge>))}
-                </Group>
+        {/* Summary Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {/* Start Location */}
+          <Card
+            radius="xl"
+            p="xl"
+            withBorder
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'var(--color-heart-of-ice)',
+              borderWidth: '2px'
+            }}
+          >
+            <Group gap="md" mb="md">
+              <Paper
+                p="md"
+                radius="lg"
+                style={{backgroundColor: 'var(--color-malibu-sun)'}}
+              >
+                <Navigation size={24} style={{color: 'var(--color-lemon-dream)'}}/>
+              </Paper>
+              <div>
+                <Text size="sm" c="dimmed" className="font-body">Start Location</Text>
+                <Text fw={700} size="lg" className="font-display" style={{color: 'var(--color-midnight-dreams)'}}>
+                  {start?.name || itinerary[0]?.name || '—'}
+                </Text>
               </div>
-            </>
-          ) : null}
-        </Paper>
+            </Group>
+            <Text size="sm" c="dimmed" mb="md" className="font-body">
+              Province: {startProvince}
+            </Text>
+            <Button
+              variant="light"
+              color="blue"
+              size="sm"
+              fullWidth
+              leftSection={<MapPin size={14}/>}
+              onClick={() => openInMaps(
+                start?.lat ?? itinerary[0]?.lat,
+                start?.lng ?? itinerary[0]?.lng,
+                start?.name ?? itinerary[0]?.name
+              )}
+              radius="xl"
+            >
+              Open in Maps
+            </Button>
+          </Card>
+
+          {/* End Location */}
+          <Card
+            radius="xl"
+            p="xl"
+            withBorder
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'var(--color-heart-of-ice)',
+              borderWidth: '2px'
+            }}
+          >
+            <Group gap="md" mb="md">
+              <Paper
+                p="md"
+                radius="lg"
+                style={{backgroundColor: 'var(--color-desert-lilly)'}}
+              >
+                <Flag size={24} style={{color: 'var(--color-rust-red)'}}/>
+              </Paper>
+              <div>
+                <Text size="sm" c="dimmed" className="font-body">End Location</Text>
+                <Text fw={700} size="lg" className="font-display" style={{color: 'var(--color-midnight-dreams)'}}>
+                  {end?.name || itinerary[itinerary.length - 1]?.name || '—'}
+                </Text>
+              </div>
+            </Group>
+            <Text size="sm" c="dimmed" mb="md" className="font-body">
+              Province: {endProvince}
+            </Text>
+            <Button
+              variant="light"
+              color="red"
+              size="sm"
+              fullWidth
+              leftSection={<MapPin size={14}/>}
+              onClick={() => openInMaps(
+                end?.lat ?? itinerary[itinerary.length - 1]?.lat,
+                end?.lng ?? itinerary[itinerary.length - 1]?.lng,
+                end?.name ?? itinerary[itinerary.length - 1]?.name
+              )}
+              radius="xl"
+            >
+              Open in Maps
+            </Button>
+          </Card>
+
+          {/* Trip Summary */}
+          <Card
+            radius="xl"
+            p="xl"
+            withBorder
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'var(--color-heart-of-ice)',
+              borderWidth: '2px'
+            }}
+          >
+            <Group gap="md" mb="md">
+              <Paper
+                p="md"
+                radius="lg"
+                style={{backgroundColor: 'var(--color-heart-of-ice)'}}
+              >
+                <Clock size={24} style={{color: 'var(--color-ocean-depths)'}}/>
+              </Paper>
+              <div>
+                <Text size="sm" c="dimmed" className="font-body">Trip Summary</Text>
+                <Text fw={700} size="lg" className="font-display" style={{color: 'var(--color-midnight-dreams)'}}>
+                  {km(total_distance_km)}
+                </Text>
+              </div>
+            </Group>
+            <Group gap="xs" wrap="wrap">
+              <Badge variant="light" color="blue">
+                {is_day_trip ? 'Day trip' : 'Multi-day'}
+              </Badge>
+              <Badge variant="light" color="green">
+                {attractions_count ?? 0} attractions
+              </Badge>
+              <Badge variant="light" color="orange">
+                {corridor_radius_km} km corridor
+              </Badge>
+            </Group>
+          </Card>
+        </div>
+
+        {/* Province Corridor */}
+        {province_corridor?.length > 0 && (
+          <Card
+            radius="xl"
+            p="xl"
+            withBorder
+            mb="xl"
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'var(--color-heart-of-ice)',
+              borderWidth: '2px'
+            }}
+          >
+            <Group gap="md" mb="md">
+              <Paper
+                p="sm"
+                radius="lg"
+                style={{backgroundColor: 'var(--color-heart-of-ice)'}}
+              >
+                <RouteIcon size={20} style={{color: 'var(--color-ocean-depths)'}}/>
+              </Paper>
+              <Text fw={600} className="font-display" style={{color: 'var(--color-midnight-dreams)'}}>
+                Province Corridor
+              </Text>
+            </Group>
+            <Group gap="xs">
+              {province_corridor.map((p) => (
+                <Badge key={p} variant="outline" color="blue" size="md">
+                  {p}
+                </Badge>
+              ))}
+            </Group>
+          </Card>
+        )}
 
         {/* Timeline */}
-        <Paper withBorder radius="lg" p="lg">
-          <Timeline bulletSize={22} lineWidth={2} active={itinerary.length}>
-            {itinerary.map((item, idx) => {
-              const c = getCoords(item);
-              const distance = item.distance_from_prev;
-              const bullet = (<div className="rounded-full bg-gray-100 p-1"><RouteIcon size={14} /></div>);
-              return (
-                <Timeline.Item
-                  key={`${item.name}-${idx}`}
-                  bullet={bullet}
-                  title={
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <button
-                          className="text-left font-semibold hover:underline"
-                          onClick={() => fetchOptionsFor(idx, item)}
-                          title="Explore options for this stop"
-                        >
-                          {item.name}
-                        </button>
-                        {item.original_city_label && (
-                          <Badge variant="outline" leftSection={<Info size={12} />}>
-                            from city: {item.original_city_label}
-                          </Badge>
-                        )}
-                        {(idx === 0 || idx === itinerary.length - 1) && (
-                          <Badge variant="outline" leftSection={<Lock size={12} />}>
-                            Fixed
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {toNum(item.rating) !== null && (<Badge variant="light" leftSection={<Star size={12} />}>{toNum(item.rating).toFixed(2)}</Badge>)}
-                        {distance != null && (<Badge variant="light">{km(distance)} from previous</Badge>)}
-                        {c && (<Button size="xs" variant="default" onClick={() => openInMaps(c.lat, c.lng, item.name)}>Open in Maps</Button>)}
-                        <Button size="xs" variant="default" onClick={() => fetchOptionsFor(idx, item)}>Explore</Button>
-                      </div>
-                    </div>
-                  }
-                >
-                  <div className="mt-1 text-sm text-gray-700">
-                    <div className="flex flex-wrap items-center gap-2">
-                      {item.type && <Badge variant="outline">{(item.type || '').toUpperCase()}</Badge>}
-                      {(item.city || item.province) && (
-                        <Text c="dimmed">
-                          {item.city ? `${item.city}` : ''}{item.city && item.province ? ', ' : ''}{item.province || ''}
-                        </Text>
-                      )}
-                    </div>
-                  </div>
-                </Timeline.Item>
-              );
-            })}
-          </Timeline>
-        </Paper>
-      </div>
+        <Card
+          radius="xl"
+          p="xl"
+          withBorder
+          style={{
+            backgroundColor: 'white',
+            borderColor: 'var(--color-heart-of-ice)',
+            borderWidth: '2px'
+          }}
+        >
+          <Group gap="md" mb="xl">
+            <Paper
+              p="sm"
+              radius="lg"
+              style={{backgroundColor: 'var(--color-brave-orange)'}}
+            >
+              <RouteIcon size={24} color="white"/>
+            </Paper>
+            <div>
+              <Title order={3} className="font-display" style={{color: 'var(--color-midnight-dreams)'}}>
+                Your Journey Route
+              </Title>
+              <Text size="sm" c="dimmed" className="font-body">
+                Click on any stop to explore alternative destinations
+              </Text>
+            </div>
+          </Group>
 
-      {/* Right Drawer */}
-      <Drawer
+          <Timeline
+            bulletSize={40}
+            lineWidth={3}
+            active={itinerary.length}
+            color="orange"
+          >
+            {itinerary.map((item, idx) => (
+              <TimelineStop
+                key={`${item.name}-${idx}`}
+                item={item}
+                idx={idx}
+                totalStops={itinerary.length}
+                onExplore={fetchOptionsFor}
+                onOpenInMaps={openInMaps}
+                isOptimizing={optimizing}
+              />
+            ))}
+          </Timeline>
+        </Card>
+      </Container>
+
+      {/* Options Drawer */}
+      <OptionsDrawer
         opened={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        position="right"
-        size="lg"
-        title={<Group gap="xs"><ListChecks size={16} /><Text fw={700}>{drawerTitle || 'Options'}</Text></Group>}
-      >
-        {drawerLoading ? (
-          <div className="flex items-center justify-center py-10"><Loader /></div>
-        ) : !drawerData ? (
-          <Text c="dimmed">No data.</Text>
-        ) : (
-          <Tabs defaultValue="hybrid" variant="pills">
-            <Tabs.List>
-              <Tabs.Tab value="hybrid">Hybrid</Tabs.Tab>
-              <Tabs.Tab value="nearby">Nearby</Tabs.Tab>
-              <Tabs.Tab value="top_rated">Top-rated</Tabs.Tab>
-              <Tabs.Tab value="same_type">Same type</Tabs.Tab>
-              <Tabs.Tab value="similar_activities">Similar activities</Tabs.Tab>
-            </Tabs.List>
-
-            <Tabs.Panel value="hybrid" pt="md"><ListBlock items={drawerData.hybrid} /></Tabs.Panel>
-            <Tabs.Panel value="nearby" pt="md"><ListBlock items={drawerData.nearby} /></Tabs.Panel>
-            <Tabs.Panel value="top_rated" pt="md"><ListBlock items={drawerData.top_rated} /></Tabs.Panel>
-            <Tabs.Panel value="same_type" pt="md"><ListBlock items={drawerData.same_type} /></Tabs.Panel>
-            <Tabs.Panel value="similar_activities" pt="md"><ListBlock items={drawerData.similar_activities} /></Tabs.Panel>
-          </Tabs>
-        )}
-      </Drawer>
+        title={drawerTitle}
+        loading={drawerLoading}
+        data={drawerData}
+        activeIndex={activeIndex}
+        plan={plan}
+        onReplace={replaceStopAt}
+      />
     </div>
   );
 }
 
-// Export utility functions for use in other components
+// Export utility functions
 export { getSavedItineraries, getLocationIdsByTitle, getAllSavedTitles, getItineraryDetails };
