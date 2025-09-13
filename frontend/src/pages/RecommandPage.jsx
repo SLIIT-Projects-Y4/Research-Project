@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmDialog from "../models/ConfirmDialog.jsx";
-import { useMemo } from "react";
+import { useMemo} from "react";
 import React from "react";
 
 export default function RecommendPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const userData = useMemo(() => {
-    return location.state || JSON.parse(localStorage.getItem("user") || "null");
-  }, [location.state]);
+  const userData= useMemo(() => {
+  return location.state || JSON.parse(localStorage.getItem("user") || "null");
+  },[location.state]);
   const userId = userData?.userId;
 
   const [groups, setGroups] = useState([]);
@@ -124,7 +124,7 @@ export default function RecommendPage() {
     };
 
     fetchGroups();
-  }, [userId]);
+  }, [ userId ]);
 
   const handleJoin = async (groupId) => {
     try {

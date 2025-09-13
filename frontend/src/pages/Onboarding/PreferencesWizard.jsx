@@ -61,7 +61,7 @@ export default function PreferencesWizard() {
       if (step < STEPS.length - 1) setStep(step + 1);
       else {
         toast.success('All set! Generating recommendations…');
-        navigate('/home');
+        navigate('/login');
       }
     } catch {
       toast.error('Could not save preferences. Please try again.');

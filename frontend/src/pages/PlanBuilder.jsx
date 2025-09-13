@@ -225,7 +225,7 @@ export default function PlanBuilder() {
     <div className="min-h-screen py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4">
         <Stack gap="xl" mb="xl">
-          <Text size="3.5rem" fw={800} lh={1.1} className="font-display" c="var(--color-midnight-dreams)" mt="xl">
+          <Text size="3.5rem" fw={800} lh={1.1} className="font-display" c="var(--color-midnight-dreams)" mt="xl" >
             Craft Your <Text component="span" c="var(--color-brave-orange)" inherit>Perfect</Text> Trip
           </Text>
           <Text size="lg" c="dimmed" maw={700} lh={1.6}>
