@@ -21,7 +21,7 @@ export default function RegisterPage() {
       setLoading(true);
       const res = await apiRegister(form);
       toast.success(res?.message || 'Registration successful. Please log in.');
-      navigate('/login');
+      navigate('/onboarding');
     } catch {
       toast.error('Registration failed. Please check your details and try again.');
     } finally {

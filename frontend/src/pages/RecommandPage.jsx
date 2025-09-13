@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmDialog from "../models/ConfirmDialog.jsx";
+import { useMemo } from "react";
 import React from "react";
 
 export default function RecommendPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const userData =
-    location.state || JSON.parse(localStorage.getItem("user") || "null");
+  const userData = useMemo(() => {
+    return location.state || JSON.parse(localStorage.getItem("user") || "null");
+  }, [location.state]);
   const userId = userData?.userId;
 
   const [groups, setGroups] = useState([]);
@@ -122,13 +124,7 @@ export default function RecommendPage() {
     };
 
     fetchGroups();
-  }, [
-  userId,
-  userData?.age_group,
-  userData?.budget,
-  userData?.travel_style,
-  userData?.preferred_activities,
-]);
+  }, [userId]);
 
   const handleJoin = async (groupId) => {
     try {
@@ -303,7 +299,7 @@ export default function RecommendPage() {
       <div className="mx-auto max-w-7xl px-6 pt-14 pb-16">
         {/* Header */}
         <header className="mb-10 text-center">
-          <h1 className="mt-4 bg-gradient-to-r from-amber-400 via-rose-400 to-indigo-500 bg-clip-text text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight text-transparent md:text-6xl">
+          <h1 className="mt-8 bg-gradient-to-r from-amber-400 via-rose-400 to-indigo-500 bg-clip-text text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight text-transparent md:text-6xl">
             Find your perfect travel group
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-xl leading-relaxed text-slate-600">
