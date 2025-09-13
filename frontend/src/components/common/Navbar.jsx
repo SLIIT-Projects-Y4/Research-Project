@@ -112,8 +112,8 @@ export const Navbar = () => {
         {name: "Home", path: "/home"},
         {name: "Plan Pool", path: "/plan-pool"},
         {name: "Generate Plan", path: "/plan/build"},
-        {name: "Flights", path: "/flights"},
-        {name: "My Trips", path: "/bookings"}
+        {name: "Get budget", path: "/budget-planning"},
+        {name: "Explore Groups", path: "/explore-groups"}
     ];
 
     return (

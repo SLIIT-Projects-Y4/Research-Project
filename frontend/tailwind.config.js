@@ -1,7 +1,9 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  plugins: [
-    require('flowbite/plugin'),
-     require('@tailwindcss/line-clamp'),
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/flowbite/**/*.js",
   ],
+  theme: { extend: {} },
+  plugins: [require("flowbite/plugin")], // ✅ enable Flowbite utilities
 };
