@@ -20,6 +20,7 @@ export default function RecommendPage() {
   const [loading, setLoading] = useState(true);
   const [waiting, setWaiting] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
+  const [preferredDestinations, setPreferredDestinations] = useState([]);
 
   const serverUrl = "http://localhost:9090";
 
@@ -76,6 +77,28 @@ export default function RecommendPage() {
     return Array.from(map.values());
   };
 
+ useEffect(() => {
+  if (!userId) return;
+
+  const loadPlanPoolNames = async () => {
+    try {
+      const url = `http://localhost:3000/api/auth/users/${userId}/plan-pool-names`;
+      const res = await fetch(url, { cache: "no-store" }); // ⬅️ bypass cache
+
+      if (res.status === 304) return; // nothing new; keep previous state
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json().catch(() => ({ names: [] }));
+      setPreferredDestinations(Array.isArray(data.names) ? data.names : []);
+    } catch (e) {
+      console.warn("plan-pool-names fetch failed:", e);
+      setPreferredDestinations([]);
+    }
+  };
+
+  loadPlanPoolNames();
+}, [userId]);
+
   useEffect(() => {
     if (waiting) {
       const t = setTimeout(() => setWaiting(false), 5000); // hide after 5s
@@ -99,6 +122,7 @@ export default function RecommendPage() {
               Travel_Style: userData?.travel_style,
               User_Interest: userData?.preferred_activities,
               user_id: userId,
+              Preferred_Destination: preferredDestinations,
             }),
           }),
         ]);
@@ -124,7 +148,7 @@ export default function RecommendPage() {
     };
 
     fetchGroups();
-  }, [ userId ]);
+  }, [ userId, preferredDestinations ]);
 
   const handleJoin = async (groupId) => {
     try {
@@ -254,6 +278,7 @@ export default function RecommendPage() {
             Travel_Style: userData.travel_style,
             User_Interest: userData.preferred_activities,
             user_id: userId,
+            Preferred_Destination: preferredDestinations,
           },
           rejected_ids: rejectedIds,
         }),

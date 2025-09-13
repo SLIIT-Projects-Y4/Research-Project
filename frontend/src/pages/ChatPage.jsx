@@ -49,6 +49,7 @@ export default function ChatPage() {
   const [showPollModal, setShowPollModal] = useState(false);
   const [polls, setPolls] = useState([]);
   const [showPolls, setShowPolls] = useState(false);
+  const [members, setMembers] = useState([]);
 
   const bottomRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -193,6 +194,27 @@ export default function ChatPage() {
       shouldScrollRef.current = true;
     }
   };
+
+  useEffect(() => {
+    if (!group_id) return;
+    (async () => {
+      try {
+        const res = await fetch(`${serverUrl}/groups/members/${group_id}`);
+        const data = await res.json();
+        setMembers(Array.isArray(data) ? data : []);
+      } catch (e) {
+        console.warn("Failed to load members", e);
+      }
+    })();
+  }, [group_id]);
+
+  const initials = (name = "") =>
+    name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((p) => p[0]?.toUpperCase())
+      .join("") || "?";
 
   const handleTyping = (value) => {
     setNewMessage(value);
@@ -341,6 +363,105 @@ export default function ChatPage() {
         <span className="text-2xl">✈️</span>
         Trip Planner Chat
       </h2>
+      {/* Members row like WhatsApp (UI enhanced only) */}
+      <div className="mb-5 -mt-1 flex items-center justify-center gap-3 text-sm text-slate-600">
+        {/* Avatars */}
+        <div className="flex -space-x-2">
+          {members.slice(0, 3).map((m) => (
+            <div
+              key={m.userID}
+              title={m.name}
+              className="relative inline-flex h-8 w-8 items-center justify-center rounded-full
+                   ring-2 ring-white bg-slate-100 text-[11px] font-semibold text-slate-700
+                   shadow-sm transition-transform hover:scale-[1.05]"
+            >
+              {m.avatar ? (
+                <img
+                  src={m.avatar}
+                  alt={m.name}
+                  className="h-8 w-8 rounded-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                initials(m.name)
+              )}
+            </div>
+          ))}
+          {members.length > 3 && (
+            <div
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full
+                   ring-2 ring-white bg-slate-50 text-[11px] font-semibold text-slate-600
+                   shadow-sm"
+            >
+              +{members.length - 3}
+            </div>
+          )}
+        </div>
+
+        {/* Names preview */}
+        <div className="min-w-0 max-w-[60%]">
+          <div className="truncate text-slate-700">
+            {members
+              .slice(0, 3)
+              .map((m) => m.name)
+              .join(", ")}
+            {members.length > 3 && `, +${members.length - 3} more`}
+          </div>
+          <div className="text-xs text-slate-400">Members</div>
+        </div>
+
+        {/* Full list popover */}
+        <details className="relative">
+          <summary
+            className="ml-1 cursor-pointer select-none rounded-full border border-slate-200 bg-white
+                 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm
+                 hover:bg-slate-50 transition-colors"
+          >
+            View all
+          </summary>
+
+          <div
+            className="absolute right-0 z-30 mt-2 w-72 overflow-hidden rounded-xl border border-slate-200
+                 bg-white/95 shadow-lg backdrop-blur"
+          >
+            {/* header row */}
+            <div className="flex items-center justify-between px-3 py-2 text-xs text-slate-500">
+              <span className="font-semibold">Members</span>
+              <span className="rounded-full bg-slate-100 px-2 py-0.5">
+                {members.length}
+              </span>
+            </div>
+
+            <ul className="max-h-72 overflow-auto p-2">
+              {members.map((m) => (
+                <li
+                  key={m.userID}
+                  className="flex items-center gap-3 rounded-lg px-2 py-2 hover:bg-slate-50"
+                >
+                  <div className="h-9 w-9 overflow-hidden rounded-full bg-slate-100 ring-1 ring-slate-200">
+                    {m.avatar ? (
+                      <img
+                        src={m.avatar}
+                        alt=""
+                        className="h-9 w-9 object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="flex h-9 w-9 items-center justify-center text-[12px] font-semibold text-slate-700">
+                        {initials(m.name)}
+                      </div>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="truncate text-slate-800">{m.name}</div>
+                    {/* <div className="truncate text-xs text-slate-400">{m.userID}</div> */}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </details>
+      </div>
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={() => setShowExperiencePanel(true)}
@@ -402,7 +523,7 @@ export default function ChatPage() {
                     question: p.question,
                     is_open: p.status !== "closed",
                     options: p.options.map((o) => ({
-                      _id: o._id || o.id || o.option_id,  
+                      _id: o._id || o.id || o.option_id,
                       text: o.text,
                       votes: o.votes,
                     })),
