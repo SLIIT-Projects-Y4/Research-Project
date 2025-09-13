@@ -122,7 +122,14 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-    res.json({message: "Logout successful (remove token client-side)"});
+    // Clear any server-side cookies if you're using them
+    res.clearCookie('token');
+    res.clearCookie('refreshToken');
+
+    res.json({
+        success: true,
+        message: "Logout successful (remove token client-side)"
+    });
 };
 
 const updateUserProfile = async (req, res) => {

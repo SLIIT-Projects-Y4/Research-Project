@@ -82,6 +82,31 @@ function itinerarySignature(itin) {
   );
 }
 
+// ---------- localStorage utility functions ----------
+const getSavedItineraries = () => {
+  try {
+    const saved = localStorage.getItem('savedItineraries');
+    return saved ? JSON.parse(saved) : {};
+  } catch {
+    return {};
+  }
+};
+
+const getLocationIdsByTitle = (title) => {
+  const savedItineraries = getSavedItineraries();
+  return savedItineraries[title]?.locationIds || [];
+};
+
+const getAllSavedTitles = () => {
+  const savedItineraries = getSavedItineraries();
+  return Object.keys(savedItineraries);
+};
+
+const getItineraryDetails = (title) => {
+  const savedItineraries = getSavedItineraries();
+  return savedItineraries[title] || null;
+};
+
 // ---------- component ----------
 export default function PlanItinerary() {
   const navigate = useNavigate();
@@ -169,11 +194,48 @@ export default function PlanItinerary() {
       setSaving(true);
       const title = defaultTitle;
       const res = await saveItinerary(plan, title);
-      if (res?.status === 'created') toast.success('Itinerary saved');
-      else toast.error('Unexpected response while saving');
+
+      if (res?.status === 'created') {
+        // Extract location_ids from the itinerary
+        const locationIds = plan.itinerary
+          .filter(item => item.location_id !== null && item.location_id !== undefined)
+          .map(item => item.location_id);
+
+        // Get existing saved itineraries from localStorage
+        let savedItineraries = {};
+        try {
+          const existing = localStorage.getItem('savedItineraries');
+          savedItineraries = existing ? JSON.parse(existing) : {};
+        } catch (storageError) {
+          console.warn('Failed to read existing itineraries from localStorage:', storageError);
+          savedItineraries = {};
+        }
+
+        // Add this itinerary with its title as the key
+        savedItineraries[title] = {
+          locationIds: locationIds,
+          savedAt: new Date().toISOString(),
+          totalDistance: plan.total_distance_km,
+          attractionsCount: plan.attractions_count
+        };
+
+        // Store back to localStorage
+        try {
+          localStorage.setItem('savedItineraries', JSON.stringify(savedItineraries));
+          console.log(`Saved itinerary "${title}" with location IDs:`, locationIds);
+        } catch (storageError) {
+          console.warn('Failed to save itinerary to localStorage:', storageError);
+        }
+
+        toast.success('Itinerary saved');
+      } else {
+        toast.error('Unexpected response while saving');
+      }
     } catch (err) {
       toast.error(err?.response?.data?.error || err?.message || 'Failed to save itinerary');
-    } finally { setSaving(false); }
+    } finally {
+      setSaving(false);
+    }
   };
 
   // -------- fetch per-stop options (from ML) --------
@@ -411,7 +473,7 @@ export default function PlanItinerary() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen mt-20 bg-gray-50 p-4 md:p-8">
       <div className="mx-auto max-w-5xl space-y-12">
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
@@ -593,3 +655,6 @@ export default function PlanItinerary() {
     </div>
   );
 }
+
+// Export utility functions for use in other components
+export { getSavedItineraries, getLocationIdsByTitle, getAllSavedTitles, getItineraryDetails };

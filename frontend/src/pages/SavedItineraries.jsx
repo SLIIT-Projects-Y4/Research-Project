@@ -116,18 +116,34 @@ export default function SavedItineraries() {
   };
 
   const onExport = (doc) => {
-    try {
-      const file = new Blob([JSON.stringify(doc, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(file);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${doc.title || 'itinerary'}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-    } catch {
-      toast.error('Failed to export');
-    }
-  };
+  try {
+    // Extract location IDs from the itinerary items
+    const locationIds = (doc.items || [])
+      .filter(item => item.location_id !== null && item.location_id !== undefined)
+      .map(item => item.location_id);
+
+    // Prepare data for budget planning
+    const budgetPlanningData = {
+      itineraryTitle: doc.title || 'Untitled Itinerary',
+      locationIds: locationIds,
+      locations: doc.items || [],
+      totalDistance: doc.total_distance_km,
+      corridorRadius: doc.corridor_radius_km,
+      createdAt: doc.createdAt
+    };
+
+    // Store in session storage for the budget planning page
+    sessionStorage.setItem('budgetPlanningData', JSON.stringify(budgetPlanningData));
+
+    // Navigate to budget planning page
+    navigate('/budget-planning', { state: budgetPlanningData });
+
+    toast.success('Navigating to budget planning...');
+  } catch (error) {
+    console.error('Failed to navigate to budget planning:', error);
+    toast.error('Failed to navigate to budget planning');
+  }
+};
 
   const onConfirmDelete = async () => {
     try {

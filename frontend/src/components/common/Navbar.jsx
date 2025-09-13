@@ -69,16 +69,43 @@ export const Navbar = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        setUser(null);
-        setIsProfileOpen(false);
-        toast.success("Safe travels! You've been logged out successfully!");
+        try {
+            // Clear ALL localStorage items you see in the dev tools
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            localStorage.removeItem('formData');
+            localStorage.removeItem('predictions');
+            localStorage.removeItem('savedItineraryLocationIds');
+            localStorage.removeItem('savedItineraries');
+             sessionStorage.clear();
 
-        window.dispatchEvent(new Event("userStateChange"));
-        window.dispatchEvent(new Event("storage"));
+            // Alternative: Clear everything at once
+            // localStorage.clear();
 
-        navigate('/');
+            // Verify removal (debugging)
+            console.log('LocalStorage after clearing:', localStorage.length);
+            console.log('Remaining items:');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                console.log(`${key}: ${localStorage.getItem(key)}`);
+            }
+
+            setUser(null);
+            setIsProfileOpen(false);
+            toast.success("Safe travels! You've been logged out successfully!");
+
+            window.dispatchEvent(new Event("userStateChange"));
+            window.dispatchEvent(new Event("storage"));
+
+            navigate('/');
+
+        } catch (error) {
+            console.error('Error during logout:', error);
+            // Fallback: force clear all localStorage
+            localStorage.clear();
+            setUser(null);
+            navigate('/');
+        }
     };
 
     const navLinks = [

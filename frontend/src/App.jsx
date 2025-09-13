@@ -10,6 +10,11 @@ import PlanBuilder from "./pages/PlanBuilder.jsx";
 import PlanItinerary from "./pages/PlanItinerary.jsx";
 import SavedItineraries from "@/pages/SavedItineraries.jsx";
 import {Layout} from "@/components/common/Layout.jsx";
+import LocationPage from "@/pages/LocationPage.jsx";
+import PlanCreatePage from "@/pages/CreatePlanPage.jsx";
+import BudgetPlanningPage from './pages/BudgetPlanningPage.jsx';
+import ConfirmedPlansPage from './pages/ConfirmedPlansPage.jsx';
+import PlanDetails from "@/pages/PlanDetails.jsx";
 
 export default function App() {
     return (
@@ -26,6 +31,11 @@ export default function App() {
                   <Route path="/plan/build" element={<PlanBuilder/>}/>
                   <Route path="/plan/itinerary" element={<PlanItinerary/>}/>
                   <Route path="/plan/saved" element={<SavedItineraries/>}/>
+                  <Route path="/locations/:id" element={<LocationPage/>}/>
+                  <Route path="/plan/create" element={<PlanCreatePage/>}/>
+                  <Route path="/budget-planning" element={<BudgetPlanningPage/>}/>
+                  <Route path="/confirmed-plans" element={<ConfirmedPlansPage/>}/>
+                  <Route path="/plan/details" element={<PlanDetails/>}/>
               </Route>
 
               <Route path="*" element={<Navigate to="/home" replace/>}/>
