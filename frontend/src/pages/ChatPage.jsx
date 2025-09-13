@@ -27,7 +27,7 @@ export default function ChatPage() {
 
   const group_id = location.state?.group_id;
   const localUser = JSON.parse(localStorage.getItem("user") || "null");
-  const user_id = localUser?.userID;
+  const user_id = localUser?.userId;
   const username = localUser?.name;
 
   const [ws, setWs] = useState(null);

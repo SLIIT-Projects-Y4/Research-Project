@@ -6,7 +6,7 @@ import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
-
+import "flowbite";  
 import { AuthProvider } from './store/auth.jsx';
 import App from './App.jsx';
 
