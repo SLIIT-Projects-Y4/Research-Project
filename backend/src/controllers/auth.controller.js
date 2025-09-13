@@ -94,3 +94,19 @@ exports.login = async (req, res) => {
         return res.status(500).json({error: "Login failed"});
     }
 };
+
+// GET /users/:id/plan-pool-names
+exports.getPlanPoolNames = async (req, res) => {
+  try {
+    const { id } = req.params;
+   const user = await User.findOne({ userID: id }, "plan_pool.name").lean();
+    const names = [
+      ...new Set((user?.plan_pool || []).map(p => p?.name?.trim()).filter(Boolean)),
+    ];
+    res.json({ names });
+  } catch (err) {
+    console.error("❌ Error fetching plan pool names:", err);
+    res.status(500).json({ error: "Failed to fetch plan pool names" });
+  }
+};
+
