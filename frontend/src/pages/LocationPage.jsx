@@ -68,7 +68,7 @@ export default function LocationPage() {
   );
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
+    <div className="p-6 mt-20 max-w-4xl mx-auto space-y-6">
       <button onClick={() => navigate(-1)} className="text-sm underline">← Back</button>
 
       <div className="flex items-start justify-between gap-4">

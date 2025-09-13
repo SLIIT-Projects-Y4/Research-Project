@@ -15,6 +15,8 @@ import PlanCreatePage from "@/pages/CreatePlanPage.jsx";
 import BudgetPlanningPage from './pages/BudgetPlanningPage.jsx';
 import ConfirmedPlansPage from './pages/ConfirmedPlansPage.jsx';
 import PlanDetails from "@/pages/PlanDetails.jsx";
+import ChatPage from "@/pages/ChatPage.jsx";
+import RecommendPage from "@/pages/RecommandPage.jsx";
 
 export default function App() {
     return (
@@ -36,6 +38,9 @@ export default function App() {
                   <Route path="/budget-planning" element={<BudgetPlanningPage/>}/>
                   <Route path="/confirmed-plans" element={<ConfirmedPlansPage/>}/>
                   <Route path="/plan/details" element={<PlanDetails/>}/>
+                  <Route path="/explore-groups" element={<RecommendPage/>}/>
+                  <Route path="/chat" element={<ChatPage/>}/>
+
               </Route>
 
               <Route path="*" element={<Navigate to="/home" replace/>}/>
