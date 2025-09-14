@@ -1,5 +1,6 @@
 import React from 'react';
 import heroImage from '../../../public/assets/hero.jpg';
+import {Button} from "@mantine/core";
 
 const Hero = () => {
     return (
@@ -25,27 +26,22 @@ const Hero = () => {
                           <br/>
                           <span className="text-orange-400"> Your Journey, Your Way</span>
                       </h1>
-                      <div className="mt-24 font-display font-bold text-2xl leading-tight text-center text-white ">
-                          <button className={`py-2 px-4 border border-white rounded-sm hover:cursor-pointer`}>
-                              Explore
-                          </button>
-                      </div>
                   </div>
-              </div>
-              {/* Description Text */}
-              {/*<p*/}
-              {/*  className=" ml-12 mb-8 max-w-lg text-lg font-display text-center leading-relaxed text-gray-200 md:text-xl">*/}
-              {/*    Explore the island's hidden gems with our expert guides and tailor-made journeys.*/}
-              {/*</p>*/}
+                  <p
+                    className=" ml-[370px] mb-16 max-w-lg text-lg font-display text-center leading-relaxed text-gray-200 md:text-xl">
+                      Explore the island's hidden gems with our expert guides and tailor-made journeys.
+                  </p>
 
-              {/*/!* Call to Action Button *!/*/}
-              {/*<Button*/}
-              {/*  size="lg"*/}
-              {/*  className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-8 py-3 text-sm font-medium uppercase tracking-wider"*/}
-              {/*  variant="outline"*/}
-              {/*>*/}
-              {/*  Learn More*/}
-              {/*</Button>*/}
+                  {/* Call to Action Button */}
+                  <Button
+                    size="lg"
+                    color='white'
+                    className="ml-[530px] font-display bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-8 py-3 text-sm font-medium uppercase tracking-wider"
+                    variant="outline"
+                  >
+                      Explore More
+                  </Button>
+              </div>
           </div>
 
 
