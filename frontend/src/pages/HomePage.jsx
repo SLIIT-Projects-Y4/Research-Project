@@ -120,8 +120,11 @@ export default function HomePage() {
     return (
       <>
           <Hero/>
-          <div className="min-h-screen p-4 md:p-8">
-              <div className="mx-auto">
+          <div className="px-44">
+              <div className={`mt-10 font-display font-semibold text-fly-by-night text-2xl underline`}>
+                    Recommended for You
+              </div>
+              <div className="mx-auto mt-10">
                   {loading ? (
                     <div className="text-gray-600">Loading recommendations…</div>
                   ) : results.length === 0 ? (
