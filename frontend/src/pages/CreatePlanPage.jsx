@@ -591,13 +591,13 @@ export default function PlanCreatePage() {
                                                                       <Text fw={300} className="font-display text-sm" size={'sm'} mb={4}>
                                                                           {p.name}
                                                                       </Text>
-                                                                      <Group gap="xs">
+                                                                      <div className={`flex items-center gap-2`}>
                                                                           <IconMapPin size={14}/>
                                                                           <Text size="xs" c="dimmed"
-                                                                                className="font-body ">
-                                                                              {[p.city, p.province].filter(Boolean).join(' · ')}
+                                                                                className="font-body mt-1">
+                                                                              {[p.city, p.province].filter(Boolean).join(', ')}
                                                                           </Text>
-                                                                      </Group>
+                                                                      </div>
                                                                   </div>
                                                               }
                                                             />
