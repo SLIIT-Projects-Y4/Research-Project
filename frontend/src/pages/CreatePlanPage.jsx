@@ -90,7 +90,7 @@ export default function PlanCreatePage() {
     const [resolvedCity, setResolvedCity] = useState('');
 
     // prefs
-    const [corridorRadius, setCorridorRadius] = useState(100);
+    const [corridorRadius, setCorridorRadius] = useState(40);
     const [includeAttractions, setIncludeAttractions] = useState(false);
     const [fillRadius, setFillRadius] = useState(40);
     const [topFillPerCity, setTopFillPerCity] = useState(5);
@@ -366,168 +366,111 @@ export default function PlanCreatePage() {
 
                               {/* Saved Places */}
                               <div>
-                                  <Group mb="lg">
-                                      <Paper
-                                        p="sm"
-                                        radius="lg"
-                                        style={{backgroundColor: 'var(--color-heart-of-ice)'}}
-                                      >
-                                          <IconMapPin size={24} style={{color: 'var(--color-midnight-dreams)'}}/>
-                                      </Paper>
-                                      <div>
-                                          <Title order={3} className="font-display"
-                                                 style={{color: 'var(--color-midnight-dreams)'}}>
-                                              Saved Places
-                                          </Title>
-                                          <Text size="sm" c="dimmed" className="font-body">
-                                              Select which places to include in your route
-                                          </Text>
-                                      </div>
-                                  </Group>
-
-                                  {loadingPool ? (
-                                    <Group gap="sm" justify="center" py="xl">
-                                        <Loader size="lg" color="orange"/>
-                                        <Text c="dimmed" className="font-body">Loading your saved places…</Text>
-                                    </Group>
-                                  ) : pool.length === 0 ? (
-                                    <Paper
-                                      p="xl"
-                                      radius="lg"
-                                      style={{backgroundColor: 'var(--color-heart-of-ice)'}}
-                                      ta="center"
-                                    >
-                                        <Text c="dimmed" className="font-body">
-                                            Your plan pool is empty. Add locations from the recommendations page.
-                                        </Text>
-                                    </Paper>
-                                  ) : (
-                                    <Stack gap="md">
-                                        <Group justify="space-between">
-                                            <Group gap="xs">
-                                                <Badge size="lg" variant="filled" color="var(--color-ocean-depths)" radius={"md"}>
-                                                    {selectedIds.length} selected
-                                                </Badge>
-                                                <Text size="sm" c="dimmed" className="font-body">
-                                                    of {pool.length} total places
-                                                </Text>
-                                            </Group>
-                                            <Group gap="xs">
-                                                <Button
-                                                  size="sm"
-                                                  variant="light"
-                                                  color="var(--color-ocean-depths)"
-                                                  onClick={() => toggleAll(true)}
-                                                >
-                                                    Select all
-                                                </Button>
-                                                <Button
-                                                  size="sm"
-                                                  variant="light"
-                                                  color="gray"
-                                                  onClick={() => toggleAll(false)}
-                                                >
-                                                    Clear
-                                                </Button>
-                                            </Group>
-                                        </Group>
-
-                                        <Paper
-                                          p="md"
-                                          radius="md"
-                                          withBorder
-                                          style={{
-                                              backgroundColor: 'var(--color-lynx-white)',
-                                              borderColor: 'var(--color-heart-of-ice)'
-                                          }}
-                                        >
-                                            <Checkbox.Group value={selectedIds} onChange={setSelectedIds}>
-                                                {pool.length > 10 ? (
-                                                  // Horizontal scroller for more than 10 items
-                                                  <ScrollArea.Autosize
-                                                    mah={300}
-                                                    mx="auto"
-                                                    scrollbars="xy"
-                                                  >
-                                                      <Flex gap="md" wrap="nowrap" style={{minWidth: 'max-content'}}>
-                                                          {pool.map((p) => (
-                                                            <Paper
-                                                              key={p.id}
-                                                              p="md"
-                                                              radius="md"
-                                                              withBorder
-                                                              style={{
-                                                                  minWidth: rem(280),
-                                                                  backgroundColor: 'white',
-                                                                  borderColor: selectedIds.includes(p.id)
-                                                                    ? 'var(--color-brave-orange)'
-                                                                    : 'var(--color-heart-of-ice)',
-                                                                  borderWidth: '2px'
-                                                              }}
-                                                            >
-                                                                <Checkbox
-                                                                  value={p.id}
-                                                                  label={
-                                                                      <div>
-                                                                          <div className="font-display text-sm">
-                                                                              {p.name}
-                                                                          </div>
-                                                                          <Group gap="xs">
-                                                                              <IconMapPin size={14}/>
-                                                                              <Text size="sm" c="dimmed"
-                                                                                    className="font-body">
-                                                                                  {[p.city, p.province].filter(Boolean).join(' · ')}
-                                                                              </Text>
-                                                                          </Group>
-                                                                      </div>
-                                                                  }
-                                                                  color="orange"
-                                                                  size="lg"
-                                                                />
-                                                            </Paper>
-                                                          ))}
-                                                      </Flex>
-                                                  </ScrollArea.Autosize>
-                                                ) : (
-                                                  // Regular grid for 10 or fewer items
-                                                  <div className="grid sm:grid-cols-2 gap-4">
-                                                      {pool.map((p) => (
-                                                        <Paper
-                                                          key={p.id}
-                                                          p="md"
-                                                          radius="lg"
-                                                          withBorder
-                                                          style={{
-                                                              backgroundColor: 'white',
-                                                              borderWidth: '2px'
-                                                          }}
-                                                        >
-                                                            <Checkbox
-                                                              value={p.id}
-                                                              label={
-                                                                  <div>
-                                                                      <Text fw={300} className="font-display text-sm" size={'sm'} mb={4}>
-                                                                          {p.name}
-                                                                      </Text>
-                                                                      <div className={`flex items-center gap-2`}>
-                                                                          <IconMapPin size={14}/>
-                                                                          <Text size="xs" c="dimmed"
-                                                                                className="font-body mt-1">
-                                                                              {[p.city, p.province].filter(Boolean).join(', ')}
-                                                                          </Text>
-                                                                      </div>
-                                                                  </div>
-                                                              }
-                                                            />
-                                                        </Paper>
-                                                      ))}
-                                                  </div>
-                                                )}
-                                            </Checkbox.Group>
-                                        </Paper>
-                                    </Stack>
-                                  )}
+                                  <Title order={3} className="font-display"
+                                         style={{color: 'var(--color-midnight-dreams)'}}>
+                                      Saved Plans
+                                  </Title>
+                                  <Text size="sm" c="dimmed" className="font-body">
+                                      Select your preffered destinations
+                                  </Text>
                               </div>
+                              <Paper
+                                p="md"
+                                radius="md"
+                                withBorder
+                                style={{
+                                    backgroundColor: 'var(--color-lynx-white)',
+                                    borderColor: 'var(--color-heart-of-ice)'
+                                }}
+                              >
+                                  <Checkbox.Group value={selectedIds} onChange={setSelectedIds}>
+                                      {pool.length > 10 ? (
+                                        // Horizontal scroller with grid for more than 10 items
+                                        <ScrollArea.Autosize
+                                          mah={610}
+                                          mx="auto"
+                                          scrollbars="xy"
+                                        >
+                                            <div
+                                              className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                                              style={{minWidth: 'max-content', width: 'fit-content'}}
+                                            >
+                                                {pool.map((p) => (
+                                                  <Paper
+                                                    key={p.id}
+                                                    p="md"
+                                                    radius="md"
+                                                    withBorder
+                                                    style={{
+                                                        minWidth: rem(280),
+                                                        backgroundColor: 'white',
+                                                        borderColor: selectedIds.includes(p.id)
+                                                          ? 'var(--color-brave-orange)'
+                                                          : 'var(--color-heart-of-ice)',
+                                                        borderWidth: '2px'
+                                                    }}
+                                                  >
+                                                      <Checkbox
+                                                        value={p.id}
+                                                        label={
+                                                            <div>
+                                                                <div className="font-display text-sm">
+                                                                    {p.name}
+                                                                </div>
+                                                                <Group gap="xs">
+                                                                    <IconMapPin size={14}/>
+                                                                    <Text size="sm" c="dimmed"
+                                                                          className="font-body">
+                                                                        {[p.city, p.province].filter(Boolean).join(' · ')}
+                                                                    </Text>
+                                                                </Group>
+                                                            </div>
+                                                        }
+                                                        color="orange"
+                                                        size="sm"
+                                                      />
+                                                  </Paper>
+                                                ))}
+                                            </div>
+                                        </ScrollArea.Autosize>
+                                      ) : (
+                                        // Regular grid for 10 or fewer items
+                                        <div className="grid sm:grid-cols-2 gap-4">
+                                            {pool.map((p) => (
+                                              <Paper
+                                                key={p.id}
+                                                p="md"
+                                                radius="lg"
+                                                withBorder
+                                                style={{
+                                                    backgroundColor: 'white',
+                                                    borderWidth: '2px'
+                                                }}
+                                              >
+                                                  <Checkbox
+                                                    value={p.id}
+                                                    label={
+                                                        <div>
+                                                            <Text fw={300} className="font-display text-sm" size={'sm'}
+                                                                  mb={4}>
+                                                                {p.name}
+                                                            </Text>
+                                                            <div className={`flex items-center gap-2`}>
+                                                                <IconMapPin size={14}/>
+                                                                <Text size="xs" c="dimmed"
+                                                                      className="font-body mt-1">
+                                                                    {[p.city, p.province].filter(Boolean).join(', ')}
+                                                                </Text>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                  />
+                                              </Paper>
+                                            ))}
+                                        </div>
+                                      )}
+                                  </Checkbox.Group>
+                              </Paper>
 
                               <Divider color="var(--color-heart-of-ice)" size="md"/>
 

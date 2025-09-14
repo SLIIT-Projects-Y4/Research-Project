@@ -17,6 +17,7 @@ import ConfirmedPlansPage from './pages/ConfirmedPlansPage.jsx';
 import PlanDetails from "@/pages/PlanDetails.jsx";
 import ChatPage from "@/pages/ChatPage.jsx";
 import RecommendPage from "@/pages/RecommandPage.jsx";
+import LocationCategory from "@/pages/LocationCategory.jsx";
 
 export default function App() {
     return (
@@ -40,6 +41,7 @@ export default function App() {
                   <Route path="/plan/details" element={<PlanDetails/>}/>
                   <Route path="/explore-groups" element={<RecommendPage/>}/>
                   <Route path="/chat" element={<ChatPage/>}/>
+                  <Route path="/category" element={<LocationCategory/>}/>
 
               </Route>
 

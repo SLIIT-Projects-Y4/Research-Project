@@ -111,6 +111,7 @@ export const Navbar = () => {
     const navLinks = [
         {name: "Home", path: "/home"},
         {name: "Plan Pool", path: "/plan-pool"},
+        {name: "Category", path: "/category"},
         {name: "Generate Plan", path: "/plan/create"},
         {name: "Get budget", path: "/budget-planning"},
         {name: "Explore Groups", path: "/explore-groups"}

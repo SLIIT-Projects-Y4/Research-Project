@@ -7,6 +7,7 @@ import {addToPlanPool} from '../api/planpool';
 import LocationCard from '../components/features/location-card/LocationCard.jsx';
 import PlanPoolCard from "../components/features/plan-pool/PlanPoolCard.jsx";
 import Hero from "@/components/common/Hero.jsx";
+import {SyncLoader} from "react-spinners";
 
 export default function HomePage() {
     const {user} = useAuth();
@@ -107,7 +108,7 @@ export default function HomePage() {
         type: loc.Location_Type || '',
         rating: typeof loc.avg_rating === 'number' ? loc.avg_rating : undefined,
         noOfRatings: typeof loc.rating_count === 'number' ? loc.rating_count : undefined,
-        imageUrl: '/assets/beach.jpg',
+        imageUrl: loc.location_image,
         onAddToPlanPoolButtonClick: () => handleAddToPlan(loc),
         onDetailsButtonClick: () => {
             if (loc.location_id) navigate(`/locations/${encodeURIComponent(loc.location_id)}`);
@@ -120,19 +121,26 @@ export default function HomePage() {
     return (
       <>
           <Hero/>
-          <div className="px-44">
+          <div className=" px-20 lg:px-44">
               <div className={`mt-10 font-display font-semibold text-fly-by-night text-2xl underline`}>
-                    Recommended for You
+                  Recommended for You
               </div>
               <div className="mx-auto mt-10">
                   {loading ? (
-                    <div className="text-gray-600">Loading recommendations…</div>
+                    <div className="flex flex-col items-center justify-center text-gray-600">
+                        <SyncLoader color="#F97316"/>
+                        <div className="mt-4 font-display text-lg text-center text-midnight-dreams">
+                            Please Wait... We'll recommend you the best Locations..
+                        </div>
+                    </div>
+
                   ) : results.length === 0 ? (
                     <div className="text-gray-600">
                         No recommendations yet. Click “Refresh Recommendations”.
                     </div>
                   ) : (
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div
+                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-4 lg:gap-x-0 lg:gap-y-20">
                         {results.map((loc, idx) => (
                           <LocationCard
                             key={loc.location_id || `${loc.name}-${loc.city}-${idx}`}

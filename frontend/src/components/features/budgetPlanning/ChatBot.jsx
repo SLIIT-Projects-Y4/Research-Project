@@ -67,7 +67,7 @@ const ChatBot = ({ showChatBot, onClose }) => {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const response = await fetch("http://localhost:8000/chatbot", {
+      const response = await fetch("http://localhost:8080/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),

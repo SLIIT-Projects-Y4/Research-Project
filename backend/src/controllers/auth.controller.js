@@ -84,6 +84,7 @@ exports.login = async (req, res) => {
                 onboarding_completed: user.onboarding_completed,
                 onboarding_needed,
                 age_group: user.age_group,
+                travel_companion: user.travel_companion,
                 budget: user.budget,
                 preferred_activities: user.preferred_activities,
                 travel_style: user.travel_style

@@ -60,7 +60,7 @@ router.post('/from-profile', auth, async (req, res) => {
       ));
     }
 
-    const top_n = Number(req.body?.top_n ?? req.query?.top_n ?? 10);
+    const top_n = Number(req.body?.top_n ?? req.query?.top_n ?? 9);
     const input = { age_group, gender, travel_companion, preferred_activities, top_n };
 
     const r = await callMLRecommendations(input);

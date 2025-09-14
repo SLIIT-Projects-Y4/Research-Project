@@ -37,6 +37,34 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 🔹 NEW: read user from localStorage (fallback to 'user1' in case it was written there)
+  const [user, setUser] = useState(() => {
+    try {
+      const raw = localStorage.getItem('user') || localStorage.getItem('user1');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  // 🔹 Keep user state in sync if other parts of the app log in/out
+  useEffect(() => {
+    const syncUser = () => {
+      try {
+        const raw = localStorage.getItem('user') || localStorage.getItem('user1');
+        setUser(raw ? JSON.parse(raw) : null);
+      } catch {
+        setUser(null);
+      }
+    };
+    window.addEventListener('storage', syncUser);
+    window.addEventListener('userStateChange', syncUser);
+    return () => {
+      window.removeEventListener('storage', syncUser);
+      window.removeEventListener('userStateChange', syncUser);
+    };
+  }, []);
+
   const [predictions, setPredictions] = useState(() => {
     const saved = localStorage.getItem("predictions");
     return saved ? JSON.parse(saved) : null;
@@ -330,12 +358,14 @@ export default function Home() {
 
           <div className="bg-white rounded-3xl shadow-2xl p-10 sm:p-14 mb-14 border border-gray-100">
             <BudgetForm
-              onSubmit={handleSubmit}
-              selectedItinerary={selectedItinerary}
-              locationIds={locationIds}
-              availableItineraries={availableItineraries}
-              onItinerarySelect={handleItinerarySelection}
-            />
+  user={user}
+  onSubmit={handleSubmit}
+  selectedItinerary={selectedItinerary}
+  locationIds={locationIds}
+  availableItineraries={availableItineraries}
+  onItinerarySelect={handleItinerarySelection}
+/>
+
           </div>
 
           {loading && (
