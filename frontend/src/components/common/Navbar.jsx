@@ -111,7 +111,7 @@ export const Navbar = () => {
     const navLinks = [
         {name: "Home", path: "/home"},
         {name: "Plan Pool", path: "/plan-pool"},
-        {name: "Generate Plan", path: "/plan/build"},
+        {name: "Generate Plan", path: "/plan/create"},
         {name: "Flights", path: "/flights"},
         {name: "My Trips", path: "/bookings"}
     ];
@@ -122,7 +122,7 @@ export const Navbar = () => {
           ? 'bg-white backdrop-blur-xl shadow-2xl shadow-black/5'
           : isHomePage
             ? 'bg-transparent'
-            : 'bg-desert-lilly/30'
+            : 'bg-desert-lilly/20'
       }`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
               <div className="flex justify-between items-center py-4 lg:py-5">
