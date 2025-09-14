@@ -351,122 +351,106 @@ export default function ChatPage() {
   }, [fetchPolls]);
 
   return (
-    <div className="mt-20 max-w-2xl mx-auto p-4 h-screen flex flex-col bg-gray-100">
+    <div className="mt-20 mx-auto w-full max-w-3xl lg:max-w-4xl px-3 sm:px-4 h-[calc(100vh-5rem)] flex flex-col bg-gray-50">
       <Navbar />
-      <h2
-        className="text-2xl font-bold text-center 
-               bg-gradient-to-r from-amber-400 via-rose-400 to-indigo-500
-               text-white p-4 rounded-2xl shadow-lg mb-6 
-               flex items-center justify-center gap-2 
-               transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
-      >
-        <span className="text-2xl">✈️</span>
-        Trip Planner Chat
-      </h2>
-      {/* Members row like WhatsApp (UI enhanced only) */}
-      <div className="mb-5 -mt-1 flex items-center justify-center gap-3 text-sm text-slate-600">
-        {/* Avatars */}
-        <div className="flex -space-x-2">
-          {members.slice(0, 3).map((m) => (
-            <div
-              key={m.userID}
-              title={m.name}
-              className="relative inline-flex h-8 w-8 items-center justify-center rounded-full
-                   ring-2 ring-white bg-slate-100 text-[11px] font-semibold text-slate-700
-                   shadow-sm transition-transform hover:scale-[1.05]"
-            >
-              {m.avatar ? (
-                <img
-                  src={m.avatar}
-                  alt={m.name}
-                  className="h-8 w-8 rounded-full object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                initials(m.name)
+      {/* Top bar: title + members (avatars only) */}
+      <div className="mb-4 rounded-2xl bg-white/70 px-4 py-3 ring-1 ring-slate-200 backdrop-blur">
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          {/* Title */}
+          <h2
+            className="whitespace-nowrap rounded-xl bg-gradient-to-r from-amber-400 via-rose-400 to-indigo-500 
+                   px-3 sm:px-4 py-1.5 sm:py-2 text-2xl sm:text-3xl lg:text-4xl 
+                   font-extrabold text-white shadow-sm"
+          >
+            Trip Planner Chat
+          </h2>
+
+          {/* Avatars + View all */}
+          <div className="flex items-center gap-3">
+            {/* Avatars */}
+            <div className="flex -space-x-2">
+              {members.slice(0, 3).map((m) => (
+                <div
+                  key={m.userID}
+                  title={m.name}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full 
+                       border border-white bg-slate-200 text-[12px] font-semibold 
+                       text-slate-700 shadow-sm"
+                >
+                  {m.avatar ? (
+                    <img
+                      src={m.avatar}
+                      alt={m.name}
+                      className="h-8 w-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    initials(m.name)
+                  )}
+                </div>
+              ))}
+              {members.length > 3 && (
+                <div
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full 
+                          border border-white bg-slate-100 text-[12px] font-semibold 
+                          text-slate-600 shadow-sm"
+                >
+                  +{members.length - 3}
+                </div>
               )}
             </div>
-          ))}
-          {members.length > 3 && (
-            <div
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full
-                   ring-2 ring-white bg-slate-50 text-[11px] font-semibold text-slate-600
-                   shadow-sm"
-            >
-              +{members.length - 3}
-            </div>
-          )}
-        </div>
 
-        {/* Names preview */}
-        <div className="min-w-0 max-w-[60%]">
-          <div className="truncate text-slate-700">
-            {members
-              .slice(0, 3)
-              .map((m) => m.name)
-              .join(", ")}
-            {members.length > 3 && `, +${members.length - 3} more`}
-          </div>
-          <div className="text-xs text-slate-400">Members</div>
-        </div>
-
-        {/* Full list popover */}
-        <details className="relative">
-          <summary
-            className="ml-1 cursor-pointer select-none rounded-full border border-slate-200 bg-white
-                 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm
-                 hover:bg-slate-50 transition-colors"
-          >
-            View all
-          </summary>
-
-          <div
-            className="absolute right-0 z-30 mt-2 w-72 overflow-hidden rounded-xl border border-slate-200
-                 bg-white/95 shadow-lg backdrop-blur"
-          >
-            {/* header row */}
-            <div className="flex items-center justify-between px-3 py-2 text-xs text-slate-500">
-              <span className="font-semibold">Members</span>
-              <span className="rounded-full bg-slate-100 px-2 py-0.5">
-                {members.length}
-              </span>
-            </div>
-
-            <ul className="max-h-72 overflow-auto p-2">
-              {members.map((m) => (
-                <li
-                  key={m.userID}
-                  className="flex items-center gap-3 rounded-lg px-2 py-2 hover:bg-slate-50"
-                >
-                  <div className="h-9 w-9 overflow-hidden rounded-full bg-slate-100 ring-1 ring-slate-200">
-                    {m.avatar ? (
-                      <img
-                        src={m.avatar}
-                        alt=""
-                        className="h-9 w-9 object-cover"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="flex h-9 w-9 items-center justify-center text-[12px] font-semibold text-slate-700">
-                        {initials(m.name)}
+            {/* View all */}
+            <details className="relative">
+              <summary
+                className="list-none cursor-pointer select-none rounded-md px-2 py-1 
+                            text-m font-medium text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700"
+              >
+                ▸ View all
+              </summary>
+              <div
+                className="absolute right-0 z-20 mt-2 max-h-72 w-64 overflow-auto 
+                        rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
+              >
+                <div className="mb-1 text-xs font-semibold text-slate-500">
+                  Members ({members.length})
+                </div>
+                <ul className="space-y-1">
+                  {members.map((m) => (
+                    <li
+                      key={m.userID}
+                      className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-slate-50"
+                    >
+                      <div
+                        className="flex h-8 w-8 items-center justify-center overflow-hidden 
+                                rounded-full bg-slate-200 text-[12px] font-semibold text-slate-700"
+                      >
+                        {m.avatar ? (
+                          <img
+                            src={m.avatar}
+                            alt={m.name}
+                            className="h-8 w-8 rounded-full object-cover"
+                          />
+                        ) : (
+                          initials(m.name)
+                        )}
                       </div>
-                    )}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="truncate text-slate-800">{m.name}</div>
-                    {/* <div className="truncate text-xs text-slate-400">{m.userID}</div> */}
-                  </div>
-                </li>
-              ))}
-            </ul>
+                      <div className="truncate text-sm text-slate-800">
+                        {m.name}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
           </div>
-        </details>
+        </div>
       </div>
-      <div className="flex justify-between items-center mb-4">
+      {/* Actions: responsive & touch-friendly */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
         <button
           onClick={() => setShowExperiencePanel(true)}
           className="flex items-center gap-2 px-3 py-1.5 bg-amber-100 text-blue-700 rounded-lg 
-               shadow-sm transition-all duration-200 hover:text-white hover:bg-amber-500 hover:shadow-md"
+         shadow-sm transition-all duration-200 hover:text-white hover:bg-amber-500 hover:shadow-md"
         >
           <span className="text-lg">📝</span>
           <span className="text-sm font-medium">View Tips</span>
@@ -475,7 +459,7 @@ export default function ChatPage() {
         <button
           onClick={() => setShowPollModal(true)}
           className="flex items-center gap-2 px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-lg 
-             shadow-sm transition-all duration-200 hover:text-white hover:bg-indigo-500 hover:shadow-md"
+       shadow-sm transition-all duration-200 hover:text-white hover:bg-indigo-500 hover:shadow-md"
         >
           📊 <span className="text-sm font-medium">Create Poll</span>
         </button>
@@ -483,12 +467,11 @@ export default function ChatPage() {
         <button
           onClick={() => setShowLeaveDialog(true)}
           className="flex items-center gap-2 px-3 py-1.5 bg-red-500 text-white rounded-lg 
-             shadow-sm transition-all duration-200 hover:bg-red-600 hover:shadow-md"
+       shadow-sm transition-all duration-200 hover:bg-red-600 hover:shadow-md"
         >
           🚪 Leave Chat
         </button>
       </div>
-
       {/* Polls (collapsible) */}
       {(polls?.length ?? 0) > 0 && (
         <div className="mb-4">
@@ -576,7 +559,7 @@ export default function ChatPage() {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto border p-4 rounded mb-4 bg-white">
+      <div className="flex-1 min-h-0 overflow-y-auto border p-3 sm:p-4 rounded-xl mb-4 bg-white">
         {typingUser && (
           <div className="text-sm italic text-gray-500 mb-2">
             {typingUser} is typing...
@@ -603,10 +586,10 @@ export default function ChatPage() {
                 }`}
               >
                 <div
-                  className={`relative group max-w-[75%] p-3 rounded-xl shadow text-sm whitespace-pre-wrap break-words ${
+                  className={`relative group max-w-[88%] sm:max-w-[78%] p-3 rounded-xl shadow text-sm whitespace-pre-wrap break-words ${
                     msg.user_id === user_id
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200 text-black"
+                      ? "bg-orange-300 text-black"
+                      : "bg-gray-300 text-black"
                   }`}
                 >
                   <div className="font-medium mb-1">{msg.username}</div>
@@ -642,7 +625,7 @@ export default function ChatPage() {
                   ) : (
                     <div>{msg.message}</div>
                   )}
-                  <div className="text-xs text-right mt-1 text-gray-300">
+                  <div className="text-xs text-right mt-1 text-black-300">
                     {new Date(msg.timestamp).toLocaleTimeString(undefined, {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -724,7 +707,7 @@ export default function ChatPage() {
         <div ref={bottomRef}></div>
       </div>
 
-      <div className="relative flex gap-2 items-center">
+      <div className="relative flex items-center gap-2 sm:gap-3">
         <div ref={attachRef} className="relative">
           <button
             onClick={() => setShowAttachMenu((prev) => !prev)}
@@ -800,7 +783,7 @@ export default function ChatPage() {
         <input
           type="text"
           placeholder="Type your message..."
-          className="flex-1 border px-3 py-2 rounded"
+          className="min-w-0 flex-1 border px-3 py-2 rounded"
           value={newMessage}
           onChange={(e) => handleTyping(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}

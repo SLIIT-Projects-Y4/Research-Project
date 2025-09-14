@@ -19,7 +19,7 @@ export default function ExperienceTipsModal({ tips, onClose }) {
         )}
         <button
           onClick={onClose}
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="mt-4 px-4 py-2 bg-amber-300 text-black rounded hover:bg-amber-500"
         >
           Close
         </button>
