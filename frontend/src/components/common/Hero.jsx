@@ -28,7 +28,7 @@ const Hero = () => {
                       </h1>
                   </div>
                   <p
-                    className=" ml-[370px] mb-16 max-w-lg text-lg font-display text-center leading-relaxed text-gray-200 md:text-xl">
+                    className=" lg:ml-[370px] mb-16 max-w-lg text-lg font-display text-center leading-relaxed text-gray-200 md:text-xl">
                       Explore the island's hidden gems with our expert guides and tailor-made journeys.
                   </p>
 
@@ -36,7 +36,7 @@ const Hero = () => {
                   <Button
                     size="lg"
                     color='white'
-                    className="ml-[530px] font-display bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-8 py-3 text-sm font-medium uppercase tracking-wider"
+                    className="lg:ml-[530px] font-display bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-8 py-3 text-sm font-medium uppercase tracking-wider"
                     variant="outline"
                   >
                       Explore More
