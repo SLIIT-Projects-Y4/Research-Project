@@ -296,6 +296,8 @@ function OptionsDrawer({opened, onClose, title, loading, data, activeIndex, plan
               const hasCoords = !!xC;
               const disabledReason = isEndpoint ? 'Start/End cannot be replaced' : (!hasCoords ? 'No coordinates' : null);
 
+              console.log('Data', data)
+
               return (
                 <Card
                   key={`${x.location || x.name}-${i}`}
@@ -453,7 +455,7 @@ function OptionsDrawer({opened, onClose, title, loading, data, activeIndex, plan
                 <Text c="dimmed" className="font-body">No data available.</Text>
             </Paper>
           ) : (
-            <Tabs defaultValue="hybrid" variant="pills" radius="xl">
+            <Tabs defaultValue="nearby" variant="pills" radius="xl">
                 <Tabs.List mb="xl" style={{backgroundColor: 'white', padding: rem(8), borderRadius: rem(16)}}>
                     <Tabs.Tab value="nearby" leftSection={<Compass size={16}/>}>
                         Nearby
@@ -463,9 +465,6 @@ function OptionsDrawer({opened, onClose, title, loading, data, activeIndex, plan
                     </Tabs.Tab>
                     <Tabs.Tab value="top_rated" leftSection={<Target size={16}/>}>
                         Top Rated
-                    </Tabs.Tab>
-                    <Tabs.Tab value="similar_activities" leftSection={<Star size={16}/>}>
-                        Similar Activities
                     </Tabs.Tab>
                 </Tabs.List>
 
@@ -478,9 +477,6 @@ function OptionsDrawer({opened, onClose, title, loading, data, activeIndex, plan
                     </Tabs.Panel>
                     <Tabs.Panel value="top_rated">
                         <ListBlock items={data.top_rated} category="Top-rated"/>
-                    </Tabs.Panel>
-                    <Tabs.Panel value="similar_activities">
-                        <ListBlock items={data.similar_activities} category="Similar activities"/>
                     </Tabs.Panel>
                 </ScrollArea>
             </Tabs>
@@ -606,7 +602,7 @@ export default function PlanItinerary() {
             const body = {
                 location_name: loc.name,
                 included_provinces: plan?.province_corridor && plan.province_corridor.length ? plan.province_corridor : undefined,
-                radius_km: 50,
+                radius_km: plan?.corridor_radius_km ?? null,
                 top_n: 8,
                 start_lat: plan?.start?.lat ?? plan?.itinerary?.[0]?.lat,
                 start_lng: plan?.start?.lng ?? plan?.itinerary?.[0]?.lng,

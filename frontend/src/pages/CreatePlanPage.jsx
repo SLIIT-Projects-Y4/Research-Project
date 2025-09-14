@@ -164,7 +164,7 @@ export default function PlanCreatePage() {
               toast.success('Got current location');
           },
           (err) => {
-              console.error(err);
+              console.log(err);
               toast.error('Failed to get current location');
               setUseCurrent(false);
           },
