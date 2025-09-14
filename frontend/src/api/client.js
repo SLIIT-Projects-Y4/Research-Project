@@ -22,7 +22,7 @@ api.interceptors.response.use(
       err?.response?.data?.error ||
       err?.message ||
       'Something went wrong';
-    toast.error(`Request failed: ${msg}`);
+    //toast.error(`Request failed: ${msg}`);
 
     if (err?.response?.status === 401) {
       localStorage.removeItem('token');
