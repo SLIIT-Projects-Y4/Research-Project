@@ -17,7 +17,7 @@ const Hero = () => {
           {/* Content Container */}
           <div className="relative z-10 flex h-full items-center">
               <div className="container mx-auto px-4 lg:px-8">
-                  <div className="">
+                  <div className="flex flex-col items-center justify-center">
                       {/* Main Heading */}
                       <h1
                         className="ml-12 mb-6 text-5xl font-bold leading-tight text-center text-white md:text-6xl lg:text-7xl">
@@ -25,8 +25,11 @@ const Hero = () => {
                           <br/>
                           <span className="text-orange-400"> Your Journey, Your Way</span>
                       </h1>
-
-
+                      <div className="mt-24 font-display font-bold text-2xl leading-tight text-center text-white ">
+                          <button className={`py-2 px-4 border border-white rounded-sm hover:cursor-pointer`}>
+                              Explore
+                          </button>
+                      </div>
                   </div>
               </div>
               {/* Description Text */}

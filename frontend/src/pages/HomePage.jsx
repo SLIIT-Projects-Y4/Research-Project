@@ -120,51 +120,8 @@ export default function HomePage() {
     return (
       <>
           <Hero/>
-          <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+          <div className="min-h-screen p-4 md:p-8">
               <div className="mx-auto">
-                  {/* sample PlanPool card (static) */}
-                  <PlanPoolCard name={'Colombo Temple'} city={'Colombo'} province={'Western Province'}
-                                onRemoveLocationIconClick={() => {
-                                }}/>
-
-                  <div className="flex items-end justify-between mb-6">
-                      <div>
-                          <h1 className="text-2xl font-semibold">Recommended Locations</h1>
-                          {weights && (
-                            <p className="text-sm text-gray-600">
-                                Weights — CBF: {weights.cbf ?? '-'}, CF: {weights.cf ?? '-'}, ML: {weights.ml ?? '-'}
-                            </p>
-                          )}
-                      </div>
-
-                      <div className="flex gap-2">
-                          <button
-                            onClick={() => navigate('/plan-pool')}
-                            className="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm"
-                          >
-                              Plan Pool
-                          </button>
-
-                          <button
-                            onClick={fetchRecommendations}
-                            className="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm"
-                          >
-                              Refresh Recommendations
-                          </button>
-                          <button
-                            onClick={() => {
-                                localStorage.removeItem(cacheKey);
-                                toast.success('Cleared saved recommendations');
-                                setResults([]);
-                                setWeights(null);
-                            }}
-                            className="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-sm"
-                          >
-                              Clear Saved
-                          </button>
-                      </div>
-                  </div>
-
                   {loading ? (
                     <div className="text-gray-600">Loading recommendations…</div>
                   ) : results.length === 0 ? (
