@@ -849,17 +849,13 @@ export default function PlanItinerary() {
                       <Group gap="md">
                           {needsOptimize && (
                             <Button
-                              size="lg"
-                              radius="xl"
+                              size="md"
+                              variant='gradient'
+                              radius="sm"
                               loading={optimizing}
                               onClick={onOptimize}
                               leftSection={<Sparkles size={18}/>}
-                              variant="filled"
-                              color="orange"
-                              style={{
-                                  background: 'linear-gradient(135deg, var(--color-brave-orange), var(--color-hot-embers))',
-                                  boxShadow: '0 4px 15px rgba(253, 102, 30, 0.3)'
-                              }}
+                              color="var(--color-heart-of-ice)"
                             >
                                 Optimize Route
                             </Button>
