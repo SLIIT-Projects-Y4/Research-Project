@@ -1,6 +1,6 @@
 // src/pages/Onboarding/PreferencesWizard.jsx
 import React, { useEffect, useMemo, useState } from "react";
-import { getMyPreferences, updateMyPreferences } from "../../api/preferences";
+import { getMyPreferences, updateMyPreferences } from "@/api/preferences.js";
 import { useNavigate } from "react-router-dom";
 import { Button, Paper } from "@mantine/core";
 import { toast } from "react-toastify";
@@ -110,7 +110,7 @@ export default function PreferencesWizard() {
       if (step < STEPS.length - 1) setStep(step + 1);
       else {
         toast.success("All set! Generating recommendations…");
-        navigate("/login");
+        navigate('/home');
       }
     } catch {
       toast.error("Could not save preferences. Please try again.");
@@ -122,7 +122,7 @@ export default function PreferencesWizard() {
   const back = () => setStep((s) => Math.max(0, s - 1));
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 md:p-8">
       <div className="mx-auto max-w-3xl">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold">

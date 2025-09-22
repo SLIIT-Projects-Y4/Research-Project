@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmDialog from "../models/ConfirmDialog.jsx";
-import { useMemo} from "react";
 import React from "react";
+import { useAuth } from "../store/auth.jsx";
 
 export default function RecommendPage() {
+  const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const userData= useMemo(() => {
-  return location.state || JSON.parse(localStorage.getItem("user") || "null");
-  },[location.state]);
-  const userId = userData?.userId;
+  const userId = user?.userId || location.state?.userId || null;
+  console.log("userId from location.state:", userId);
 
   const [groups, setGroups] = useState([]);
   const [joinedGroups, setJoinedGroups] = useState([]);
@@ -21,6 +20,7 @@ export default function RecommendPage() {
   const [waiting, setWaiting] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [preferredDestinations, setPreferredDestinations] = useState([]);
+  const [prefs, setPrefs] = useState(null);
 
   const serverUrl = "http://localhost:9090";
 
@@ -77,27 +77,45 @@ export default function RecommendPage() {
     return Array.from(map.values());
   };
 
- useEffect(() => {
-  if (!userId) return;
-
-  const loadPlanPoolNames = async () => {
+useEffect(() => {
+  const loadPrefs = async () => {
     try {
-      const url = `http://localhost:3000/api/auth/users/${userId}/plan-pool-names`;
-      const res = await fetch(url, { cache: "no-store" }); // ⬅️ bypass cache
-
-      if (res.status === 304) return; // nothing new; keep previous state
+      const res = await fetch(`http://localhost:3000/api/auth/preferences/${userId}`);
+      if (res.status === 304) return;       // defensive: 304 has no body
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const data = await res.json().catch(() => ({ names: [] }));
-      setPreferredDestinations(Array.isArray(data.names) ? data.names : []);
+      const data = await res.json();  // your backend is sending user directly
+      setPrefs(data);
     } catch (e) {
-      console.warn("plan-pool-names fetch failed:", e);
-      setPreferredDestinations([]);
+      console.error("Failed to load preferences", e);
+      toast.error("Could not load your preferences.");
     }
   };
-
-  loadPlanPoolNames();
+  loadPrefs();
 }, [userId]);
+
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const loadPlanPoolNames = async () => {
+      try {
+        const url = `http://localhost:3000/api/auth/users/${userId}/plan-pool-names`;
+        const res = await fetch(url, { cache: "no-store" }); // ⬅️ bypass cache
+
+        if (res.status === 304) return; // nothing new; keep previous state
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json().catch(() => ({ names: [] }));
+        setPreferredDestinations(Array.isArray(data.names) ? data.names : []);
+      } catch (e) {
+        console.warn("plan-pool-names fetch failed:", e);
+        setPreferredDestinations([]);
+      }
+    };
+
+    loadPlanPoolNames();
+  }, [userId]);
 
   useEffect(() => {
     if (waiting) {
@@ -107,7 +125,7 @@ export default function RecommendPage() {
   }, [waiting]);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId || !prefs) return;
 
     const fetchGroups = async () => {
       try {
@@ -117,10 +135,10 @@ export default function RecommendPage() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              Age: getNumericAge(userData?.age_group),
-              Budget: userData?.budget,
-              Travel_Style: userData?.travel_style,
-              User_Interest: userData?.preferred_activities,
+              Age: getNumericAge(prefs?.age_group),
+              Budget: prefs?.budget,
+              Travel_Style: prefs?.travel_style,
+              User_Interest: prefs?.preferred_activities,
               user_id: userId,
               Preferred_Destination: preferredDestinations,
             }),
@@ -148,7 +166,7 @@ export default function RecommendPage() {
     };
 
     fetchGroups();
-  }, [ userId, preferredDestinations ]);
+  }, [userId, preferredDestinations]);
 
   const handleJoin = async (groupId) => {
     try {
@@ -181,7 +199,7 @@ export default function RecommendPage() {
         navigate("/chat", {
           state: {
             group_id: groupId,
-            user_id: userData.userID,
+            user_id: userId,
           },
         });
       } else {
@@ -206,10 +224,10 @@ export default function RecommendPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_data: {
-            Age: getNumericAge(userData.age_group),
-            Budget: userData.budget,
-            Travel_Style: userData.travel_style,
-            User_Interest: userData.preferred_activities,
+            Age: getNumericAge(prefs?.age_group),
+            Budget: prefs?.budget,
+            Travel_Style: prefs?.travel_style,
+            User_Interest: prefs?.preferred_activities,
             user_id: userId,
           },
         }),
@@ -273,10 +291,10 @@ export default function RecommendPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_data: {
-            Age: getNumericAge(userData.age_group),
-            Budget: userData.budget,
-            Travel_Style: userData.travel_style,
-            User_Interest: userData.preferred_activities,
+            Age: getNumericAge(prefs?.age_group),
+            Budget: prefs?.budget,
+            Travel_Style: prefs?.travel_style,
+            User_Interest: prefs?.preferred_activities,
             user_id: userId,
             Preferred_Destination: preferredDestinations,
           },
@@ -301,7 +319,7 @@ export default function RecommendPage() {
     }
   };
 
-  if (!userData) {
+  if (!prefs) {
     return (
       <div className="mx-auto max-w-6xl px-6 py-16">
         <p className="rounded-xl bg-rose-50 px-4 py-3 text-rose-700">
@@ -310,6 +328,7 @@ export default function RecommendPage() {
       </div>
     );
   }
+
   return (
     <div className="relative isolate bg-white">
       {/* soft background shapes */}

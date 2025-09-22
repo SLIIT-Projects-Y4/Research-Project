@@ -271,7 +271,7 @@ export default function Predictions({ data, onCloseAll, onPlanConfirmed }) {
 // Intro Card Component
 function IntroCard({ onStart }) {
   return (
-    <div className="w-full max-w-2xl text-center bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl shadow-2xl px-10 py-12">
+    <div className="w-full max-w-4xl text-center bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl shadow-2xl px-10 py-12">
       <h2 className="text-3xl font-bold mb-4">✨ Explore Your Personalized Trip Plans!</h2>
       <p className="text-lg mb-6">
         Swipe through handpicked travel plans based on your preferences.
@@ -291,7 +291,7 @@ function IntroCard({ onStart }) {
 // Thank You Card Component
 function ThankYouCard({ onClose, onRestart, confirmedPlanInfo }) {
   return (
-    <div className="w-full max-w-2xl text-center bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-2xl shadow-2xl px-10 py-12 relative">
+    <div className="w-full max-w-4xl text-center bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-2xl shadow-2xl px-10 py-12 relative">
       <button
         onClick={onClose}
         className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-md"
