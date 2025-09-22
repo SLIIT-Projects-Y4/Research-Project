@@ -132,7 +132,7 @@ export default function HomePage() {
                         No recommendations yet. Click “Refresh Recommendations”.
                     </div>
                   ) : (
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
                         {results.map((loc, idx) => (
                           <LocationCard
                             key={loc.location_id || `${loc.name}-${loc.city}-${idx}`}

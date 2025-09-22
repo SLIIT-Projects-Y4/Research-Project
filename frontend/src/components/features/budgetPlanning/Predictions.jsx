@@ -71,7 +71,7 @@ export default function Predictions({ data, onCloseAll, onPlanConfirmed }) {
     };
 
     try {
-      const res = await fetch("http://localhost:8000/confirm", {
+      const res = await fetch("http://localhost:8080/confirm", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

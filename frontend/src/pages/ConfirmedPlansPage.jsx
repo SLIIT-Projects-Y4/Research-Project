@@ -202,7 +202,7 @@ export default function ConfirmedPlans() {
   const confirmDeletePlan = async () => {
     if (!planToDelete) return;
     try {
-      const res = await fetch(`http://localhost:8000/confirmed-plans/${planToDelete._id}`, {
+      const res = await fetch(`http://localhost:8080/confirmed-plans/${planToDelete._id}`, {
         method: "DELETE",
       });
       if (res.ok) {
