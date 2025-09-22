@@ -113,7 +113,7 @@ export const Navbar = () => {
         {name: "Plan Pool", path: "/plan-pool"},
         {name: "Category", path: "/category"},
         {name: "Generate Plan", path: "/plan/create"},
-        {name: "Get budget", path: "/budget-planning"},
+        {name: "Saved Plans", path: "/plan/saved"},
         {name: "Explore Groups", path: "/explore-groups"}
     ];
 

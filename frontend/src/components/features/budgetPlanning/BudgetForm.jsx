@@ -185,24 +185,24 @@ export default function BudgetForm({
           )}
         </div>
 
-        {/* Manual Location Input */}
-        <div className="md:col-span-2">
-          <label htmlFor="locations" className="block text-sm font-semibold text-gray-700 mb-2">
-            Additional Locations (Optional)
-          </label>
-          <input
-            type="text"
-            id="locations"
-            name="locations"
-            value={formData.locations}
-            onChange={handleChange}
-            placeholder="e.g., LOC_1, LOC_2, LOC_3"
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-          />
-          <p className="text-xs text-gray-400 mt-1">
-            Enter location codes separated by commas. These will be combined with your selected itinerary.
-          </p>
-        </div>
+        {/*/!* Manual Location Input *!/*/}
+        {/*<div className="md:col-span-2">*/}
+        {/*  <label htmlFor="locations" className="block text-sm font-semibold text-gray-700 mb-2">*/}
+        {/*    Additional Locations (Optional)*/}
+        {/*  </label>*/}
+        {/*  <input*/}
+        {/*    type="text"*/}
+        {/*    id="locations"*/}
+        {/*    name="locations"*/}
+        {/*    value={formData.locations}*/}
+        {/*    onChange={handleChange}*/}
+        {/*    placeholder="e.g., LOC_1, LOC_2, LOC_3"*/}
+        {/*    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"*/}
+        {/*  />*/}
+        {/*  <p className="text-xs text-gray-400 mt-1">*/}
+        {/*    Enter location codes separated by commas. These will be combined with your selected itinerary.*/}
+        {/*  </p>*/}
+        {/*</div>*/}
 
         {/* Display currently selected location IDs */}
         {locationIds && locationIds.length > 0 && (
@@ -309,7 +309,6 @@ export default function BudgetForm({
             name="travel_companion"
             value={formData.travel_companion}
             onChange={handleChange}
-            disabled={true}
             className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
           >
             <option value="">Choose one</option>
