@@ -14,8 +14,8 @@ const LOCATION_TYPES = [
     "Museums",
     "National Parks",
     "Waterfalls",
-    "Zoological Gardens",
-    "Religious Sites"
+    "Religious Sites",
+    "Zoological Gardens"
 ];
 
 // Individual category component
@@ -23,7 +23,6 @@ const LocationCategorySection = ({locationType}) => {
     const [locations, setLocations] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const fetchLocations = async () => {
@@ -93,16 +92,25 @@ const LocationCategorySection = ({locationType}) => {
     }
 
     return (
-      <div className="mb-12">
-          <h2 className="text-2xl font-display font-bold mb-6 text-midnight-dreams">
-              {locationType}
-          </h2>
+      <div className="mb-5 ">
+          <div className={`border-b border-fly-by-night mb-3`}>
+              <h2 className="text-2xl font-display font-bold mb-2 text-midnight-dreams">
+                  {locationType}
+              </h2>
+          </div>
 
-          <div className="flex gap-6 overflow-x-auto pb-4">
+          <div
+            className="flex gap-4 overflow-x-auto pb-6"
+            style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch'
+            }}
+          >
               {locations.map((loc) => (
                 <div
                   key={loc.location_id}
-                  className="flex-shrink-0 w-80 sm:w-96"
+                  className=""
                 >
                     <LocationCard
                       name={loc.Location_Name}
@@ -131,11 +139,10 @@ const LocationCategorySection = ({locationType}) => {
 // Main component that renders all location categories
 export default function AllLocationsPage() {
     return (
-      <div className="mt-20 px-40 py-6">
-          <h3
-            className="pb-6 font-display text-4xl font-bold text-brave-orange leading-tight">
-              Location Categories
-          </h3>
+      <div className="mt-20 px-18 py-6">
+          {/*<h3 className="pb-6 font-display text-4xl font-bold text-brave-orange leading-tight">*/}
+          {/*    Location Categories*/}
+          {/*</h3>*/}
 
           {LOCATION_TYPES.map((locationType) => (
             <LocationCategorySection

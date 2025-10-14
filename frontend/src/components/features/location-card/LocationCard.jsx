@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import LocationRating from "./LocationRating.jsx";
 import LocationContent from "./LocationContent.jsx";
 import {Heart} from "lucide-react";
@@ -22,30 +23,39 @@ const LocationCard = ({
         try {
             onHeartIconClick && onHeartIconClick();
         } catch {
+            // do nothing
         }
         setIsHeartClicked((v) => !v);
     };
 
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
-      <div className="border border-welded-iron/30 rounded-2xl w-[350px] overflow-hidden">
-          <div className="relative">
+      <div
+        className="border border-welded-iron/30 rounded-2xl w-[350px] overflow-hidden scale-90"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+          <div className="relative overflow-hidden">
               <button
                 onClick={handleOnHeartIconClick}
-                className="absolute top-3 right-5 hover:cursor-pointer"
+                className="absolute top-3 right-5 hover:cursor-pointer z-10"
                 aria-label="Save"
               >
                   <Heart size={24} color="white" fill={isHeartClicked ? "white" : "transparent"}/>
               </button>
-              <img
-                src={imageUrl}
-                onError={(e) => {
-                    e.currentTarget.onerror = null; // prevent infinite loop
-                    e.currentTarget.src = "/assets/beach.jpg";
-                }}
+              <motion.img
+                src={`/images/${imageUrl}`}
                 className="object-center object-cover h-48 w-[350px]"
                 alt={`${name} cover`}
+                animate={{
+                    scale: isHovered ? 1.1 : 1
+                }}
+                transition={{
+                    duration: 0.6,
+                    ease: "easeInOut"
+                }}
               />
-
           </div>
 
           <div className="pb-3 px-[25px]">
