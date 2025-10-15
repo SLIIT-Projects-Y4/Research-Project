@@ -4,7 +4,7 @@ import {ImSpinner2} from "react-icons/im";
 import "react-toastify/dist/ReactToastify.css";
 
 const initialFormState = {
-  locations: "",
+  locations: "",            // manual fallback input (optional)
   package: "",
   total_days: "",
   min_rating: "1.5",
@@ -13,7 +13,7 @@ const initialFormState = {
 };
 
 const sampleFormState = {
-  locations: "LOC_11, LOC_42, LOC_67",
+  locations: "Galle, Kandy", // now names are okay as a fallback demo
   package: "Moderate",
   total_days: 5,
   min_rating: "3.0",
@@ -22,7 +22,7 @@ const sampleFormState = {
 };
 
 export default function BudgetForm({
-  user,                         // 🔹 NEW: user comes from Home
+  user,
   onSubmit,
   selectedItinerary,
   locationIds,
@@ -37,7 +37,6 @@ export default function BudgetForm({
   const [selectedItineraryTitle, setSelectedItineraryTitle] = useState('');
 
   useEffect(() => {
-    // Set initial selected itinerary if one is already provided
     if (selectedItinerary) {
       setSelectedItineraryTitle(selectedItinerary.title);
     }
@@ -47,7 +46,7 @@ export default function BudgetForm({
     localStorage.setItem("formData", JSON.stringify(formData));
   }, [formData]);
 
-  // 🔹 If user has a travel_companion and form doesn't, prefill it once
+  // Pre-fill companion from profile once
   useEffect(() => {
     if (user?.travel_companion && !formData.travel_companion) {
       setFormData(prev => ({ ...prev, travel_companion: user.travel_companion }));
@@ -84,36 +83,40 @@ export default function BudgetForm({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     toast.dismiss();
 
-    // Get locations from manual input
-    const locationsArray = formData.locations
+    // Manual input (optional)
+    const manualList = formData.locations
       .split(",")
-      .map((loc) => loc.trim())
+      .map((x) => x.trim())
       .filter(Boolean);
 
-    // Get location IDs from selected itinerary
-    const locationIdsArray = locationIds || [];
+    // Prefer IDs if present, else fallback to readable names from selected itinerary
+    const selectedNames =
+      Array.isArray(selectedItinerary?.locations)
+        ? selectedItinerary.locations.map((l) => l?.name).filter(Boolean)
+        : [];
+
+    const itineraryPayload =
+      (Array.isArray(locationIds) && locationIds.length > 0)
+        ? locationIds
+        : selectedNames;
 
     // Combine both sources
-    const allLocations = [...locationsArray, ...locationIdsArray];
+    const allLocations = [...manualList, ...itineraryPayload].filter(Boolean);
 
     if (allLocations.length === 0) {
       toast.error("Please enter at least one location or select a saved itinerary.");
       return;
     }
-
     if (!formData.package) {
       toast.error("Please select a package type.");
       return;
     }
-
     if (!formData.total_days || Number(formData.total_days) < 1) {
       toast.error("Total days must be at least 1.");
       return;
     }
-
     if (!formData.travel_companion) {
       toast.error("Please select your travel companion.");
       return;
@@ -125,6 +128,9 @@ export default function BudgetForm({
       locations: allLocations,
       total_days: Number(formData.total_days),
       rating_range,
+      // for debugging/analytics downstream:
+      itinerary_title: selectedItinerary?.title || null,
+      used_location_ids: Array.isArray(locationIds) && locationIds.length > 0
     };
 
     setIsLoading(true);
@@ -148,6 +154,14 @@ export default function BudgetForm({
   const handleSample = () => {
     setFormData(sampleFormState);
     toast.success("Sample data added!");
+  };
+
+  const optionLabel = (it) => {
+    const count = (it.locationIds?.length ?? 0) || (it.locations?.length ?? 0) || 0;
+    const distance = it.totalDistance ? Number(it.totalDistance).toFixed(1) : null;
+    return distance
+      ? `${it.title} (${count} locations, ${distance} km)`
+      : `${it.title} (${count} locations)`;
   };
 
   return (
@@ -174,7 +188,7 @@ export default function BudgetForm({
             <option value="">Choose from saved itineraries</option>
             {availableItineraries.map((itinerary) => (
               <option key={itinerary.title} value={itinerary.title}>
-                {itinerary.title} ({itinerary.locationIds.length} locations, {itinerary.totalDistance?.toFixed(1)} km)
+                {optionLabel(itinerary)}
               </option>
             ))}
           </select>
@@ -185,27 +199,8 @@ export default function BudgetForm({
           )}
         </div>
 
-        {/*/!* Manual Location Input *!/*/}
-        {/*<div className="md:col-span-2">*/}
-        {/*  <label htmlFor="locations" className="block text-sm font-semibold text-gray-700 mb-2">*/}
-        {/*    Additional Locations (Optional)*/}
-        {/*  </label>*/}
-        {/*  <input*/}
-        {/*    type="text"*/}
-        {/*    id="locations"*/}
-        {/*    name="locations"*/}
-        {/*    value={formData.locations}*/}
-        {/*    onChange={handleChange}*/}
-        {/*    placeholder="e.g., LOC_1, LOC_2, LOC_3"*/}
-        {/*    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"*/}
-        {/*  />*/}
-        {/*  <p className="text-xs text-gray-400 mt-1">*/}
-        {/*    Enter location codes separated by commas. These will be combined with your selected itinerary.*/}
-        {/*  </p>*/}
-        {/*</div>*/}
-
-        {/* Display currently selected location IDs */}
-        {locationIds && locationIds.length > 0 && (
+        {/* Currently selected locations (IDs or names) */}
+        {(Array.isArray(locationIds) && locationIds.length > 0) ? (
           <div className="md:col-span-2">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Selected Itinerary Location IDs
@@ -219,7 +214,21 @@ export default function BudgetForm({
               </p>
             </div>
           </div>
-        )}
+        ) : (Array.isArray(selectedItinerary?.locations) && selectedItinerary.locations.length > 0) ? (
+          <div className="md:col-span-2">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Selected Itinerary Locations
+            </label>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+              <p className="text-sm text-gray-600 mb-2">
+                {selectedItinerary.locations.length} location(s) from "{selectedItinerary?.title}"
+              </p>
+              <p className="text-xs text-gray-600 break-words">
+                {selectedItinerary.locations.map((l) => l.name).join(' • ')}
+              </p>
+            </div>
+          </div>
+        ) : null}
 
         {/* Package Type */}
         <div>
@@ -297,7 +306,6 @@ export default function BudgetForm({
             Travel Companion
           </label>
 
-          {/* 🔹 Display user.travel_companion if available */}
           {user?.travel_companion && (
             <p className="text-xs text-gray-500 mb-2">
               From profile: <span className="font-medium">{user.travel_companion}</span>
@@ -318,6 +326,26 @@ export default function BudgetForm({
             <option value="Friends">Friends</option>
           </select>
         </div>
+
+        {/* Optional manual input (kept but hidden in UI by default)
+            — you can uncomment if you want the manual field visible */}
+        {/* <div className="md:col-span-2">
+          <label htmlFor="locations" className="block text-sm font-semibold text-gray-700 mb-2">
+            Additional Locations (Optional)
+          </label>
+          <input
+            type="text"
+            id="locations"
+            name="locations"
+            value={formData.locations}
+            onChange={handleChange}
+            placeholder="e.g., LOC_1, LOC_2, or place names"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+          />
+          <p className="text-xs text-gray-400 mt-1">
+            These will be combined with your selected itinerary.
+          </p>
+        </div> */}
       </div>
 
       {/* Buttons */}
@@ -345,7 +373,7 @@ export default function BudgetForm({
           disabled={isLoading}
           className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isLoading && <ImSpinner2 className="animate-spin"/>}
+          {isLoading && <ImSpinner2 className="animate-spin" />}
           Predict Budget
         </button>
       </div>

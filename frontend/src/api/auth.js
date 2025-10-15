@@ -14,3 +14,10 @@ export async function getMe() {
   const { data } = await api.get('/api/users/me');
   return data;
 }
+
+export async function refreshAuth() {
+  // Optional endpoint; will 404 if you haven't implemented it in backend yet.
+  const { data } = await api.post('/api/auth/refresh');
+  // expected: { token, user }
+  return data;
+}

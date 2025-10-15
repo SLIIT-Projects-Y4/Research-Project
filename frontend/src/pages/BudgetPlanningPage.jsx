@@ -37,7 +37,7 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔹 NEW: read user from localStorage (fallback to 'user1' in case it was written there)
+  // 🔹 read user from localStorage (fallback to 'user1' in case it was written there)
   const [user, setUser] = useState(() => {
     try {
       const raw = localStorage.getItem('user') || localStorage.getItem('user1');
@@ -224,6 +224,41 @@ export default function Home() {
     }
   };
 
+  // --- helpers for payload shaping ---
+  const coerceToStringList = (arr) =>
+    arr
+      .map((x) => {
+        if (x && typeof x === 'object') {
+          if (typeof x.name === 'string' && x.name.trim()) return x.name.trim();
+          const lat = x.lat ?? x.latitude;
+          const lng = x.lng ?? x.longitude;
+          if (typeof lat === 'number' && typeof lng === 'number') return `${lat},${lng}`;
+          return String(x.id ?? JSON.stringify(x));
+        }
+        return String(x);
+      })
+      .filter(Boolean);
+
+  const pickLocationsForBackend = (formData) => {
+    // 1) Prefer locationIds if present
+    if (Array.isArray(locationIds) && locationIds.length > 0) {
+      return coerceToStringList(locationIds);
+    }
+    // 2) Then any formData.locations (string or array)
+    if (Array.isArray(formData?.locations)) {
+      return coerceToStringList(formData.locations);
+    }
+    if (typeof formData?.locations === 'string' && formData.locations.trim()) {
+      const pieces = formData.locations.split(',').map(s => s.trim()).filter(Boolean);
+      if (pieces.length) return coerceToStringList(pieces);
+    }
+    // 3) Finally selectedItinerary.locations (objects with names)
+    if (Array.isArray(selectedItinerary?.locations) && selectedItinerary.locations.length > 0) {
+      return coerceToStringList(selectedItinerary.locations);
+    }
+    return [];
+  };
+
   // Submit form
   const handleSubmit = async (formData) => {
     setLoading(true);
@@ -231,13 +266,38 @@ export default function Home() {
     setChatVisible(false);
 
     try {
-      // Include location IDs in the form data if available
-      const enhancedFormData = {
-        ...formData,
-        ...(locationIds.length > 0 && { locationIds })
+      // Build strict string[] for backend
+      const locs = pickLocationsForBackend(formData);
+
+      if (locs.length === 0) {
+        toast.error("Please provide at least one location (IDs or names).");
+        setLoading(false);
+        return;
+      }
+
+      // Accept rating_range from formData or construct from sliders if provided
+      const rating_range =
+        formData?.rating_range ||
+        (formData?.min_rating && formData?.max_rating
+          ? `${formData.min_rating}-${formData.max_rating}`
+          : undefined);
+
+      // ✅ Send both shapes to satisfy either schema:
+      //    - locations: [] (current FastAPI model requires this)
+      //    - plan: { plan: [] } (older handler read this)
+      const payload = {
+        locations: locs,                           // <-- REQUIRED by your 422
+        plan: { plan: locs },                      // <-- backward-compat (no harm if ignored)
+        package: formData.package,
+        total_days: Number(formData.total_days),
+        rating_range,
+        travel_companion: formData.travel_companion,
+        // keep any extra fields (won't break BE if ignored)
+        itinerary_title: selectedItinerary?.title ?? formData?.itinerary_title ?? null,
+        used_location_ids: Array.isArray(locationIds) && locationIds.length > 0
       };
 
-      const response = await postPrediction(enhancedFormData);
+      const response = await postPrediction(payload);
       if (response.data?.error) {
         toast.error(response.data.error);
       } else {
@@ -358,14 +418,13 @@ export default function Home() {
 
           <div className="bg-white rounded-3xl shadow-2xl p-10 sm:p-14 mb-14 border border-gray-100">
             <BudgetForm
-  user={user}
-  onSubmit={handleSubmit}
-  selectedItinerary={selectedItinerary}
-  locationIds={locationIds}
-  availableItineraries={availableItineraries}
-  onItinerarySelect={handleItinerarySelection}
-/>
-
+              user={user}
+              onSubmit={handleSubmit}
+              selectedItinerary={selectedItinerary}
+              locationIds={locationIds}
+              availableItineraries={availableItineraries}
+              onItinerarySelect={handleItinerarySelection}
+            />
           </div>
 
           {loading && (
