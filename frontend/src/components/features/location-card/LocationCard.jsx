@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-
+import {motion} from "framer-motion";
 import LocationRating from "./LocationRating.jsx";
 import LocationContent from "./LocationContent.jsx";
-import {Heart} from "lucide-react";
 
 const LocationCard = ({
                           noOfRatings,
@@ -13,20 +12,9 @@ const LocationCard = ({
                           description,
                           type,
                           imageUrl,
-                          onHeartIconClick,
                           onDetailsButtonClick,
                           onAddToPlanPoolButtonClick
                       }) => {
-    const [isHeartClicked, setIsHeartClicked] = useState(false);
-
-    const handleOnHeartIconClick = () => {
-        try {
-            onHeartIconClick && onHeartIconClick();
-        } catch {
-            // do nothing
-        }
-        setIsHeartClicked((v) => !v);
-    };
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -37,13 +25,6 @@ const LocationCard = ({
         onMouseLeave={() => setIsHovered(false)}
       >
           <div className="relative overflow-hidden">
-              <button
-                onClick={handleOnHeartIconClick}
-                className="absolute top-3 right-5 hover:cursor-pointer z-10"
-                aria-label="Save"
-              >
-                  <Heart size={24} color="white" fill={isHeartClicked ? "white" : "transparent"}/>
-              </button>
               <motion.img
                 src={`/images/${imageUrl}`}
                 className="object-center object-cover h-48 w-[350px]"
