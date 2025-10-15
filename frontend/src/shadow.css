@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* optional: your font tokens if you want them available */
+:root {
+  --font-sans: Inter, system-ui, -apple-system, sans-serif;
+  --font-display: Poppins, ui-sans-serif, system-ui, sans-serif;
+}
+.font-body { font-family: var(--font-sans); }
+.font-display { font-family: var(--font-display); }

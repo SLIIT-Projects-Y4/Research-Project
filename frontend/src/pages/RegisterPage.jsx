@@ -1,4 +1,3 @@
-// src/pages/RegisterPage.jsx
 import React, { useState } from 'react';
 import { register as apiRegister } from '../api/auth';
 import { useNavigate, Link } from 'react-router-dom';
@@ -22,7 +21,7 @@ export default function RegisterPage() {
       setLoading(true);
       const res = await apiRegister(form);
       toast.success(res?.message || 'Registration successful. Please log in.');
-      navigate('/login');
+       navigate('/login');
     } catch {
       toast.error('Registration failed. Please check your details and try again.');
     } finally {

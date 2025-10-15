@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
     try { return JSON.parse(localStorage.getItem('user') || 'null'); }
     catch { return null; }
   });
+  const updateUser = (u) => { setUser(u); };
 
   useEffect(() => {
     if (token) localStorage.setItem('token', token);
@@ -22,7 +23,7 @@ export function AuthProvider({ children }) {
   const login = (t, u) => { setToken(t); setUser(u); };
   const logout = () => { setToken(null); setUser(null); };
 
-  const value = useMemo(() => ({ token, user, login, logout }), [token, user]);
+  const value = useMemo(() => ({ token, user, login, logout, updateUser }), [token, user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

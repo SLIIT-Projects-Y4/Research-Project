@@ -1,117 +1,160 @@
-import React from "react";
-import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {PlaneTakeoff, Facebook, Instagram, Twitter} from 'lucide-react';
 
-export const Footer = () => (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/5 rounded-full blur-2xl"></div>
-        </div>
+export const Footer = () => {
+    return (
+      <footer className="bg-desert-lilly backdrop-blur-sm border-t border-gray-100 mt-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
+                  {/* Logo and Tagline */}
+                  <div className="md:col-span-2">
+                      <Link to="/" className="flex items-center space-x-2 group mb-6">
+                          <PlaneTakeoff
+                            className="text-brave-orange group-hover:scale-110 transition-transform duration-200"
+                            size={24}/>
+                          <span className="font-display text-2xl font-bold text-fly-by-night">
+                Travel <span className="text-brave-orange">මචo</span>
+              </span>
+                      </Link>
+                      <p className="text-welded-iron leading-relaxed max-w-md">
+                          Discover breathtaking destinations, plan unforgettable journeys, and create memories that last
+                          a lifetime with our comprehensive travel platform.
+                      </p>
 
-        {/* Newsletter Section */}
-        <div className="relative z-10 px-6 lg:px-8 py-16">
-            <div className="max-w-7xl mx-auto">
-                <div className="bg-gradient-to-r from-purple-600/20 to-orange-600/20 backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-12 mb-16">
-                    <div className="text-center max-w-2xl mx-auto">
-                        <h2 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
-                            Stay in the loop
-                        </h2>
-                        <p className="text-gray-300 text-lg mb-8">
-                            Get the latest travel deals, destination guides, and insider tips delivered to your inbox.
-                        </p>
-                        <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                            <div className="relative flex-1">
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    required
-                                    aria-label="Email address"
-                                    className="w-full px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-orange-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900"
-                            >
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                      {/* Newsletter Signup */}
+                      <div className="mt-6">
+                          <p className="text-sm font-medium text-gray-700 mb-3">Stay updated with travel tips</p>
+                          <div className="flex max-w-sm">
+                              <input
+                                type="email"
+                                placeholder="Enter your email"
+                                className="flex-1 px-4 py-2 text-sm border border-gray-200 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-brave-orange/20 focus:border-brave-orange"
+                              />
+                              <button
+                                className="px-4 py-2 bg-brave-orange text-white text-sm font-medium rounded-r-lg hover:bg-hot-embers transition-colors">
+                                  Subscribe
+                              </button>
+                          </div>
+                      </div>
+                  </div>
 
-                {/* Main Footer Content */}
-                <div className="grid grid-cols-1 lg:grid-cols-6 gap-12 mb-12">
-                    {/* Brand Section */}
-                    <div className="lg:col-span-2">
-                        <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent mb-6">
-                            Jadoo.
-                        </h3>
-                        <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                            Plan Your trip like you want it. Now on everyone's interests. We are here to help you find the best deals and experiences for your next adventure.
-                        </p>
+                  {/* Quick Links */}
+                  <div>
+                      <h3 className="font-display text-lg font-semibold text-fly-by-night mb-6 relative">
+                          Quick Links
+                          <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-brave-orange rounded-full"></div>
+                      </h3>
+                      <ul className="space-y-3">
+                          <li>
+                              <Link
+                                to="/home"
+                                className="text-welded-iron hover:text-brave-orange transition-colors duration-200 text-sm font-medium flex items-center group"
+                              >
+                                  <span
+                                    className="group-hover:translate-x-1 transition-transform duration-200">Home</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link
+                                to="/plan-pool"
+                                className="text-welded-iron hover:text-brave-orange transition-colors duration-200 text-sm font-medium flex items-center group"
+                              >
+                                  <span className="group-hover:translate-x-1 transition-transform duration-200">Plan Pool</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link
+                                to="/plan/build"
+                                className="text-welded-iron hover:text-brave-orange transition-colors duration-200 text-sm font-medium flex items-center group"
+                              >
+                                  <span className="group-hover:translate-x-1 transition-transform duration-200">Generate Plan</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link
+                                to="/flights"
+                                className="text-welded-iron hover:text-brave-orange transition-colors duration-200 text-sm font-medium flex items-center group"
+                              >
+                                  <span
+                                    className="group-hover:translate-x-1 transition-transform duration-200">Flights</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link
+                                to="/bookings"
+                                className="text-welded-iron hover:text-brave-orange transition-colors duration-200 text-sm font-medium flex items-center group"
+                              >
+                                  <span
+                                    className="group-hover:translate-x-1 transition-transform duration-200">My Trips</span>
+                              </Link>
+                          </li>
+                      </ul>
+                  </div>
 
-                        {/* Social Links */}
-                        <div className="flex space-x-4">
-                            <a href="#" className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 hover:scale-110 transition-all duration-300" aria-label="Facebook">
-                                <Facebook className="w-5 h-5 text-gray-300 hover:text-white transition-colors" />
-                            </a>
-                            <a href="#" className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl hover:scale-110 transition-all duration-300 shadow-lg" aria-label="Instagram">
-                                <Instagram className="w-5 h-5 text-white" />
-                            </a>
-                            <a href="#" className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 hover:scale-110 transition-all duration-300" aria-label="Twitter">
-                                <Twitter className="w-5 h-5 text-gray-300 hover:text-white transition-colors" />
-                            </a>
-                            <a href="#" className="w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 hover:scale-110 transition-all duration-300" aria-label="LinkedIn">
-                                <Linkedin className="w-5 h-5 text-gray-300 hover:text-white transition-colors" />
-                            </a>
-                        </div>
-                    </div>
+                  {/* Social Links and Contacts */}
+                  <div>
+                      <h3 className="font-display text-lg font-semibold text-fly-by-night mb-6 relative">
+                          Connect
+                          <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-brave-orange rounded-full"></div>
+                      </h3>
 
-                    {/* Navigation Links */}
-                    <div className="lg:col-span-4 grid grid-cols-4 md:grid-cols-4 gap-8">
-                        <div>
-                            <h4 className="text-lg font-semibold text-white mb-6">Company</h4>
-                            <ul className="space-y-4">
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">About Us</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Careers</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Mobile App</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Press</a></li>
-                            </ul>
-                        </div>
+                      {/* Social Media */}
+                      <div className="flex space-x-4 mb-6">
+                          <a
+                            href="#"
+                            className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-welded-iron hover:bg-brave-orange hover:text-white transition-all duration-200 group"
+                            aria-label="Facebook"
+                          >
+                              <Facebook size={18} className="group-hover:scale-110 transition-transform"/>
+                          </a>
+                          <a
+                            href="#"
+                            className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-welded-iron hover:bg-brave-orange hover:text-white transition-all duration-200 group"
+                            aria-label="Instagram"
+                          >
+                              <Instagram size={18} className="group-hover:scale-110 transition-transform"/>
+                          </a>
+                          <a
+                            href="#"
+                            className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-welded-iron hover:bg-brave-orange hover:text-white transition-all duration-200 group"
+                            aria-label="Twitter"
+                          >
+                              <Twitter size={18} className="group-hover:scale-110 transition-transform"/>
+                          </a>
+                      </div>
 
-                        <div>
-                            <h4 className="text-lg font-semibold text-white mb-6">Support</h4>
-                            <ul className="space-y-4">
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Help Center</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Contact Us</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Live Chat</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Safety</a></li>
-                            </ul>
-                        </div>
+                      {/* Contact Info */}
+                      <div className="space-y-2 text-sm text-welded-iron">
+                          <p className="font-medium text-gray-700">Get in touch</p>
+                          <p>support@travelmachan.com</p>
+                          <p>+94 11 123 4567</p>
+                      </div>
+                  </div>
+              </div>
 
-                        <div>
-                            <h4 className="text-lg font-semibold text-white mb-6">Services</h4>
-                            <ul className="space-y-4">
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Itinerary Plans</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Hotels</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Car Rental</a></li>
-                                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Travel Guides</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+              {/* Bottom Section */}
+              <div className="mt-16 pt-8 border-t border-gray-100">
+                  <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                      <div className="text-sm text-welded-iron">
+                          © {new Date().getFullYear()} Travel මචo. All rights reserved.
+                      </div>
 
-                {/* Copyright */}
-                <div className="border-t border-white/10 pt-8">
-                    <div className="text-center">
-                        <p className="text-gray-400">
-                            &copy; 2025 Chaloo. All rights reserved.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-);
+                      {/* Legal Links */}
+                      <div className="flex space-x-6 text-sm text-welded-iron">
+                          <Link to="/privacy" className="hover:text-brave-orange transition-colors">
+                              Privacy Policy
+                          </Link>
+                          <Link to="/terms" className="hover:text-brave-orange transition-colors">
+                              Terms of Service
+                          </Link>
+                          <Link to="/cookies" className="hover:text-brave-orange transition-colors">
+                              Cookie Policy
+                          </Link>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </footer>
+    );
+};
