@@ -4,6 +4,7 @@ import axios from "axios";
 import {addToPlanPool} from "@/api/planpool.js";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {SyncLoader} from "react-spinners";
 
 const LOCATION_TYPES = [
     "Beaches",
@@ -75,7 +76,9 @@ const LocationCategorySection = ({locationType}) => {
               <h2 className="text-2xl font-display font-bold mb-6 text-midnight-dreams">
                   {locationType}
               </h2>
-              <p className="text-center text-gray-500">Loading {locationType}...</p>
+              <div className={'flex items-center justify-center'}>
+              <SyncLoader color="#F97316"/>
+                  </div>
           </div>
         );
     }
