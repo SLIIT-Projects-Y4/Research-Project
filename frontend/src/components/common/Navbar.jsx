@@ -131,15 +131,15 @@ export const Navbar = () => {
                       <div className="flex flex-row">
                     <span className={`text-xl sm:text-2xl font-display font-bold transition-all duration-300 ${
                       isHomePage && isScrolled ? 'text-fly-by-night' :
-                        isHomePage ? 'text-white' : 'text-fly-by-night'
+                        isHomePage ? 'text-brave-orange' : 'text-fly-by-night'
                     }`}>
                         <div className={'flex items-center'}>
                             <PlaneTakeoff size={20} className="sm:size-6"/>
-                            <span className={`ml-2 sm:ml-3`}>Travel</span>
-                            <span className={`ml-1 font-display transition-all duration-300 font-bold text-base sm:text-lg ${
-                              isHomePage && isScrolled ? 'text-brave-orange' :
-                                isHomePage ? 'text-white' : 'text-brave-orange'
-                            }`}> මචO </span>
+                            <span className={`ml-2 sm:ml-3 font-display font-bold text=brave-orange`}>Travel</span>
+                            <span className={`ml-1 font-display transition-all duration-300 font-bold text-base sm:text-lg font-sans ${
+                              isHomePage && isScrolled ? 'text-brave-orange border-b-3 border-brave-orange' :
+                                isHomePage ? 'text-white' : 'text-brave-orange border-b-3 border-brave-orange'
+                            }`}> MACHAN </span>
                         </div>
                       </span>
                       </div>
@@ -356,8 +356,10 @@ export const Navbar = () => {
                       <div className="border-t border-gray-200 pt-5">
                           {user ? (
                             <div className="space-y-4">
-                                <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100">
-                                    <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-md flex-shrink-0">
+                                <div
+                                  className="flex items-center gap-3 px-4 py-3 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+                                    <div
+                                      className="flex items-center justify-center w-11 h-11 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-md flex-shrink-0">
                                         <User size={20} className="text-white"/>
                                     </div>
                                     <div className="min-w-0 flex-1">
