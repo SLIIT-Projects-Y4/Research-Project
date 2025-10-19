@@ -3,7 +3,7 @@ import { getPlanPool, removeFromPlanPool } from '../api/planpool';
 import { toast } from 'react-toastify';
 import { Plus, Sparkles, Search, Heart, Navigation, Compass, ChevronLeft, ChevronRight, CalendarPlus } from 'lucide-react';
 import PlanPoolCard from '../components/features/plan-pool/PlanPoolCard.jsx';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 export default function PlanPoolPage() {
     const [loading, setLoading] = useState(true);
@@ -11,6 +11,8 @@ export default function PlanPoolPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const ITEMS_PER_PAGE = 5;
+
+    const navigate = useNavigate();
 
     const load = async () => {
         try {
@@ -129,11 +131,7 @@ export default function PlanPoolPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button
-                    className="inline-flex items-center px-6 py-4 bg-white/80 backdrop-blur-sm text-midnight-dreams font-medium rounded-2xl border border-heart-of-ice hover:bg-white hover:shadow-lg transition-all duration-300 hover:cursor-pointer">
-                    <Plus className="w-5 h-5 mr-2" />
-                    Start Exploring
-                </button>
-                <button
+                  onClick={() => navigate('/category')}
                     className="inline-flex items-center px-6 py-4 bg-white/80 backdrop-blur-sm text-midnight-dreams font-medium rounded-2xl border border-heart-of-ice hover:bg-white hover:shadow-lg transition-all duration-300 hover:cursor-pointer">
                     <Navigation className="w-5 h-5 mr-2" />
                     Browse Categories
@@ -229,7 +227,7 @@ export default function PlanPoolPage() {
                 <div className="mb-5 flex flex-col items-start">
                     <div className="text-left mb-8">
                         <h1
-                            className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-brave-orange leading-tight">
+                            className="font-display text-3xl sm:text-6xl lg:text-7xl font-bold text-brave-orange leading-tight">
                             Plan Pool
                         </h1>
                     </div>

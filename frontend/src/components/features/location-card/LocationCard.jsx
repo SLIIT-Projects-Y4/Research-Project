@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {motion} from "framer-motion";
 import LocationRating from "./LocationRating.jsx";
 import LocationContent from "./LocationContent.jsx";
+import {useViewportSize} from "@mantine/hooks";
 
 const LocationCard = ({
                           noOfRatings,
@@ -17,9 +18,14 @@ const LocationCard = ({
                       }) => {
 
     const [isHovered, setIsHovered] = useState(false);
+    const {width} = useViewportSize();
 
     return (
-     <div className="border border-welded-iron/30 rounded-2xl w-[350px] overflow-hidden" style={{ zoom: 0.8 }}
+     <div
+       style={{
+           width: `${width < 640 ? '300px' : '350px'}`
+       }}
+       className="border border-welded-iron/30 rounded-2xl overflow-hidden scale-90"
 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}>

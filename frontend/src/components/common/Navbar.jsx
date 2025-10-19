@@ -145,7 +145,7 @@ export const Navbar = () => {
                             <span className={`ml-1 font-display transition-all duration-300 font-bold ${
                               isHomePage && isScrolled ? 'text-brave-orange' :
                                 isHomePage ? 'text-white' : 'text-brave-orange'
-                            }`}> මචo </span>
+                            }`}> මචO </span>
                         </div>
                       </span>
                       </div>
