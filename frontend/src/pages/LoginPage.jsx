@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@mantine/core';
 import { toast } from 'react-toastify';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
-import loginImage from '../../public/assets/loginImage.jpg'
+import loginImage from '../../public/assets/loginImage.jpg';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -47,6 +47,22 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen overflow-hidden relative">
+
+      {/* Top Ribbon */}
+      <div className="fixed top-0 inset-x-0 z-30 border-b border-white/10">
+  <div className="bg-gradient-to-r from-[#001C33]/95 via-[#001C33] to-[#001C33]/95">
+    <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div className="h-16 sm:h-20 flex items-center justify-center">
+        <h1 className="font-display font-extrabold text-white text-3xl sm:text-4xl tracking-wide flex items-center gap-2">
+          <span>Travel</span>
+          <span className="text-brave-orange">MACHAN</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
       {/* Background with travel imagery */}
       <div
         className="fixed inset-0 bg-cover bg-center"
@@ -64,8 +80,8 @@ export default function LoginPage() {
         />
       </div>
 
-      {/* Main content */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-8 sm:py-12">
+      {/* Main content (top padding added so it doesn't sit under the ribbon) */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-8 sm:py-12 pt-20 sm:pt-24">
         <div className="w-full max-w-md">
           <div
             className="rounded-2xl sm:rounded-3xl backdrop-blur-3xl border border-white border-opacity-40 p-6 sm:p-8 shadow-2xl"
@@ -111,10 +127,7 @@ export default function LoginPage() {
                     style={{
                       borderColor: focused === 'email' ? '#FD661E' : 'rgba(255, 255, 255, 0.3)',
                       background: focused === 'email' ? 'rgba(255, 250, 245, 0.9)' : 'rgba(255, 255, 255, 0.2)',
-                      boxShadow:
-                        focused === 'email'
-                          ? '0 0 0 3px rgba(253, 102, 30, 0.2)'
-                          : 'none',
+                      boxShadow: focused === 'email' ? '0 0 0 3px rgba(253, 102, 30, 0.2)' : 'none',
                       color: focused === 'email' ? '#001C33' : '#ffffff',
                     }}
                   />
@@ -145,10 +158,7 @@ export default function LoginPage() {
                     style={{
                       borderColor: focused === 'password' ? '#FD661E' : 'rgba(255, 255, 255, 0.3)',
                       background: focused === 'password' ? 'rgba(255, 250, 245, 0.9)' : 'rgba(255, 255, 255, 0.2)',
-                      boxShadow:
-                        focused === 'password'
-                          ? '0 0 0 3px rgba(253, 102, 30, 0.2)'
-                          : 'none',
+                      boxShadow: focused === 'password' ? '0 0 0 3px rgba(253, 102, 30, 0.2)' : 'none',
                       color: focused === 'password' ? '#001C33' : '#ffffff',
                     }}
                   />
@@ -180,7 +190,9 @@ export default function LoginPage() {
                 }}
               >
                 <span>{loading ? 'Taking off...' : 'Login'}</span>
-                {!loading && <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />}
+                {!loading && (
+                  <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
+                )}
               </Button>
             </form>
 
@@ -209,7 +221,6 @@ export default function LoginPage() {
               </p>
             </div>
           </div>
-
         </div>
       </div>
     </div>

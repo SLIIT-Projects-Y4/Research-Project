@@ -43,6 +43,19 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen overflow-hidden relative">
+         {/* Top Ribbon */}
+      <div className="fixed top-0 inset-x-0 z-30 border-b border-white/10">
+  <div className="bg-gradient-to-r from-[#001C33]/95 via-[#001C33] to-[#001C33]/95">
+    <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div className="h-16 sm:h-20 flex items-center justify-center">
+        <h1 className="font-display font-extrabold text-white text-3xl sm:text-4xl tracking-wide flex items-center gap-2">
+          <span>Travel</span>
+          <span className="text-brave-orange">MACHAN</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
       {/* Background with travel imagery */}
       <div
         className="fixed inset-0 bg-cover bg-center"
