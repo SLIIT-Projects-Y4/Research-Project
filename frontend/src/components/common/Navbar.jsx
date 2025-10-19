@@ -70,19 +70,14 @@ export const Navbar = () => {
 
     const handleLogout = () => {
         try {
-            // Clear ALL localStorage items you see in the dev tools
             localStorage.removeItem('user');
             localStorage.removeItem('token');
             localStorage.removeItem('formData');
             localStorage.removeItem('predictions');
             localStorage.removeItem('savedItineraryLocationIds');
             localStorage.removeItem('savedItineraries');
-             sessionStorage.clear();
+            sessionStorage.clear();
 
-            // Alternative: Clear everything at once
-            // localStorage.clear();
-
-            // Verify removal (debugging)
             console.log('LocalStorage after clearing:', localStorage.length);
             console.log('Remaining items:');
             for (let i = 0; i < localStorage.length; i++) {
@@ -101,7 +96,6 @@ export const Navbar = () => {
 
         } catch (error) {
             console.error('Error during logout:', error);
-            // Fallback: force clear all localStorage
             localStorage.clear();
             setUser(null);
             navigate('/');
@@ -125,35 +119,35 @@ export const Navbar = () => {
             ? 'bg-transparent'
             : 'bg-desert-lilly/20'
       }`}>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-              <div className="flex justify-between items-center py-4 lg:py-5">
+          <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8">
+              <div className="flex justify-between items-center py-3 sm:py-4 lg:py-5">
 
                   {/* Logo */}
                   <Link
-                    to="/"
-                    className="flex items-center space-x-3 group"
-                    aria-label=" TravelMachan homepage"
+                    to="/home"
+                    className="flex items-center space-x-2 sm:space-x-3 group flex-shrink-0"
+                    aria-label="TravelMachan homepage"
                   >
                       <div className="flex flex-row">
-                    <span className={`text-2xl font-display font-bold transition-all duration-300 ${
+                    <span className={`text-xl sm:text-2xl font-display font-bold transition-all duration-300 ${
                       isHomePage && isScrolled ? 'text-fly-by-night' :
                         isHomePage ? 'text-white' : 'text-fly-by-night'
                     }`}>
                         <div className={'flex items-center'}>
-                            <PlaneTakeoff/>
-                            <span className={`ml-3`}>Travel</span>
-                            <span className={`ml-1 font-display transition-all duration-300 font-bold ${
+                            <PlaneTakeoff size={20} className="sm:size-6"/>
+                            <span className={`ml-2 sm:ml-3`}>Travel</span>
+                            <span className={`ml-1 font-display transition-all duration-300 font-bold text-base sm:text-lg ${
                               isHomePage && isScrolled ? 'text-brave-orange' :
                                 isHomePage ? 'text-white' : 'text-brave-orange'
-                            }`}> මචo </span>
+                            }`}> මචO </span>
                         </div>
                       </span>
                       </div>
                   </Link>
 
                   {/* Desktop Navigation */}
-                  <nav className="hidden lg:flex items-center">
-                      <div className="flex items-center space-x-8 mr-8">
+                  <nav className="hidden lg:flex items-center gap-2">
+                      <div className="flex items-center space-x-6 xl:space-x-8 mr-6 xl:mr-8">
                           {navLinks.map((link) => {
                               const isActive = location.pathname === link.path;
 
@@ -161,7 +155,7 @@ export const Navbar = () => {
                                 <Link
                                   key={link.name}
                                   to={link.path}
-                                  className={`font-display relative px-4 py-2 text-sm font-medium transition-all duration-300 group ${
+                                  className={`font-display relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-medium transition-all duration-300 group whitespace-nowrap ${
                                     isActive
                                       ? 'text-brave-orange'
                                       : isHomePage
@@ -191,7 +185,7 @@ export const Navbar = () => {
                              ref={profileRef}>
                             <button
                               onClick={() => setIsProfileOpen(!isProfileOpen)}
-                              className={`flex items-center space-x-3 px-4 py-1.5 rounded-lg transition-all duration-300 group ${
+                              className={`flex items-center space-x-2 px-3 xl:px-4 py-1.5 rounded-lg transition-all duration-300 group ${
                                 isHomePage
                                   ? isScrolled
                                     ? 'text-gray-700 hover:cursor-pointer'
@@ -200,13 +194,13 @@ export const Navbar = () => {
                               } ${isProfileOpen ? (isScrolled || !isHomePage ? 'bg-gray-50' : 'bg-white/10') : ''}`}
                             >
                                 <div
-                                  className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                                  className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 flex-shrink-0">
                                     <User size={16} className=""/>
                                 </div>
 
                                 <ChevronDown
                                   size={16}
-                                  className={`transition-transform duration-300 ${
+                                  className={`transition-transform duration-300 hidden xl:block ${
                                     isProfileOpen ? 'rotate-180' : ''
                                   }`}
                                 />
@@ -222,14 +216,14 @@ export const Navbar = () => {
                                 <div className="p-4 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100">
                                     <div className="flex items-center space-x-3">
                                         <div
-                                          className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg">
+                                          className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg flex-shrink-0">
                                             <User size={20} className="text-white"/>
                                         </div>
-                                        <div>
-                                            <p className="font-semibold text-gray-800">
+                                        <div className="min-w-0">
+                                            <p className="font-semibold text-gray-800 truncate">
                                                 {user.name || 'Traveler'}
                                             </p>
-                                            <p className="text-sm text-gray-500">
+                                            <p className="text-sm text-gray-500 truncate">
                                                 {user.email}
                                             </p>
                                         </div>
@@ -242,7 +236,7 @@ export const Navbar = () => {
                                       className="flex items-center space-x-3 px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
                                       onClick={() => setIsProfileOpen(false)}
                                     >
-                                        <User size={16}/>
+                                        <User size={16} className="flex-shrink-0"/>
                                         <span className="text-sm font-medium">My Profile</span>
                                     </Link>
                                     <Link
@@ -250,7 +244,7 @@ export const Navbar = () => {
                                       className="flex items-center space-x-3 px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
                                       onClick={() => setIsProfileOpen(false)}
                                     >
-                                        <Calendar size={16}/>
+                                        <Calendar size={16} className="flex-shrink-0"/>
                                         <span className="text-sm font-medium">My Bookings</span>
                                     </Link>
                                     <Link
@@ -258,7 +252,7 @@ export const Navbar = () => {
                                       className="flex items-center space-x-3 px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
                                       onClick={() => setIsProfileOpen(false)}
                                     >
-                                        <Heart size={16}/>
+                                        <Heart size={16} className="flex-shrink-0"/>
                                         <span className="text-sm font-medium">Wishlist</span>
                                     </Link>
                                     <div className="border-t border-gray-100 my-1"></div>
@@ -266,17 +260,17 @@ export const Navbar = () => {
                                       onClick={handleLogout}
                                       className="w-full flex items-center space-x-3 px-3 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
                                     >
-                                        <LogOut size={16}/>
+                                        <LogOut size={16} className="flex-shrink-0"/>
                                         <span className="text-sm font-medium">Sign Out</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
                       ) : (
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-3 xl:space-x-4">
                             <Link
                               to="/login"
-                              className={`px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105 ${
+                              className={`px-3 xl:px-5 py-2 xl:py-2.5 text-xs xl:text-sm font-medium transition-all duration-300 hover:scale-105 ${
                                 isHomePage
                                   ? isScrolled
                                     ? 'text-gray-600 hover:text-gray-900'
@@ -286,9 +280,9 @@ export const Navbar = () => {
                             >
                                 Sign In
                             </Link>
-                            <Link to="/register">
+                            <Link to="/register" className="flex-shrink-0">
                                 <Button
-                                  className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-0"
+                                  className="px-4 xl:px-6 py-2 xl:py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-0 text-xs xl:text-sm"
                                 >
                                     Get Started
                                 </Button>
@@ -302,7 +296,7 @@ export const Navbar = () => {
                       <button
                         onClick={() => setIsOpen(!isOpen)}
                         aria-label="Toggle menu"
-                        className={`p-2.5 rounded-lg transition-all duration-300 ${
+                        className={`p-2 rounded-lg transition-all duration-300 flex-shrink-0 ${
                           isHomePage
                             ? isScrolled
                               ? 'text-gray-800 hover:bg-gray-100'
@@ -333,8 +327,8 @@ export const Navbar = () => {
           <div className={`lg:hidden overflow-hidden transition-all duration-500 ease-out ${
             isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
           }`}>
-              <nav className="bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-2xl">
-                  <div className="container mx-auto px-4 py-6">
+              <nav className="bg-white border-t border-gray-200">
+                  <div className="w-full px-4 py-5">
                       <div className="flex flex-col space-y-1 mb-6">
                           {navLinks.map((link, index) => {
                               const isActive = location.pathname === link.path;
@@ -343,15 +337,15 @@ export const Navbar = () => {
                                 <Link
                                   key={link.name}
                                   to={link.path}
-                                  className={`flex items-center space-x-3 px-4 py-3.5 rounded-lg transition-all duration-200 font-medium ${
+                                  className={`flex items-center space-x-3 px-4 py-3.5 rounded-xl transition-all duration-200 font-medium text-sm ${
                                     isActive
-                                      ? 'text-brave-orange bg-orange-50'
-                                      : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+                                      ? 'text-brave-orange bg-orange-100/60'
+                                      : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
                                   }`}
                                   style={{animationDelay: `${index * 50}ms`}}
                                   onClick={() => setIsOpen(false)}
                                 >
-                                    <MapPin size={18} className="opacity-60"/>
+                                    <MapPin size={18} className="opacity-60 flex-shrink-0"/>
                                     <span>{link.name}</span>
                                 </Link>
                               );
@@ -359,41 +353,47 @@ export const Navbar = () => {
                       </div>
 
                       {/* Mobile Auth Section */}
-                      <div className="border-t border-gray-200 pt-6">
+                      <div className="border-t border-gray-200 pt-5">
                           {user ? (
-                            <div className="space-y-3">
-                                <div
-                                  className="flex items-center gap-4 px-4 py-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg">
-                                    <div
-                                      className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg">
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+                                    <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-md flex-shrink-0">
                                         <User size={20} className="text-white"/>
                                     </div>
-                                    <div>
-                                        <p className="font-semibold text-gray-800">
+                                    <div className="min-w-0 flex-1">
+                                        <p className="font-semibold text-gray-800 text-sm truncate">
                                             {user.name || 'Traveler'}
                                         </p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-xs text-gray-500 truncate">
                                             {user.email}
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="space-y-1">
+                                <div className="space-y-2 bg-gray-50 rounded-xl p-3">
                                     <Link
                                       to="/profile"
-                                      className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                                      className="flex items-center space-x-3 px-3.5 py-3 text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-all duration-200 text-sm font-medium"
                                       onClick={() => setIsOpen(false)}
                                     >
-                                        <User size={18}/>
-                                        <span className="font-medium">My Profile</span>
+                                        <User size={18} className="flex-shrink-0 opacity-70"/>
+                                        <span>My Profile</span>
                                     </Link>
                                     <Link
                                       to="/bookings"
-                                      className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                                      className="flex items-center space-x-3 px-3.5 py-3 text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-all duration-200 text-sm font-medium"
                                       onClick={() => setIsOpen(false)}
                                     >
-                                        <Calendar size={18}/>
-                                        <span className="font-medium">My Bookings</span>
+                                        <Calendar size={18} className="flex-shrink-0 opacity-70"/>
+                                        <span>My Bookings</span>
+                                    </Link>
+                                    <Link
+                                      to="/wishlist"
+                                      className="flex items-center space-x-3 px-3.5 py-3 text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-all duration-200 text-sm font-medium"
+                                      onClick={() => setIsOpen(false)}
+                                    >
+                                        <Heart size={18} className="flex-shrink-0 opacity-70"/>
+                                        <span>Wishlist</span>
                                     </Link>
                                 </div>
 
@@ -402,7 +402,7 @@ export const Navbar = () => {
                                       handleLogout();
                                       setIsOpen(false);
                                   }}
-                                  className="w-full flex items-center justify-center gap-3 px-4 py-3.5 text-red-600 hover:text-white hover:bg-red-500 rounded-lg transition-all duration-300 font-medium"
+                                  className="w-full flex items-center justify-center gap-2 px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 rounded-xl transition-all duration-300 font-semibold text-sm border border-red-200"
                                 >
                                     <LogOut size={18}/>
                                     Sign Out
@@ -412,7 +412,7 @@ export const Navbar = () => {
                             <div className="space-y-3">
                                 <Link
                                   to="/login"
-                                  className="block w-full px-4 py-3.5 text-center text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+                                  className="block w-full px-4 py-3.5 text-center text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-xl transition-all duration-200 font-semibold text-sm border border-gray-200"
                                   onClick={() => setIsOpen(false)}
                                 >
                                     Sign In
@@ -424,7 +424,7 @@ export const Navbar = () => {
                                 >
                                     <Button
                                       fullWidth
-                                      className="py-3.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg font-medium shadow-lg border-0"
+                                      className="py-3.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl font-semibold shadow-lg border-0 text-sm"
                                     >
                                         Get Started
                                     </Button>

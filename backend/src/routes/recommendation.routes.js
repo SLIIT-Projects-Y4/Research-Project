@@ -102,7 +102,7 @@ router.post('/from-profile', auth, async (req, res) => {
 // What-if (overrides in body; does NOT mutate user profile)
 router.post('/', auth, async (req, res) => {
   try {
-    const { age_group, gender, travel_companion, preferred_activities, top_n = 10 } = req.body || {};
+    const { age_group, gender, travel_companion, preferred_activities, top_n = 9 } = req.body || {};
     const okActs = Array.isArray(preferred_activities) && preferred_activities.length >= 2;
     if (!age_group || !gender || !travel_companion || !okActs) {
       return res.status(400).json(fail(
