@@ -79,10 +79,10 @@ export default function RegisterPage() {
           >
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="font-display text-4xl font-black text-white mb-2 drop-shadow-lg">
+              <h1 className="font-display text-2xl font-black text-white mb-2 drop-shadow-lg">
                 Join Us
               </h1>
-              <p className="font-body text-sm text-desert-lilly drop-shadow">
+              <p className="font-body font-display text-sm text-desert-lilly drop-shadow">
                 Start your adventure today
               </p>
             </div>
