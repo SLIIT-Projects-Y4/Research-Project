@@ -174,8 +174,8 @@ export default function AllLocationsPage() {
   return (
     <div
       style={{
-        paddingLeft: `${width < 1023 ? "16px" : "120px"}`,
-        paddingRight: `${width < 1023 ? "16px" : "120px"}`,
+        paddingLeft: `${width < 1023 ? "16px" : "90px"}`,
+        paddingRight: `${width < 1023 ? "16px" : "90px"}`,
       }}
       className="mt-20 py-6"
     >

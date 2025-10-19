@@ -11,6 +11,7 @@ import {
     IconArrowsMove, IconBuilding, IconChevronDown, IconClock, IconCurrentLocation, IconGps,
     IconMapPin, IconNavigation, IconSettings, IconSparkles, IconRoute, IconTarget
 } from '@tabler/icons-react';
+import {useViewportSize} from "@mantine/hooks";
 
 
 function CityAutocomplete({
@@ -241,13 +242,20 @@ export default function PlanCreatePage() {
         setSelectedIds(check ? pool.map((p) => p.id) : []);
     };
 
+    const {width} = useViewportSize();
+
     return (
-      <div className="min-h-screen">
+      <div
+         style={{
+        paddingLeft: `${width < 1023 ? "16px" : "75px"}`,
+        paddingRight: `${width < 1023 ? "16px" : "75px"}`,
+      }}
+        className="min-h-screen mt-10">
           <Container size="lg" py={rem(80)}>
               {/* Hero Section */}
-              <div className="text-left mt-8 mb-12">
+              <div className="text-left mb-8">
                   <h1
-                    className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-brave-orange leading-tight">
+                    className="font-display text-3xl sm:text-6xl lg:text-7xl font-bold text-brave-orange leading-tight">
                       Generate Plan
                   </h1>
               </div>

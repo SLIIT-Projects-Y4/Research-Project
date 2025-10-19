@@ -28,7 +28,7 @@ const PlanPoolCard = ({name, city, province, onRemoveLocationIconClick, onClick}
         onClick={handleCardClick}
       >
           <div
-            className="relative bg-white hover:bg-gray-50/80 rounded-xl border border-gray-200/60 hover:border-brave-orange/30 shadow-sm hover:shadow-lg p-4 transition-all duration-300 group-hover:scale-[1.02]">
+            className="relative bg-white hover:bg-gray-50/80 rounded-xl border border-gray-200/60 hover:border-brave-orange/30 shadow-sm hover:shadow-lg p-4">
 
               {/* Content layout */}
               <div className="flex items-center justify-between">
@@ -36,14 +36,14 @@ const PlanPoolCard = ({name, city, province, onRemoveLocationIconClick, onClick}
                   <div className="flex items-center space-x-3 flex-1 min-w-0">
                       {/* Location icon */}
                       <div
-                        className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-heart-of-ice to-malibu-sun rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-heart-of-ice to-malibu-sun rounded-lg flex items-center justify-center">
                           <MapPin className="w-5 h-5 text-ocean-depths"/>
                       </div>
 
                       {/* Text content */}
                       <div className="flex-1 min-w-0">
                           <h3
-                            className="font-display font-bold text-lg text-midnight-dreams leading-tight truncate group-hover:text-fly-by-night transition-colors duration-300">
+                            className="font-display font-bold text-lg text-midnight-dreams leading-tight truncate">
                               {name}
                           </h3>
                           <p
