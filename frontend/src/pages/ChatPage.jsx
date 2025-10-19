@@ -1,4 +1,4 @@
-// Enhanced ChatPage with comprehensive debugging and fixes
+// Enhancements: emoji click-outside, attach click-outside, reactions, upload progress
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
@@ -30,10 +30,7 @@ export default function ChatPage() {
   const user_id = localUser?.userId;
   const username = localUser?.name;
 
-  // Add connection state
   const [ws, setWs] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState("disconnected");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [groupName, setGroupName] = useState("Group Chat");
@@ -58,32 +55,6 @@ export default function ChatPage() {
   const fileInputRef = useRef(null);
   const shouldScrollRef = useRef(false);
   const reportedRef = useRef(new Set());
-  const reconnectTimeoutRef = useRef(null);
-  const reconnectAttempts = useRef(0);
-  const maxReconnectAttempts = 5;
-
-  // Debug initialization
-  useEffect(() => {
-    console.log('🔍 CHAT INITIALIZATION DEBUG');
-    console.log('- group_id:', group_id);
-    console.log('- user_id:', user_id);
-    console.log('- username:', username);
-    console.log('- localUser:', localUser);
-    console.log('- location.state:', location.state);
-
-    if (!group_id) {
-      console.error('❌ CRITICAL: group_id is missing!');
-      toast.error('Group ID is missing. Please rejoin the chat.');
-    }
-    if (!user_id) {
-      console.error('❌ CRITICAL: user_id is missing!');
-      toast.error('User ID is missing. Please log in again.');
-    }
-    if (!username) {
-      console.error('❌ CRITICAL: username is missing!');
-      toast.error('Username is missing. Please log in again.');
-    }
-  }, []);
 
   const formatDateHeader = (timestamp) => {
     const msgDate = new Date(timestamp);
@@ -129,163 +100,67 @@ export default function ChatPage() {
   useEffect(() => {
     if (!group_id) return;
     const loadHistory = async () => {
-      console.log('📜 Loading chat history for group:', group_id);
       try {
         const res = await fetch(`${serverUrl}/history/${group_id}`);
-        console.log('📜 History response status:', res.status);
-
-        if (!res.ok) {
-          throw new Error(`Failed to load history: ${res.status}`);
-        }
-
         const data = await res.json();
-        console.log('📜 History loaded:', data.length, 'messages');
         setMessages(data);
         shouldScrollRef.current = true;
         if (data.length > 0 && data[0].group_name)
           setGroupName(data[0].group_name);
       } catch (err) {
         console.error("❌ Failed to load chat history:", err);
-        toast.error('Failed to load chat history');
       }
     };
     loadHistory();
   }, [group_id]);
 
-  // Enhanced WebSocket connection with retry logic
-  const connectWebSocket = useCallback(() => {
-    console.log('🔌 Attempting WebSocket connection...');
-    console.log('- Connection attempt:', reconnectAttempts.current + 1);
-    console.log('- Max attempts:', maxReconnectAttempts);
-
-    if (!group_id || !user_id || !username) {
-      console.error('❌ Cannot connect WebSocket - missing required data');
-      console.log('- group_id:', group_id);
-      console.log('- user_id:', user_id);
-      console.log('- username:', username);
-      return;
-    }
-
-    const wsUrl = `${serverUrl.replace("http", "ws")}/ws/chat/${group_id}/${user_id}`;
-    console.log('🔌 WebSocket URL:', wsUrl);
-
-    setConnectionStatus("connecting");
-
-    try {
-      const socket = new WebSocket(wsUrl);
-
-      socket.onopen = () => {
-        console.log('✅ WebSocket connected successfully');
-        setWs(socket);
-        setIsConnected(true);
-        setConnectionStatus("connected");
-        reconnectAttempts.current = 0;
-        toast.success('Connected to chat');
-      };
-
-      socket.onerror = (error) => {
-        console.error('❌ WebSocket error:', error);
-        console.log('- Error type:', error.type);
-        console.log('- Target:', error.target);
-        setConnectionStatus("error");
-        toast.error('Connection failed');
-      };
-
-      socket.onclose = (event) => {
-        console.warn('🔌 WebSocket closed');
-        console.log('- Close code:', event.code);
-        console.log('- Close reason:', event.reason);
-        console.log('- Was clean:', event.wasClean);
-
-        setWs(null);
-        setIsConnected(false);
-        setConnectionStatus("disconnected");
-
-        // Attempt reconnection if not at max attempts
-        if (reconnectAttempts.current < maxReconnectAttempts) {
-          reconnectAttempts.current++;
-          const delay = Math.min(1000 * Math.pow(2, reconnectAttempts.current), 10000);
-          console.log(`🔄 Scheduling reconnection in ${delay}ms`);
-
-          reconnectTimeoutRef.current = setTimeout(() => {
-            console.log('🔄 Attempting reconnection...');
-            connectWebSocket();
-          }, delay);
-        } else {
-          console.error('❌ Max reconnection attempts reached');
-          toast.error('Connection lost. Please refresh the page.');
-        }
-      };
-
-      socket.onmessage = (event) => {
-        console.log('📨 WebSocket message received:', event.data);
-        const data = JSON.parse(event.data);
-        console.log('📨 Parsed message data:', data);
-
-        if (data.type === "typing") {
-          console.log('⌨️ Typing indicator:', data);
-          if (data.user_id !== user_id) {
-            setTypingUser(data.username || "Someone");
-            setTimeout(() => setTypingUser(null), 2000);
-          }
-          return;
-        }
-
-        if (data.type === "reaction") {
-          console.log('👍 Reaction update:', data);
-          setMessages((prev) =>
-            prev.map((msg) =>
-              msg._id === data._id ? { ...msg, reactions: data.reactions } : msg
-            )
-          );
-          return;
-        }
-
-        if (data.type === "bot_offer") {
-          console.log('🤖 Bot offer received:', data);
-          const msg = {
-            user_id: "AI_BOT",
-            username: "TripBot",
-            group_name: groupName,
-            message: data.text,
-            timestamp: new Date().toISOString(),
-          };
-          setMessages((prev) => [...prev, msg]);
-          setTimeout(() => {
-            if (window.confirm("Do you want help from TripBot?")) {
-              socket.send(
-                JSON.stringify({ type: "confirm_help", query: data.query })
-              );
-            }
-          }, 500);
-          return;
-        }
-
-        console.log('💬 Adding new message to chat');
-        setMessages((prev) => [...prev, data]);
-        if (data.group_name) setGroupName(data.group_name);
-      };
-
-    } catch (error) {
-      console.error('❌ Failed to create WebSocket:', error);
-      setConnectionStatus("error");
-      toast.error('Failed to create connection');
-    }
-  }, [group_id, user_id, username, groupName]);
-
   useEffect(() => {
-    connectWebSocket();
-
-    return () => {
-      console.log('🧹 Cleaning up WebSocket connection');
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
+    if (!group_id || !user_id || !username) return;
+    const socket = new WebSocket(
+      `${serverUrl.replace("http", "ws")}/ws/chat/${group_id}/${user_id}`
+    );
+    setWs(socket);
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === "typing") {
+        if (data.user_id !== user_id) {
+          setTypingUser(data.username || "Someone");
+          setTimeout(() => setTypingUser(null), 2000);
+        }
+        return;
       }
-      if (ws) {
-        ws.close();
+      if (data.type === "reaction") {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg._id === data._id ? { ...msg, reactions: data.reactions } : msg
+          )
+        );
+        return;
       }
+      if (data.type === "bot_offer") {
+        const msg = {
+          user_id: "AI_BOT",
+          username: "TripBot",
+          group_name: groupName,
+          message: data.text,
+          timestamp: new Date().toISOString(),
+        };
+        setMessages((prev) => [...prev, msg]);
+        setTimeout(() => {
+          if (window.confirm("Do you want help from TripBot?")) {
+            socket.send(
+              JSON.stringify({ type: "confirm_help", query: data.query })
+            );
+          }
+        }, 500);
+        return;
+      }
+      setMessages((prev) => [...prev, data]);
+      if (data.group_name) setGroupName(data.group_name);
     };
-  }, [connectWebSocket]);
+    socket.onclose = () => console.warn("WebSocket disconnected");
+    return () => socket.close();
+  }, [group_id, user_id, username, groupName]);
 
   useEffect(() => {
     if (showExperiencePanel && group_id) {
@@ -304,102 +179,20 @@ export default function ChatPage() {
     }
   }, [showExperiencePanel, group_id]);
 
-  // Enhanced send message function with comprehensive debugging
   const sendMessage = () => {
-    console.log('🚀 ===== SEND MESSAGE DEBUG =====');
-    console.log('1. Send button clicked');
-    console.log('2. Current message:', `"${newMessage}"`);
-    console.log('3. Message trimmed:', `"${newMessage.trim()}"`);
-    console.log('4. Message length:', newMessage.length);
-    console.log('5. WebSocket exists:', !!ws);
-    console.log('6. WebSocket state:', ws?.readyState);
-    console.log('7. Is connected:', isConnected);
-    console.log('8. Connection status:', connectionStatus);
-    console.log('9. User ID:', user_id);
-    console.log('10. Username:', username);
-    console.log('11. Group ID:', group_id);
-
-    // Check WebSocket existence
-    if (!ws) {
-      console.error('❌ SEND FAILED: WebSocket is null');
-      toast.error('No connection established. Attempting to reconnect...');
-      connectWebSocket();
-      return;
-    }
-
-    // Check WebSocket state
-    const wsStates = {
-      0: 'CONNECTING',
-      1: 'OPEN',
-      2: 'CLOSING',
-      3: 'CLOSED'
-    };
-
-    console.log('12. WebSocket state details:', {
-      readyState: ws.readyState,
-      stateName: wsStates[ws.readyState]
-    });
-
-    if (ws.readyState !== WebSocket.OPEN) {
-      console.error('❌ SEND FAILED: WebSocket not open');
-      console.error('- Current state:', wsStates[ws.readyState]);
-      toast.error(`Connection ${wsStates[ws.readyState].toLowerCase()}. Please wait...`);
-
-      if (ws.readyState === WebSocket.CLOSED) {
-        console.log('🔄 Attempting to reconnect...');
-        connectWebSocket();
-      }
-      return;
-    }
-
-    // Check message content
-    if (!newMessage.trim()) {
-      console.warn('⚠️ SEND CANCELLED: Empty message');
-      return;
-    }
-
-    // Check required data
-    if (!user_id || !username) {
-      console.error('❌ SEND FAILED: Missing user data');
-      console.error('- user_id:', user_id);
-      console.error('- username:', username);
-      toast.error('User information missing. Please refresh and log in again.');
-      return;
-    }
-
-    // Prepare message data
-    const messageData = {
-      type: "chat",
-      message: newMessage.trim(),
-      username,
-      user_id,
-    };
-
-    console.log('13. Message data to send:', messageData);
-    console.log('14. JSON stringified:', JSON.stringify(messageData));
-
-    // Attempt to send
-    try {
-      console.log('15. Sending message via WebSocket...');
-      ws.send(JSON.stringify(messageData));
-      console.log('✅ Message sent successfully');
-
-      // Clear input and scroll
+    if (ws && newMessage.trim()) {
+      ws.send(
+        JSON.stringify({
+          type: "chat",
+          message: newMessage,
+          username,
+          user_id,
+        })
+      );
+      console.log(username);
       setNewMessage("");
       shouldScrollRef.current = true;
-
-      console.log('16. Input cleared and scroll scheduled');
-      toast.success('Message sent', { autoClose: 1000 });
-
-    } catch (error) {
-      console.error('❌ SEND FAILED: Exception during send');
-      console.error('- Error:', error);
-      console.error('- Error message:', error.message);
-      console.error('- Error stack:', error.stack);
-      toast.error('Failed to send message. Please try again.');
     }
-
-    console.log('🚀 ===== END SEND MESSAGE DEBUG =====');
   };
 
   useEffect(() => {
@@ -424,10 +217,8 @@ export default function ChatPage() {
       .join("") || "?";
 
   const handleTyping = (value) => {
-    console.log('⌨️ Typing:', `"${value}"`);
     setNewMessage(value);
-    if (ws && ws.readyState === WebSocket.OPEN && value.trim()) {
-      console.log('⌨️ Sending typing indicator');
+    if (ws && value.trim()) {
       ws.send(
         JSON.stringify({
           type: "typing",
@@ -501,6 +292,7 @@ export default function ChatPage() {
   let lastDateLabel = "";
 
   async function reportMessage(msg) {
+    // local guard: avoid extra POST before server says "already_reported"
     if (reportedRef.current.has(msg._id)) {
       toast.info("You can report a message only once");
       return;
@@ -513,6 +305,7 @@ export default function ChatPage() {
       });
       const data = await res.json();
 
+      // normalize: success statuses from backend
       switch (data.status) {
         case "recorded":
           reportedRef.current.add(msg._id);
@@ -527,14 +320,14 @@ export default function ChatPage() {
           toast.warn("Author was removed from the group");
           break;
         case "already_reported":
-          reportedRef.current.add(msg._id);
+          reportedRef.current.add(msg._id); // mark locally too
           toast.info("You can report a message only once");
           break;
         default:
           toast.info("Report received");
       }
     } catch (e) {
-      toast.error("Couldn't report this message. Please try again.", e);
+      toast.error("Couldn’t report this message. Please try again.", e);
     }
   }
 
@@ -557,69 +350,31 @@ export default function ChatPage() {
     return () => clearInterval(t);
   }, [fetchPolls]);
 
-  // Connection status indicator
-  const getConnectionStatusColor = () => {
-    switch (connectionStatus) {
-      case "connected": return "bg-green-500";
-      case "connecting": return "bg-yellow-500";
-      case "disconnected": return "bg-red-500";
-      case "error": return "bg-red-600";
-      default: return "bg-gray-500";
-    }
-  };
-
-  const getConnectionStatusText = () => {
-    switch (connectionStatus) {
-      case "connected": return "Connected";
-      case "connecting": return "Connecting...";
-      case "disconnected": return "Disconnected";
-      case "error": return "Connection Error";
-      default: return "Unknown";
-    }
-  };
-
   return (
     <div className="mt-20 mx-auto w-full max-w-3xl lg:max-w-4xl px-3 sm:px-4 h-[calc(100vh-5rem)] flex flex-col bg-gray-50">
       <Navbar />
-
-      {/* Connection Status Indicator */}
-      <div className="mb-2 flex justify-center">
-        <div className="flex items-center gap-2 px-3 py-1 bg-white/70 rounded-full text-sm">
-          <div className={`w-2 h-2 rounded-full ${getConnectionStatusColor()}`}></div>
-          <span>{getConnectionStatusText()}</span>
-          {!isConnected && (
-            <button
-              onClick={() => {
-                console.log('🔄 Manual reconnection requested');
-                connectWebSocket();
-              }}
-              className="text-blue-600 hover:text-blue-800 underline"
-            >
-              Retry
-            </button>
-          )}
-        </div>
-      </div>
-
       {/* Top bar: title + members (avatars only) */}
-      <div className="mb-4 rounded-2xl bg-white/70 px-4 py-3 ring-1 ring-slate-200 backdrop-blur">
-        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+      <div className="relative z-40 mb-4 rounded-2xl bg-white/70 px-4 py-3 ring-1 ring-slate-200 backdrop-blur">
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-center">
+          {/* Title (same look, now visible) */}
           <h2
-            className="whitespace-nowrap rounded-xl bg-gradient-to-r from-amber-400 via-rose-400 to-indigo-500
-                   px-3 sm:px-4 py-1.5 sm:py-2 text-2xl sm:text-3xl lg:text-4xl
-                   font-extrabold text-white shadow-sm"
+            className="inline-block whitespace-nowrap rounded-xl
+                   bg-orange-300 px-4 py-2 text-2xl sm:text-3xl lg:text-4xl 
+                   font-extrabold text-slate-900 shadow-sm"
           >
             Trip Planner Chat
           </h2>
 
+          {/* Avatars + View all */}
           <div className="flex items-center gap-3">
+            {/* Avatars */}
             <div className="flex -space-x-2">
               {members.slice(0, 3).map((m) => (
                 <div
                   key={m.userID}
                   title={m.name}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full
-                       border border-white bg-slate-200 text-[12px] font-semibold
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full 
+                       border border-white bg-slate-200 text-[12px] font-semibold 
                        text-slate-700 shadow-sm"
                 >
                   {m.avatar ? (
@@ -635,8 +390,8 @@ export default function ChatPage() {
               ))}
               {members.length > 3 && (
                 <div
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full
-                          border border-white bg-slate-100 text-[12px] font-semibold
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full 
+                          border border-white bg-slate-100 text-[12px] font-semibold 
                           text-slate-600 shadow-sm"
                 >
                   +{members.length - 3}
@@ -644,15 +399,16 @@ export default function ChatPage() {
               )}
             </div>
 
+            {/* View all */}
             <details className="relative">
               <summary
-                className="list-none cursor-pointer select-none rounded-md px-2 py-1
+                className="list-none cursor-pointer select-none rounded-md px-2 py-1 
                             text-m font-medium text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700"
               >
                 ▸ View all
               </summary>
               <div
-                className="absolute right-0 z-20 mt-2 max-h-72 w-64 overflow-auto
+                className="absolute right-0 z-50 mt-2 max-h-72 w-64 overflow-auto 
                         rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
               >
                 <div className="mb-1 text-xs font-semibold text-slate-500">
@@ -665,7 +421,7 @@ export default function ChatPage() {
                       className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-slate-50"
                     >
                       <div
-                        className="flex h-8 w-8 items-center justify-center overflow-hidden
+                        className="flex h-8 w-8 items-center justify-center overflow-hidden 
                                 rounded-full bg-slate-200 text-[12px] font-semibold text-slate-700"
                       >
                         {m.avatar ? (
@@ -689,12 +445,11 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
-
       {/* Actions: responsive & touch-friendly */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
         <button
           onClick={() => setShowExperiencePanel(true)}
-          className="flex items-center gap-2 px-3 py-1.5 bg-amber-100 text-blue-700 rounded-lg
+          className="flex items-center gap-2 px-3 py-1.5 bg-amber-100 text-blue-700 rounded-lg 
          shadow-sm transition-all duration-200 hover:text-white hover:bg-amber-500 hover:shadow-md"
         >
           <span className="text-lg">📝</span>
@@ -703,7 +458,7 @@ export default function ChatPage() {
 
         <button
           onClick={() => setShowPollModal(true)}
-          className="flex items-center gap-2 px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-lg
+          className="flex items-center gap-2 px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-lg 
        shadow-sm transition-all duration-200 hover:text-white hover:bg-indigo-500 hover:shadow-md"
         >
           📊 <span className="text-sm font-medium">Create Poll</span>
@@ -711,46 +466,19 @@ export default function ChatPage() {
 
         <button
           onClick={() => setShowLeaveDialog(true)}
-          className="flex items-center gap-2 px-3 py-1.5 bg-red-500 text-white rounded-lg
+          className="flex items-center gap-2 px-3 py-1.5 bg-red-500 text-white rounded-lg 
        shadow-sm transition-all duration-200 hover:bg-red-600 hover:shadow-md"
         >
           🚪 Leave Chat
         </button>
-
-        {/* Debug Test Button - Remove in production */}
-        <button
-          onClick={() => {
-            console.log('🧪 TEST BUTTON CLICKED');
-            console.log('- WebSocket exists:', !!ws);
-            console.log('- WebSocket state:', ws?.readyState);
-            console.log('- Is connected:', isConnected);
-
-            if (ws && ws.readyState === WebSocket.OPEN) {
-              console.log('🧪 Sending test message');
-              ws.send(JSON.stringify({
-                type: "chat",
-                message: `Test message ${Date.now()}`,
-                username: username || "TestUser",
-                user_id: user_id || "test123",
-              }));
-            } else {
-              console.log('🧪 Cannot send test - connection not ready');
-            }
-          }}
-          className="flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-700 rounded-lg
-       shadow-sm transition-all duration-200 hover:text-white hover:bg-purple-500 hover:shadow-md"
-        >
-          🧪 Test Send
-        </button>
       </div>
-
       {/* Polls (collapsible) */}
       {(polls?.length ?? 0) > 0 && (
         <div className="mb-4">
           <button
             onClick={() => setShowPolls((s) => !s)}
-            className="w-full flex items-center justify-between px-3 py-2
-                 rounded-lg bg-indigo-100 text-indigo-800 hover:bg-indigo-200
+            className="w-full flex items-center justify-between px-3 py-2 
+                 rounded-lg bg-indigo-100 text-indigo-800 hover:bg-indigo-200 
                  transition-colors"
             aria-expanded={showPolls}
             aria-controls="polls-panel"
@@ -820,7 +548,7 @@ export default function ChatPage() {
                     } catch (e) {
                       console.error(e);
                       toast.error(
-                        "Couldn't close poll. Please try again."
+                        "Couldn’t report this message. Please try again."
                       );
                     }
                   }}
@@ -915,6 +643,7 @@ export default function ChatPage() {
                       </button>
                     ))}
 
+                    {/* 🌍 Translate (open modal) */}
                     {msg.message && (
                       <button
                         title="Translate"
@@ -978,20 +707,16 @@ export default function ChatPage() {
         <div ref={bottomRef}></div>
       </div>
 
-      {/* Enhanced Input Section with Connection Status */}
       <div className="relative flex items-center gap-2 sm:gap-3">
         <div ref={attachRef} className="relative">
           <button
             onClick={() => setShowAttachMenu((prev) => !prev)}
-            className={`text-xl px-2 ${
-              !isConnected ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            title={isConnected ? "Attach" : "Not connected"}
-            disabled={!isConnected}
+            className="text-xl px-2"
+            title="Attach"
           >
             📎
           </button>
-          {showAttachMenu && isConnected && (
+          {showAttachMenu && (
             <div className="absolute bottom-12 left-0 z-10 w-44 bg-white border rounded shadow-lg py-2 text-sm space-y-1 animate-fade-in">
               <button
                 onClick={() => triggerFileInput("photo")}
@@ -1024,16 +749,13 @@ export default function ChatPage() {
         <div ref={emojiRef} className="relative">
           <button
             onClick={() => setShowEmojiPicker((prev) => !prev)}
-            className={`text-xl ${
-              !isConnected ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            title={isConnected ? "Emoji" : "Not connected"}
-            disabled={!isConnected}
+            className="text-xl"
+            title="Emoji"
           >
             😄
           </button>
 
-          {showEmojiPicker && isConnected && (
+          {showEmojiPicker && (
             <div className="absolute bottom-12 left-0 z-50 w-72 rounded-xl shadow-lg border border-gray-200 bg-white">
               <EmojiPicker
                 emojiStyle={EmojiStyle.APPLE}
@@ -1060,49 +782,21 @@ export default function ChatPage() {
 
         <input
           type="text"
-          placeholder={
-            isConnected
-              ? "Type your message..."
-              : "Connecting..."
-          }
-          className={`min-w-0 flex-1 border px-3 py-2 rounded ${
-            !isConnected ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : ''
-          }`}
+          placeholder="Type your message..."
+          className="min-w-0 flex-1 border px-3 py-2 rounded"
           value={newMessage}
           onChange={(e) => handleTyping(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              console.log('↩️ Enter key pressed');
-              sendMessage();
-            }
-          }}
-          disabled={!isConnected}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
 
         <button
-          className={`px-4 py-2 rounded-lg shadow-sm transition-all duration-200 ${
-            isConnected && newMessage.trim()
-              ? "bg-amber-100 text-black hover:bg-amber-500 hover:text-white hover:shadow-md"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-          }`}
-          onClick={() => {
-            console.log('🔘 Send button clicked');
-            sendMessage();
-          }}
-          disabled={!isConnected || !newMessage.trim()}
-          title={
-            !isConnected
-              ? "Not connected"
-              : !newMessage.trim()
-              ? "Type a message first"
-              : "Send message"
-          }
+          className="bg-amber-100 text-black px-4 py-2 rounded-lg 
+               shadow-sm hover:bg-amber-500 hover:shadow-md"
+          onClick={sendMessage}
         >
-          {isConnected ? 'Send' : 'Disconnected'}
+          Send
         </button>
       </div>
-
-      {/* Modals and Dialogs */}
       {showExperiencePanel && (
         <ExperienceTipsModal
           tips={experienceTips}
@@ -1116,13 +810,13 @@ export default function ChatPage() {
         message={
           uploading
             ? "A file is still uploading. If you leave now, the upload will be canceled."
-            : "You'll stop receiving messages and this group will be removed from your joined list."
+            : "You’ll stop receiving messages and this group will be removed from your joined list."
         }
         confirmText={uploading ? "Leave anyway" : "Leave"}
         cancelText="Stay"
         onClose={() => setShowLeaveDialog(false)}
         onConfirm={async () => {
-          setShowLeaveDialog(false);
+          setShowLeaveDialog(false); // close immediately
           try {
             if (ws && ws.readyState === WebSocket.OPEN) {
               ws.send(JSON.stringify({ type: "leave", user_id, username }));
@@ -1134,24 +828,22 @@ export default function ChatPage() {
             }
           } catch (e) {
             console.warn("Leave flow error:", e);
-            alert("Couldn't leave the chat. Please try again.");
+            alert("Couldn’t leave the chat. Please try again.");
             return;
           } finally {
             ws?.close();
             localStorage.removeItem("group_id");
-            window.history.back();
+            window.history.back(); // or use useNavigate if you prefer
           }
         }}
       />
-
       <TranslateModal
         open={translateOpen}
         onClose={() => setTranslateOpen(false)}
         serverUrl={serverUrl}
-        messageId={translateMsg?._id}
+        messageId={translateMsg?._id} // not shown to the user; just used in API call
         originalText={translateMsg?.message}
       />
-
       {showPollModal && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-4 w-full max-w-md shadow-xl">
@@ -1168,6 +860,7 @@ export default function ChatPage() {
           </div>
         </div>
       )}
+      <br></br>
     </div>
   );
 }
