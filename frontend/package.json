@@ -19,6 +19,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.11.0",
+    "countries-list": "^3.1.1",
     "dayjs": "^1.11.18",
     "emoji-picker-react": "^4.13.3",
     "flowbite": "^3.1.2",
