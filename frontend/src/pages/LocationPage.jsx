@@ -116,7 +116,7 @@ export default function LocationPage() {
       <Container size="xl" py="xl">
         <Grid gutter={{ base: 'xl', md: 40, lg: 64 }} align="stretch">
           <Grid.Col span={{ base: 12, md: 6, lg: 5 }}>
-            <Box pos="sticky" top={80}>
+            <Box pos="sticky" top={120}>
               <Image
                 src={raw?.image ? `/images/${raw.image}` : undefined}
                 withPlaceholder
@@ -124,7 +124,7 @@ export default function LocationPage() {
                 alt={altText}
                 radius="lg"
                 fit="cover"
-                h={{ base: 300, sm: 420, md: 540, lg: 650 }}
+                h={{ base: 300, sm: 420, md: 780, lg: 780 }}
                 style={{ objectPosition: 'center' }}
               />
             </Box>
