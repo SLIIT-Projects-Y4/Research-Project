@@ -5,7 +5,7 @@ function pickPayload(d) {
   return d?.data ?? d; // our Node returns { success, data }, axios gives you {data}
 }
 
-export async function fromProfile(topN = 10) {
+export async function fromProfile(topN = 9) {
   const { data } = await api.post('/api/recommendation/from-profile', { top_n: topN });
   const p = pickPayload(data);
   return {

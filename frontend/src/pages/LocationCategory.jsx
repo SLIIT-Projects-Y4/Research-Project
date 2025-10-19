@@ -142,7 +142,7 @@ const LocationCategorySection = ({locationType}) => {
 // Main component that renders all location categories
 export default function AllLocationsPage() {
     return (
-      <div className="mt-20 px-18 py-6">
+      <div className="mt-20 px-4 lg:px-18 py-6">
           {/*<h3 className="pb-6 font-display text-4xl font-bold text-brave-orange leading-tight">*/}
           {/*    Location Categories*/}
           {/*</h3>*/}

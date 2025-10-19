@@ -19,11 +19,10 @@ const LocationCard = ({
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-      <div
-        className="border border-welded-iron/30 rounded-2xl w-[350px] overflow-hidden scale-90"
+     <div className="border border-welded-iron/30 rounded-2xl w-[350px] overflow-hidden" style={{ zoom: 0.8 }}
+
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+        onMouseLeave={() => setIsHovered(false)}>
           <div className="relative overflow-hidden">
               <motion.img
                 src={`/images/${imageUrl}`}

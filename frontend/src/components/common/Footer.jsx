@@ -22,21 +22,7 @@ export const Footer = () => {
                           a lifetime with our comprehensive travel platform.
                       </p>
 
-                      {/* Newsletter Signup */}
-                      <div className="mt-6">
-                          <p className="text-sm font-medium text-gray-700 mb-3">Stay updated with travel tips</p>
-                          <div className="flex max-w-sm">
-                              <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="flex-1 px-4 py-2 text-sm border border-gray-200 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-brave-orange/20 focus:border-brave-orange"
-                              />
-                              <button
-                                className="px-4 py-2 bg-brave-orange text-white text-sm font-medium rounded-r-lg hover:bg-hot-embers transition-colors">
-                                  Subscribe
-                              </button>
-                          </div>
-                      </div>
+
                   </div>
 
                   {/* Quick Links */}
