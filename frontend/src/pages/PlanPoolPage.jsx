@@ -241,20 +241,20 @@ export default function PlanPoolPage() {
                       </h1>
                   </div>
                   {!loading && items.length > 0 && (
-                    <div className="w-full flex items-center justify-between mb-8">
+                    <div className="w-full flex flex-col md:flex-row items-start md:items-center gap-y-3 md:gap-y-0 justify-between mb-8">
                         {/* Search Bar */}
-                        <div className="relative w-full max-w-xs">
-                            <div className="absolute z-10 inset-y-0 pl-4 flex items-center pointer-events-none">
-                                <Search className="h-5 w-5 text-welded-iron/50"/>
-                            </div>
-                            <input
-                              type="text"
-                              placeholder="Search destinations..."
-                              value={searchTerm}
-                              onChange={(e) => setSearchTerm(e.target.value)}
-                              className="min-w-lg pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-heart-of-ice/50 rounded-2xl text-midnight-dreams placeholder-welded-iron/50 focus:outline-none focus:ring-2 focus:ring-brave-orange/30 focus:border-brave-orange/50 transition-all duration-300 shadow-sm"
-                            />
-                        </div>
+                        <div className="relative w-full">
+    <div className="absolute z-10 inset-y-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
+        <Search className="h-4 sm:h-5 w-4 sm:w-5 text-welded-iron/50"/>
+    </div>
+    <input
+      type="text"
+      placeholder="Search destinations..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white/80 backdrop-blur-sm border border-heart-of-ice/50 rounded-xl sm:rounded-2xl text-midnight-dreams placeholder-welded-iron/50 focus:outline-none focus:ring-2 focus:ring-brave-orange/30 focus:border-brave-orange/50 transition-all duration-300 shadow-sm text-sm sm:text-base"
+    />
+</div>
                         {/* Plan a Trip Button */}
                         <Link to="/plan/create">
                             <button

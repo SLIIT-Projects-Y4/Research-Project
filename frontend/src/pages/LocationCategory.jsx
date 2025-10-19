@@ -83,7 +83,7 @@ const LocationCategorySection = ({ locationType }) => {
   if (loading) {
     return (
       <div className="mb-12">
-        <h2 className="text-2xl font-display font-bold mb-6 text-brave-orange">
+        <h2 className="text-2xl font-display font-bold mb-6 text-midnight-dreams">
           {locationType}
         </h2>
         <div className={"flex items-center justify-center"}>
@@ -96,7 +96,7 @@ const LocationCategorySection = ({ locationType }) => {
   if (!locations.length) {
     return (
       <div className="mb-12">
-        <h2 className="text-2xl font-display font-bold mb-6 text-text-brave-orange">
+        <h2 className="text-2xl font-display font-bold mb-6 text-text-midnight-dreams">
           {locationType}
         </h2>
         <p className="text-center text-gray-500">No {locationType} found.</p>

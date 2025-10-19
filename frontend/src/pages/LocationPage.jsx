@@ -160,13 +160,13 @@ export default function LocationPage() {
                     ))}
                 </Group>
 
-                <Title order={1} fz={{ base: 26, sm: 28, md: 32, lg: 38, xl: 42 }} fw={800} lh={1.2} c="dark">
+                <Title order={1} fz={{ base: 20, sm: 22, md: 26, lg: 30 }} fw={800} lh={1.2} c="dark">
                   {loc?.name}
                 </Title>
 
                 <Group gap="xs">
                   <MapPin size={18} className="text-orange-500" strokeWidth={2.5} />
-                  <Text fz={{ base: 'sm', md: 'md', lg: 'lg' }} fw={500} c="dimmed">
+                  <Text fz={{ base: 'xs', md: 'sm', lg: 'md' }} fw={500} c="dimmed">
                     {[loc?.city, loc?.province].filter(Boolean).join(', ')}
                   </Text>
                 </Group>
@@ -178,11 +178,11 @@ export default function LocationPage() {
                     <Stack gap="xs" align="center">
                       <Group gap={6}>
                         <Star size={18} className="fill-orange-500 text-orange-500" />
-                        <Text fz={{ base: 24, md: 26, lg: 30 }} fw={800} c="orange.6" lh={1}>
+                        <Text fz={{ base: 18, md: 20, lg: 24 }} fw={800} c="orange.6" lh={1}>
                           {typeof loc?.avg_rating === 'number' ? loc.avg_rating.toFixed(1) : '0.0'}
                         </Text>
                       </Group>
-                      <Text fz={{ base: 'xs', md: 'sm' }} c="dimmed" fw={500} ta="center">
+                      <Text fz={{ base: 'xs', md: 'xs' }} c="dimmed" fw={500} ta="center">
                         Average Rating
                       </Text>
                     </Stack>
@@ -190,10 +190,10 @@ export default function LocationPage() {
 
                   <Paper p="lg" radius="md" withBorder>
                     <Stack gap="xs" align="center">
-                      <Text fz={{ base: 24, md: 26, lg: 30 }} fw={800} c="dark" lh={1}>
+                      <Text fz={{ base: 18, md: 20, lg: 24 }} fw={800} c="dark" lh={1}>
                         {Number(noOfRatings || 0).toLocaleString()}
                       </Text>
-                      <Text fz={{ base: 'xs', md: 'sm' }} c="dimmed" fw={500} ta="center">
+                      <Text fz={{ base: 'xs', md: 'xs' }} c="dimmed" fw={500} ta="center">
                         Total Reviews
                       </Text>
                     </Stack>
@@ -228,12 +228,12 @@ export default function LocationPage() {
                     >
                       <Compass size={20} className="text-orange-500" strokeWidth={2.5} />
                     </Box>
-                    <Title order={2} fz={{ base: 18, md: 20, lg: 22 }} fw={700}>
+                    <Title order={2} fz={{ base: 16, md: 18, lg: 20 }} fw={700}>
                       About
                     </Title>
                   </Group>
                   {raw?.description ? (
-                    <Text fz={{ base: 'sm', md: 'sm', lg: 'md' }} lh={1.7} c="dimmed">
+                    <Text fz={{ base: 'xs', md: 'sm', lg: 'sm' }} lh={1.7} c="dimmed">
                       {raw.description}
                     </Text>
                   ) : (
@@ -261,7 +261,7 @@ export default function LocationPage() {
                       >
                         <Calendar size={20} className="text-orange-500" strokeWidth={2.5} />
                       </Box>
-                      <Title order={2} fz={{ base: 18, md: 20, lg: 22 }} fw={700}>
+                      <Title order={2} fz={{ base: 16, md: 18, lg: 20 }} fw={700}>
                         Things to Do
                       </Title>
                     </Group>
@@ -282,7 +282,7 @@ export default function LocationPage() {
                                 {idx + 1}
                               </Text>
                             </Avatar>
-                            <Text fz={{ base: 'sm', md: 'sm', lg: 'md' }} fw={500} style={{ flex: 1 }}>
+                            <Text fz={{ base: 'xs', md: 'sm', lg: 'sm' }} fw={500} style={{ flex: 1 }}>
                               {String(activity)}
                             </Text>
                           </Group>
