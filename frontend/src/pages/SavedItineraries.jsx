@@ -224,13 +224,15 @@ export default function SavedItineraries() {
                               </h1>
                           </div>
                           <div className={`flex items-center justify-between gap-4`}>
-                              <Link to="/plan/create">
+                              <a href="/plan/create">
                                   <button
-                                    className="inline-flex items-center px-4 py-2 text-base border border-brave-orange text-brave-orange hover:text-white font-semibold rounded-lg shadow-lg hover:bg-hot-embers transition-all duration-300 hover:cursor-pointer">
-                                      <CalendarPlus className="w-5 h-5 mr-2"/>
-                                      Generate New Plan
+                                    className="inline-flex items-center px-4 py-2 text-base border border-brave-orange text-brave-orange hover:text-white font-semibold rounded-lg shadow-lg hover:bg-hot-embers transition-all duration-300 hover:cursor-pointer md:px-4 md:py-2">
+                                      {/* Icon only on mobile */}
+                                      <CalendarPlus className="w-5 h-5 md:mr-2"/>
+                                      {/* Text hidden on mobile, visible on md+ */}
+                                      <span className="hidden md:inline">Generate New Plan</span>
                                   </button>
-                              </Link>
+                              </a>
                           </div>
                       </div>
                   </div>
@@ -332,8 +334,10 @@ export default function SavedItineraries() {
                                                       </div>
 
                                                       {/* Saved time/date chip */}
-                                                      <div style={{marginTop: 4}} className={`font-display font-medium text-sm text-midnight-dreams`}>
-                                                          <div className={`text-semibold`}>{it.createdAt ? formatDate(it.createdAt) : '—'}</div>
+                                                      <div style={{marginTop: 4}}
+                                                           className={`font-display font-medium text-sm text-midnight-dreams`}>
+                                                          <div
+                                                            className={`text-semibold`}>{it.createdAt ? formatDate(it.createdAt) : '—'}</div>
                                                       </div>
 
                                                       {/* metadata row */}
