@@ -326,15 +326,15 @@ export default function RecommendPage() {
     }
   };
 
-  if (!prefs) {
-    return (
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <p className="rounded-xl bg-rose-50 px-4 py-3 text-rose-700">
-          No user data found.
-        </p>
-      </div>
-    );
-  }
+  // if (!prefs) {
+  //   return (
+  //     <div className="mx-auto max-w-6xl px-6 py-16">
+  //       <p className="rounded-xl bg-rose-50 px-4 py-3 text-rose-700">
+  //         No user data found.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="relative isolate bg-white">
