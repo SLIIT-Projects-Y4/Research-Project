@@ -163,7 +163,7 @@ export default function PreferencesWizard() {
     "Let's get to know you",
     "Who are you traveling with?",
     "What interests you?",
-    "Budget and travel style"
+    "Budget and travel styles"
   ];
 
   const displayedActivities = ACTIVITIES.slice(0, activitiesShown);
