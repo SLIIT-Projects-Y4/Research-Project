@@ -13,3 +13,23 @@
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out both;
 }
+
+/* Make inputs shorter + smaller typography */
+.input-compact {
+  height: 38px;                 /* tighter */
+  padding-inline: 12px !important;
+  font-size: 14px !important;
+  line-height: 1.2;
+}
+
+/* Prevent long city names from blowing out the field */
+.input-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Optional: squeeze Autocomplete options a bit */
+.mantine-Autocomplete-dropdown .mantine-Combobox-option {
+  padding: 6px 10px;
+}
