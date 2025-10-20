@@ -77,23 +77,24 @@ export default function RecommendPage() {
     return Array.from(map.values());
   };
 
-useEffect(() => {
-  const loadPrefs = async () => {
-    try {
-      const res = await fetch(`http://localhost:3000/api/auth/preferences/${userId}`);
-      if (res.status === 304) return;       // defensive: 304 has no body
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  useEffect(() => {
+    const loadPrefs = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/auth/preferences/${userId}`
+        );
+        if (res.status === 304) return; // defensive: 304 has no body
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const data = await res.json();  // your backend is sending user directly
-      setPrefs(data);
-    } catch (e) {
-      console.error("Failed to load preferences", e);
-      toast.error("Could not load your preferences.");
-    }
-  };
-  loadPrefs();
-}, [userId]);
-
+        const data = await res.json(); // your backend is sending user directly
+        setPrefs(data);
+      } catch (e) {
+        console.error("Failed to load preferences", e);
+        toast.error("Could not load your preferences.");
+      }
+    };
+    loadPrefs();
+  }, [userId]);
 
   useEffect(() => {
     if (!userId) return;
@@ -343,10 +344,12 @@ useEffect(() => {
       <div className="mx-auto max-w-7xl px-6 pt-14 pb-16">
         {/* Header */}
         <header className="mb-10 text-center">
-          <h1 className="mt-8 bg-gradient-to-r from-amber-400 via-rose-400 to-indigo-500 bg-clip-text text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight text-transparent md:text-6xl">
-            Find your perfect travel group
+          <br></br>
+          <h1 className="mt-8 text-4xl font-extrabold tracking-tight sm:text-5xl">
+            <span className="text-slate-900">Find your perfect</span>{" "}
+            <span className="text-orange-400">travel group</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-xl leading-relaxed text-slate-600">
+          <p className="mx-auto mt-4 max-w-prose text-slate-600 text-center">
             Based on your preferences. Join an active group or create a new one
             and we’ll match additional members automatically.
           </p>
