@@ -21,6 +21,7 @@ export default function RecommendPage() {
   const [statusMessage, setStatusMessage] = useState("");
   const [preferredDestinations, setPreferredDestinations] = useState([]);
   const [prefs, setPrefs] = useState(null);
+  const [destinationsReady, setDestinationsReady] = useState(false);
 
   const serverUrl = "http://localhost:9090";
 
@@ -112,7 +113,9 @@ export default function RecommendPage() {
       } catch (e) {
         console.warn("plan-pool-names fetch failed:", e);
         setPreferredDestinations([]);
-      }
+      } finally {
+      setDestinationsReady(true); // ✅ mark as ready
+    }
     };
 
     loadPlanPoolNames();
@@ -126,12 +129,14 @@ export default function RecommendPage() {
   }, [waiting]);
 
   useEffect(() => {
-    if (!userId || !prefs) return;
+   if (!userId || !prefs || !destinationsReady) return;
+   const ac = new AbortController();
 
     const fetchGroups = async () => {
       try {
+        setLoading(true);
         const [joinedRes, recRes] = await Promise.all([
-          fetch(`${serverUrl}/groups/joined/${userId}`),
+          fetch(`${serverUrl}/groups/joined/${userId}`, { signal: ac.signal }),
           fetch(`${serverUrl}/recommend/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -143,6 +148,7 @@ export default function RecommendPage() {
               user_id: userId,
               Preferred_Destination: preferredDestinations,
             }),
+            signal: ac.signal,
           }),
         ]);
 
@@ -167,7 +173,7 @@ export default function RecommendPage() {
     };
 
     fetchGroups();
-  }, [userId, preferredDestinations]);
+  }, [userId, prefs, destinationsReady, preferredDestinations]);
 
   const handleJoin = async (groupId) => {
     try {
@@ -320,15 +326,15 @@ export default function RecommendPage() {
     }
   };
 
-  if (!prefs) {
-    return (
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <p className="rounded-xl bg-rose-50 px-4 py-3 text-rose-700">
-          No user data found.
-        </p>
-      </div>
-    );
-  }
+  // if (!prefs) {
+  //   return (
+  //     <div className="mx-auto max-w-6xl px-6 py-16">
+  //       <p className="rounded-xl bg-rose-50 px-4 py-3 text-rose-700">
+  //         No user data found.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="relative isolate bg-white">
