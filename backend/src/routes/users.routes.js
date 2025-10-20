@@ -21,6 +21,7 @@ router.get("/me", auth, async (req, res) => {
             status: "ok",
             data: {
                 id: user._id,
+                userId: user.userID,
                 name: user.name,
                 email: user.email,
                 onboarding_completed: user.onboarding_completed || !onboarding_needed,
