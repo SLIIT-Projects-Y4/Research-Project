@@ -133,7 +133,7 @@ export default function Home() {
           // Use existing itinerary data (most up-to-date)
           setLocationIds(existingItinerary.locationIds);
           setSelectedItinerary(existingItinerary);
-          toast.success(`Loaded ${existingItinerary.locationIds.length} location IDs from "${existingItinerary.title}"`);
+          // toast.success(`Loaded ${existingItinerary.locationIds.length} location IDs from "${existingItinerary.title}"`);
         } else {
           // Fall back to navigation data if itinerary not found in storage
           setLocationIds(locationData.locationIds);
@@ -144,7 +144,7 @@ export default function Home() {
             attractionsCount: locationData.attractionsCount
           });
           setPendingItineraryTitle(locationData.itineraryTitle);
-          toast.success(`Loaded ${locationData.locationIds.length} location IDs from "${locationData.itineraryTitle}"`);
+          // toast.success(`Loaded ${locationData.locationIds.length} location IDs from "${locationData.itineraryTitle}"`);
         }
       }
       // Fallback for the old structure
@@ -155,7 +155,7 @@ export default function Home() {
           totalDistance: locationData.totalDistance
         });
         setPendingItineraryTitle(locationData.itineraryTitle);
-        toast.success(`Loaded ${locationData.locations.length} locations from "${locationData.itineraryTitle}"`);
+        // toast.success(`Loaded ${locationData.locations.length} locations from "${locationData.itineraryTitle}"`);
       }
     }
   }, [location.state]);
