@@ -115,52 +115,142 @@ export default function ChatPage() {
   }, [group_id]);
 
   useEffect(() => {
-    if (!group_id || !user_id || !username) return;
-    const socket = new WebSocket(
-      `${serverUrl.replace("http", "ws")}/ws/chat/${group_id}/${user_id}`
-    );
-    setWs(socket);
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "typing") {
-        if (data.user_id !== user_id) {
-          setTypingUser(data.username || "Someone");
-          setTimeout(() => setTypingUser(null), 2000);
-        }
-        return;
-      }
-      if (data.type === "reaction") {
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg._id === data._id ? { ...msg, reactions: data.reactions } : msg
-          )
-        );
-        return;
-      }
-      if (data.type === "bot_offer") {
-        const msg = {
-          user_id: "AI_BOT",
-          username: "TripBot",
-          group_name: groupName,
-          message: data.text,
-          timestamp: new Date().toISOString(),
-        };
-        setMessages((prev) => [...prev, msg]);
-        setTimeout(() => {
-          if (window.confirm("Do you want help from TripBot?")) {
-            socket.send(
-              JSON.stringify({ type: "confirm_help", query: data.query })
-            );
+  if (!group_id || !user_id || !username) return;
+
+  let isMounted = true;
+  let socket = null;
+  let reconnectTimeout = null;
+  let reconnectAttempts = 0;
+  const MAX_RECONNECT_ATTEMPTS = 5;
+
+  const connect = () => {
+    if (!isMounted) return;
+
+    // Prevent multiple connections
+    if (socket && (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING)) {
+      return;
+    }
+
+    console.log(`🔄 Attempting WebSocket connection... (attempt ${reconnectAttempts + 1})`);
+
+    try {
+      socket = new WebSocket(
+        `${serverUrl.replace("http", "ws")}/ws/chat/${group_id}/${user_id}`
+      );
+
+      socket.onopen = () => {
+        if (!isMounted) return;
+        console.log("✅ WebSocket connected successfully");
+        reconnectAttempts = 0; // Reset on successful connection
+        setWs(socket);
+      };
+
+      socket.onmessage = (event) => {
+        if (!isMounted) return;
+        try {
+          const data = JSON.parse(event.data);
+
+          if (data.type === "typing") {
+            if (data.user_id !== user_id) {
+              setTypingUser(data.username || "Someone");
+              setTimeout(() => setTypingUser(null), 2000);
+            }
+            return;
           }
-        }, 500);
-        return;
+
+          if (data.type === "reaction") {
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg._id === data._id ? { ...msg, reactions: data.reactions } : msg
+              )
+            );
+            return;
+          }
+
+          if (data.type === "bot_offer") {
+            const msg = {
+              user_id: "AI_BOT",
+              username: "TripBot",
+              group_name: groupName,
+              message: data.text,
+              timestamp: new Date().toISOString(),
+            };
+            setMessages((prev) => [...prev, msg]);
+            setTimeout(() => {
+              if (window.confirm("Do you want help from TripBot?")) {
+                if (socket && socket.readyState === WebSocket.OPEN) {
+                  socket.send(
+                    JSON.stringify({ type: "confirm_help", query: data.query })
+                  );
+                }
+              }
+            }, 500);
+            return;
+          }
+
+          setMessages((prev) => [...prev, data]);
+          if (data.group_name) setGroupName(data.group_name);
+        } catch (err) {
+          console.error("Error parsing message:", err);
+        }
+      };
+
+      socket.onerror = (error) => {
+        console.error("❌ WebSocket error:", error);
+      };
+
+      socket.onclose = (event) => {
+        if (!isMounted) return;
+
+        console.warn(`WebSocket disconnected - Code: ${event.code}, Reason: ${event.reason || 'No reason provided'}`);
+        setWs(null);
+
+        // Only reconnect on abnormal closures (not intentional disconnects)
+        if (event.code !== 1000 && reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+          reconnectAttempts++;
+          const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 10000); // Exponential backoff
+          console.log(`🔄 Reconnecting in ${delay}ms...`);
+
+          reconnectTimeout = setTimeout(() => {
+            if (isMounted) {
+              connect();
+            }
+          }, delay);
+        } else if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+          console.error("❌ Max reconnection attempts reached. Please refresh the page.");
+          toast.error("Connection lost. Please refresh the page.");
+        }
+      };
+
+    } catch (error) {
+      console.error("Failed to create WebSocket:", error);
+      toast.error("Failed to connect. Please check your connection.");
+    }
+  };
+
+  // Initial connection
+  connect();
+
+  // Cleanup
+  return () => {
+    isMounted = false;
+
+    if (reconnectTimeout) {
+      clearTimeout(reconnectTimeout);
+    }
+
+    if (socket) {
+      socket.onopen = null;
+      socket.onmessage = null;
+      socket.onerror = null;
+      socket.onclose = null;
+
+      if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING) {
+        socket.close(1000, "Component unmounting");
       }
-      setMessages((prev) => [...prev, data]);
-      if (data.group_name) setGroupName(data.group_name);
-    };
-    socket.onclose = () => console.warn("WebSocket disconnected");
-    return () => socket.close();
-  }, [group_id, user_id, username, groupName]);
+    }
+  };
+}, [group_id, user_id, username, groupName]);
 
   useEffect(() => {
     if (showExperiencePanel && group_id) {
@@ -180,7 +270,14 @@ export default function ChatPage() {
   }, [showExperiencePanel, group_id]);
 
   const sendMessage = () => {
-    if (ws && newMessage.trim()) {
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    console.warn("⚠️ WebSocket is not connected");
+    toast.warning("Connection lost. Please refresh the page.");
+    return;
+  }
+
+  if (newMessage.trim()) {
+    try {
       ws.send(
         JSON.stringify({
           type: "chat",
@@ -192,8 +289,12 @@ export default function ChatPage() {
       console.log(username);
       setNewMessage("");
       shouldScrollRef.current = true;
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      toast.error("Failed to send message");
     }
-  };
+  }
+};
 
   useEffect(() => {
     if (!group_id) return;
@@ -217,8 +318,9 @@ export default function ChatPage() {
       .join("") || "?";
 
   const handleTyping = (value) => {
-    setNewMessage(value);
-    if (ws && value.trim()) {
+  setNewMessage(value);
+  if (ws && ws.readyState === WebSocket.OPEN && value.trim()) {
+    try {
       ws.send(
         JSON.stringify({
           type: "typing",
@@ -226,8 +328,11 @@ export default function ChatPage() {
           username,
         })
       );
+    } catch (error) {
+      console.error("Failed to send typing indicator:", error);
     }
-  };
+  }
+};
 
   const triggerFileInput = (type) => {
     setSelectedFileType(type);
@@ -275,18 +380,22 @@ export default function ChatPage() {
       (r) => r.user_id === user_id && r.emoji === emoji
     );
 
-    if (ws && msg._id) {
-      ws.send(
-        JSON.stringify({
-          type: "reaction",
-          message_id: msg._id,
-          reaction: emoji,
-          user_id,
-          username,
-          action: hasReacted ? "remove" : "add",
-        })
-      );
-    }
+    if (ws && ws.readyState === WebSocket.OPEN && msg._id) {
+  try {
+    ws.send(
+      JSON.stringify({
+        type: "reaction",
+        message_id: msg._id,
+        reaction: emoji,
+        user_id,
+        username,
+        action: hasReacted ? "remove" : "add",
+      })
+    );
+  } catch (error) {
+    console.error("Failed to send reaction:", error);
+  }
+}
   };
 
   let lastDateLabel = "";
@@ -816,26 +925,32 @@ export default function ChatPage() {
         cancelText="Stay"
         onClose={() => setShowLeaveDialog(false)}
         onConfirm={async () => {
-          setShowLeaveDialog(false); // close immediately
-          try {
-            if (ws && ws.readyState === WebSocket.OPEN) {
-              ws.send(JSON.stringify({ type: "leave", user_id, username }));
-            }
-            if (group_id && user_id) {
-              await fetch(`${serverUrl}/groups/leave/${group_id}/${user_id}`, {
-                method: "POST",
-              });
-            }
-          } catch (e) {
-            console.warn("Leave flow error:", e);
-            alert("Couldn’t leave the chat. Please try again.");
-            return;
-          } finally {
-            ws?.close();
-            localStorage.removeItem("group_id");
-            window.history.back(); // or use useNavigate if you prefer
-          }
-        }}
+  setShowLeaveDialog(false);
+  try {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: "leave", user_id, username }));
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    if (group_id && user_id) {
+      await fetch(`${serverUrl}/groups/leave/${group_id}/${user_id}`, {
+        method: "POST",
+      });
+    }
+  } catch (e) {
+    console.warn("Leave flow error:", e);
+    alert("Couldn't leave the chat. Please try again.");
+    return;
+  } finally {
+    if (ws) {
+      ws.onclose = null;
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.close(1000, "User left");
+      }
+    }
+    localStorage.removeItem("group_id");
+    window.history.back();
+  }
+}}
       />
       <TranslateModal
         open={translateOpen}
