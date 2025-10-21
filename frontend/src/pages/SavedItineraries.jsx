@@ -519,13 +519,6 @@ export default function SavedItineraries() {
                                               <>
                                                   <Button
                                                     size={tokens.buttonSize}
-                                                    variant="light"
-                                                    onClick={() => onView(activeDoc)}
-                                                  >
-                                                      View Route
-                                                  </Button>
-                                                  <Button
-                                                    size={tokens.buttonSize}
                                                     variant="default"
                                                     onClick={() => onExport(activeDoc)}
                                                   >
