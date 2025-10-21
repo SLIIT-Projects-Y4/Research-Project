@@ -114,8 +114,11 @@ export default function ChatPage() {
     loadHistory();
   }, [group_id]);
 
+  const connectedRef = useRef(false);
   useEffect(() => {
     if (!group_id || !user_id || !username) return;
+    if (connectedRef.current) return;
+       connectedRef.current = true;
     const socket = new WebSocket(
       `${serverUrl.replace("http", "ws")}/ws/chat/${group_id}/${user_id}`
     );
@@ -155,12 +158,20 @@ export default function ChatPage() {
         }, 500);
         return;
       }
+      if (data.type === "group_meta" && data.group_name) {
+        setGroupName(data.group_name);
+        return;
+      }
       setMessages((prev) => [...prev, data]);
-      if (data.group_name) setGroupName(data.group_name);
+      // if (data.group_name) setGroupName(data.group_name);
     };
     socket.onclose = () => console.warn("WebSocket disconnected");
-    return () => socket.close();
-  }, [group_id, user_id, username, groupName]);
+    return () => {
+    connectedRef.current = false;              // cleanup guard
+    try { socket.close(); } catch { /* empty */ }
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [group_id, user_id, username]);
 
   useEffect(() => {
     if (showExperiencePanel && group_id) {
