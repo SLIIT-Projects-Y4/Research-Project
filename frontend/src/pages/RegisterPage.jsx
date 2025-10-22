@@ -4,7 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@mantine/core';
 import { toast } from 'react-toastify';
 import { User, Mail, Lock, ArrowRight } from 'lucide-react';
-import loginImage from '../../public/assets/loginImage.jpg'
+import { motion, AnimatePresence } from 'framer-motion';
+import loginImage from '../../public/assets/loginImage.jpg';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -14,9 +15,7 @@ export default function RegisterPage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
+    const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
@@ -41,243 +40,263 @@ export default function RegisterPage() {
     }
   };
 
+  const brand = 'var(--color-brave-orange)';
+  const brandDark = 'var(--color-hot-embers)';
+  const ink = 'var(--color-midnight-dreams)';
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 80, damping: 18, delayChildren: 0.15, staggerChildren: 0.08 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
+
+  const backgroundVariants = {
+    initial: { scale: 1 },
+    animate: {
+      scale: 1.05,
+      transition: { duration: 10, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+    },
+  };
+
   return (
-    <div className="min-h-screen overflow-hidden relative">
-         {/* Top Ribbon */}
-      <div className="fixed top-0 inset-x-0 z-30 border-b border-white/10">
-  <div className="bg-gradient-to-r from-[#001C33]/95 via-[#001C33] to-[#001C33]/95">
-    <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
-      <div className="h-16 sm:h-20 flex items-center justify-center">
-        <h1 className="font-display font-extrabold text-white text-3xl sm:text-4xl tracking-wide flex items-center gap-2">
-          <span>Travel</span>
-          <span className="text-brave-orange">MACHAN</span>
-        </h1>
-      </div>
-    </div>
-  </div>
-</div>
-      {/* Background with travel imagery */}
-      <div
+    <div className="min-h-screen overflow-hidden relative font-body">
+
+      {/* Top Ribbon */}
+      <motion.div
+        className="fixed top-0 inset-x-0 z-30 border-b border-white/10"
+        initial={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        <div className="bg-gradient-to-r from-[#001C33]/95 via-[#001C33] to-[#001C33]/95">
+          <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+            <div className="h-16 sm:h-20 flex items-center justify-center">
+              <motion.h1
+                className="font-display font-extrabold text-white text-3xl sm:text-4xl tracking-wide flex items-center gap-2"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+              >
+                <span>Travel</span>
+                <motion.span
+                  className="text-[var(--color-brave-orange)]"
+                  animate={{ color: ['#FD661E', '#F15A2B', '#FD661E'] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                >
+                  MACHAN
+                </motion.span>
+              </motion.h1>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Animated Background */}
+      <motion.div
         className="fixed inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${loginImage})`,
           backgroundAttachment: 'fixed',
         }}
+        variants={backgroundVariants}
+        initial="initial"
+        animate="animate"
       >
         <div
-          className="absolute inset-0 backdrop-blur-sm"
+          className="absolute inset-0"
           style={{
-            background: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, rgba(0, 28, 51, 0.3) 0%, rgba(0, 28, 51, 0.7) 100%)`,
-            transition: 'background 0.3s ease-out',
+            background: `radial-gradient(
+              circle at ${mousePos.x}px ${mousePos.y}px,
+              rgba(0, 28, 51, 0.25) 0%,
+              rgba(0, 28, 51, 0.75) 100%
+            )`,
+            backdropFilter: 'blur(2px)',
+            transition: 'background 0.25s ease-out',
           }}
         />
-      </div>
+      </motion.div>
 
-      {/* Main content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
-        <div className="w-full max-w-xl">
-          <div
-            className="rounded-3xl backdrop-blur-3xl border-2 p-10 shadow-2xl"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08))',
-              backdropFilter: 'blur(40px)',
-              WebkitBackdropFilter: 'blur(40px)',
-              borderColor: 'rgba(255, 255, 255, 0.5)',
-              boxShadow: `
-                inset 0 1px 2px rgba(255, 255, 255, 0.5),
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(31, 38, 135, 0.2)
-              `,
-            }}
-          >
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="font-display text-2xl font-black text-white mb-2 drop-shadow-lg">
-                Join Us
-              </h1>
-              <p className="font-body font-display text-sm text-desert-lilly drop-shadow">
-                Start your adventure today
-              </p>
-            </div>
-
-            {/* Form */}
-            <form onSubmit={onSubmit} className="space-y-4">
-              {/* Name and Email Row */}
-              <div className="grid grid-cols-2 gap-3">
-                {/* Name Input */}
-                <div>
-                  <label className="font-display text-xs font-bold text-white mb-2 block uppercase tracking-widest opacity-95 drop-shadow">
-                    Name
-                  </label>
-                  <div className="relative group">
-                    <User
-                      size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors z-10 pointer-events-none"
-                      style={{ color: focused === 'name' ? '#FD661E' : 'rgba(255, 255, 255, 0.7)' }}
-                    />
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Your name"
-                      value={form.name}
-                      onChange={onChange}
-                      onFocus={() => setFocused('name')}
-                      onBlur={() => setFocused(null)}
-                      required
-                      className="w-full pl-10 pr-3 py-3 rounded-lg border-2 transition-all duration-300 font-body text-sm backdrop-blur-sm"
-                      style={{
-                        borderColor: focused === 'name' ? '#FD661E' : 'rgba(255, 255, 255, 0.3)',
-                        background: focused === 'name' ? 'rgba(255, 250, 245, 0.95)' : 'rgba(255, 255, 255, 0.15)',
-                        boxShadow:
-                          focused === 'name'
-                            ? '0 0 0 3px rgba(253, 102, 30, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
-                            : 'inset 0 1px 2px rgba(255, 255, 255, 0.3)',
-                        color: focused === 'name' ? '#001C33' : '#ffffff',
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Email Input */}
-                <div>
-                  <label className="font-display text-xs font-bold text-white mb-2 block uppercase tracking-widest opacity-95 drop-shadow">
-                    Email
-                  </label>
-                  <div className="relative group">
-                    <Mail
-                      size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors z-10 pointer-events-none"
-                      style={{ color: focused === 'email' ? '#FD661E' : 'rgba(255, 255, 255, 0.7)' }}
-                    />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="you@example.com"
-                      value={form.email}
-                      onChange={onChange}
-                      onFocus={() => setFocused('email')}
-                      onBlur={() => setFocused(null)}
-                      required
-                      className="w-full pl-10 pr-3 py-3 rounded-lg border-2 transition-all duration-300 font-body text-sm backdrop-blur-sm"
-                      style={{
-                        borderColor: focused === 'email' ? '#FD661E' : 'rgba(255, 255, 255, 0.3)',
-                        background: focused === 'email' ? 'rgba(255, 250, 245, 0.95)' : 'rgba(255, 255, 255, 0.15)',
-                        boxShadow:
-                          focused === 'email'
-                            ? '0 0 0 3px rgba(253, 102, 30, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
-                            : 'inset 0 1px 2px rgba(255, 255, 255, 0.3)',
-                        color: focused === 'email' ? '#001C33' : '#ffffff',
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Password Input */}
-              <div>
-                <label className="font-display text-xs font-bold text-white mb-2 block uppercase tracking-widest opacity-95 drop-shadow">
-                  Password
-                </label>
-                <div className="relative group">
-                  <Lock
-                    size={18}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors z-10 pointer-events-none"
-                    style={{ color: focused === 'password' ? '#FD661E' : 'rgba(255, 255, 255, 0.7)' }}
-                  />
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="••••••••"
-                    value={form.password}
-                    onChange={onChange}
-                    onFocus={() => setFocused('password')}
-                    onBlur={() => setFocused(null)}
-                    required
-                    className="w-full pl-10 pr-3 py-3 rounded-lg border-2 transition-all duration-300 font-body text-sm backdrop-blur-sm"
-                    style={{
-                      borderColor: focused === 'password' ? '#FD661E' : 'rgba(255, 255, 255, 0.3)',
-                      background: focused === 'password' ? 'rgba(255, 250, 245, 0.95)' : 'rgba(255, 255, 255, 0.15)',
-                      boxShadow:
-                        focused === 'password'
-                          ? '0 0 0 3px rgba(253, 102, 30, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
-                          : 'inset 0 1px 2px rgba(255, 255, 255, 0.3)',
-                      color: focused === 'password' ? '#001C33' : '#ffffff',
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                loading={loading}
-                fullWidth
-                className="mt-8 rounded-lg font-display font-bold flex items-center justify-center gap-2 text-white h-12 text-base"
-                styles={{
-                  root: {
-                    background: 'linear-gradient(135deg, #FD661E, #F15A2B)',
-                    height: '48px',
-                    fontSize: '15px',
-                    fontWeight: 700,
-                    '&:hover': {
-                      background: 'linear-gradient(135deg, #E5591A, #D94D21)',
-                    },
-                    '&:active': {
-                      transform: 'scale(0.98)',
-                    },
-                  },
-                }}
-              >
-                <span>{loading ? 'Creating...' : 'Create Account'}</span>
-                {!loading && <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />}
-              </Button>
-            </form>
-
-            {/* Divider */}
-            <div className="my-6 flex items-center gap-3">
-              <div className="flex-1 h-px bg-white opacity-20"></div>
-              <span className="font-body text-xs text-desert-lilly opacity-70">Already have one?</span>
-              <div className="flex-1 h-px bg-white opacity-20"></div>
-            </div>
-
-            {/* Sign in link */}
-            <p className="text-center font-body text-base text-white opacity-90 font-semibold">
-              Already have an account?{' '}
-              <Link
-                to="/login"
-                className="font-display font-bold text-desert-lilly hover:text-brave-orange transition-colors"
-              >
-                Log in
-              </Link>
+      {/* Main Content */}
+      <motion.div
+        className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-10 sm:py-16 pt-24 sm:pt-28"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div
+          className="w-full max-w-xl rounded-2xl sm:rounded-3xl border p-8 sm:p-10 shadow-[0_8px_40px_rgba(0,0,0,0.35)]"
+          style={{
+            background: 'rgba(0, 28, 51, 0.65)',
+            borderColor: 'rgba(255,255,255,0.18)',
+            backdropFilter: 'blur(18px)',
+          }}
+          variants={itemVariants}
+        >
+          {/* Header */}
+          <motion.div className="text-center mb-8 sm:mb-10" variants={itemVariants}>
+            <motion.h2
+              className="font-display text-white text-3xl sm:text-4xl font-extrabold leading-tight mb-1"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              Create Your Account
+            </motion.h2>
+            <p className="font-body text-[14px] sm:text-[15px] text-[var(--color-heart-of-ice)]/90">
+              Start your adventure today
             </p>
+          </motion.div>
 
-            {/* Footer */}
-            <div className="mt-8 pt-6 border-t border-white border-opacity-20">
-              <p className="font-body text-xs text-center text-desert-lilly opacity-80">
-                ✈️ Explore • Connect • Discover
-              </p>
+          {/* Form */}
+          <motion.form onSubmit={onSubmit} className="space-y-6" variants={containerVariants}>
+            {/* Row: Name + Email */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[['name', User, 'Your name'], ['email', Mail, 'you@example.com']].map(([key, Icon, placeholder]) => (
+                <motion.div key={key} variants={itemVariants}>
+                  <label className="font-display text-xs sm:text-[13px] font-semibold mb-2 block uppercase tracking-wide text-white/95">
+                    {key === 'name' ? 'Name' : 'Email'}
+                  </label>
+                  <div className="relative group">
+                    <motion.div
+                      animate={{
+                        scale: focused === key ? 1.2 : 1,
+                        color: focused === key ? brand : 'rgba(255,255,255,0.7)',
+                      }}
+                      transition={{ type: 'spring', stiffness: 250, damping: 15 }}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10"
+                    >
+                      <Icon size={18} />
+                    </motion.div>
+                    <motion.input
+                      type={key === 'email' ? 'email' : 'text'}
+                      name={key}
+                      placeholder={placeholder}
+                      value={form[key]}
+                      onChange={onChange}
+                      onFocus={() => setFocused(key)}
+                      onBlur={() => setFocused(null)}
+                      required
+                      className="w-full pl-10 pr-3 py-3 rounded-lg border text-[15px] font-body placeholder-white/60 focus:outline-none"
+                      style={{
+                        borderColor: focused === key ? brand : 'rgba(255,255,255,0.25)',
+                        background: focused === key ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.08)',
+                        color: '#fff',
+                        transition: 'all 0.3s ease',
+                      }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </div>
 
-          {/* Trust badges */}
-          <div className="flex justify-center gap-6 mt-8 text-center">
-            <div className="text-white">
-              <div className="font-display font-bold text-lg">50K+</div>
-              <div className="font-body text-xs font-medium opacity-80">Active Travelers</div>
-            </div>
-            <div className="w-px bg-white opacity-30"></div>
-            <div className="text-white">
-              <div className="font-display font-bold text-lg">180+</div>
-              <div className="font-body text-xs font-medium opacity-80">Countries</div>
-            </div>
-            <div className="w-px bg-white opacity-30"></div>
-            <div className="text-white">
-              <div className="font-display font-bold text-lg">⭐ 4.9</div>
-              <div className="font-body text-xs font-medium opacity-80">Rated</div>
-            </div>
-          </div>
-        </div>
-      </div>
+            {/* Password */}
+            <motion.div variants={itemVariants}>
+              <label className="font-display text-xs sm:text-[13px] font-semibold mb-2 block uppercase tracking-wide text-white/95">
+                Password
+              </label>
+              <div className="relative group">
+                <motion.div
+                  animate={{
+                    scale: focused === 'password' ? 1.2 : 1,
+                    color: focused === 'password' ? brand : 'rgba(255,255,255,0.7)',
+                  }}
+                  transition={{ type: 'spring', stiffness: 250, damping: 15 }}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-10"
+                >
+                  <Lock size={18} />
+                </motion.div>
+                <motion.input
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  value={form.password}
+                  onChange={onChange}
+                  onFocus={() => setFocused('password')}
+                  onBlur={() => setFocused(null)}
+                  required
+                  className="w-full pl-10 pr-3 py-3 rounded-lg border text-[15px] font-body placeholder-white/60 focus:outline-none"
+                  style={{
+                    borderColor: focused === 'password' ? brand : 'rgba(255,255,255,0.25)',
+                    background: focused === 'password' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.08)',
+                    color: '#fff',
+                  }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Submit */}
+            <motion.div variants={itemVariants}>
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 250, damping: 15 }}
+              >
+                <Button
+                  type="submit"
+                  loading={loading}
+                  fullWidth
+                  className="mt-2 rounded-lg font-display font-semibold flex items-center justify-center gap-2 text-white text-[15px] h-11 sm:h-12"
+                  styles={{
+                    root: {
+                      background: `linear-gradient(135deg, ${brand}, ${brandDark})`,
+                      boxShadow: '0 6px 20px rgba(253, 102, 30, 0.35)',
+                      transition: 'all 0.25s ease',
+                    },
+                  }}
+                >
+                  <motion.span
+                    animate={{
+                      x: loading ? 10 : 0,
+                      opacity: loading ? 0.8 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {loading ? 'Creating…' : 'Create Account'}
+                  </motion.span>
+                  {!loading && (
+                    <motion.div
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: 'spring', stiffness: 250, damping: 12 }}
+                    >
+                      <ArrowRight size={18} />
+                    </motion.div>
+                  )}
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.form>
+
+          {/* Divider */}
+          <motion.div className="my-6 flex items-center gap-3" variants={itemVariants}>
+            <div className="flex-1 h-px bg-white/20" />
+            <span className="font-body text-xs text-white/70">Already have one?</span>
+            <div className="flex-1 h-px bg-white/20" />
+          </motion.div>
+
+          {/* Sign in link */}
+          <motion.p
+            className="text-center font-body text-[14px] text-[var(--color-heart-of-ice)]"
+            variants={itemVariants}
+          >
+            Already have an account?{' '}
+            <Link
+              to="/login"
+              className="font-semibold text-[var(--color-brave-orange)] hover:underline"
+            >
+              Log in
+            </Link>
+          </motion.p>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
