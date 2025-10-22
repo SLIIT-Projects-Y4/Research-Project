@@ -1,73 +1,48 @@
-// src/pages/Onboarding/PreferencesWizard.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { getMyPreferences, updateMyPreferences } from "@/api/preferences.js";
 import { getMe, refreshAuth } from "@/api/auth";
 import { useAuth } from "@/store/auth.jsx";
 import { useNavigate } from "react-router-dom";
-import { Button, Select, Stack, Progress, Text, Container, Group } from "@mantine/core";
+import { Button, Select, Stack, Container, Group, Text } from "@mantine/core";
 import { toast } from "react-toastify";
-import { ChevronRight, ArrowLeft } from "lucide-react";
-import loginImage from '../../../public/assets/loginImage.jpg'
+import { ChevronRight, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import loginImage from "../../../public/assets/loginImage.jpg"; // fallback
 
+/* -------------------- Data (unchanged) -------------------- */
 const AGE_GROUPS = ["18-25", "26-35", "36-50", "51+"];
 const GENDERS = ["Female", "Male", "Other"];
 const TRAVEL_COMPANIONS = ["Couple", "Family", "Friends", "Solo"];
-
-const COUNTRIES = [
-  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
-  "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas",
-  "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize",
-  "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil",
-  "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon",
-  "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China",
-  "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus",
-  "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic",
-  "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia",
-  "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia",
-  "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea",
-  "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland",
-  "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy",
-  "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati",
-  "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon",
-  "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
-  "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta",
-  "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia",
-  "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique",
-  "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand",
-  "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia",
-  "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama",
-  "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland",
-  "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis",
-  "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa",
-  "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal",
-  "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia",
-  "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea",
-  "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden",
-  "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand",
-  "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia",
-  "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
-  "United Arab Emirates", "United Kingdom", "United States", "Uruguay",
-  "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
-  "Yemen", "Zambia", "Zimbabwe"
-];
-
-const ACTIVITIES = [
-  "Agricultural Workshops", "Animal Watching", "Architectural Marvel",
-  "Beach Hopping", "Bird Watching", "Boat Tours", "Boating",
-  "Cultural Activities", "Cultural Exploration", "Cultural Tours",
-  "Educational Tours", "Exploring Exhibits", "Factory Tours", "Guided Tours",
-  "Hiking", "Historical Exploration", "Jet Skiing", "Kayaking",
-  "Kit Surfing", "Kite Surfing", "Learning History", "Meditation",
-  "Nature Photography", "Nature Walks", "Photography", "Rafting",
-  "Relaxation", "Sightseeing", "Snorkeling", "Sunbathing",
-  "Surfing", "Swimming", "Trekking", "Walking Trails",
-  "Wildlife Safaris", "Wildlife Spotting", "Worship", "Yoga",
-];
-
 const STEPS = ["Demographics", "Companion", "Activities", "Preferences"];
 const BUDGET_OPTIONS = ["Low", "Medium", "High"];
 const TRAVEL_STYLE = ["Backpacker", "Luxury", "Balanced", "Adventurous", "Relaxed"];
 
+const COUNTRIES = [
+  "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"
+];
+
+const ACTIVITIES = [
+  "Agricultural Workshops","Animal Watching","Architectural Marvel","Beach Hopping","Bird Watching",
+  "Boat Tours","Boating","Cultural Activities","Cultural Exploration","Cultural Tours","Educational Tours",
+  "Exploring Exhibits","Factory Tours","Guided Tours","Hiking","Historical Exploration","Jet Skiing",
+  "Kayaking","Kit Surfing","Kite Surfing","Learning History","Meditation","Nature Photography",
+  "Nature Walks","Photography","Rafting","Relaxation","Sightseeing","Snorkeling","Sunbathing",
+  "Surfing","Swimming","Trekking","Walking Trails","Wildlife Safaris","Wildlife Spotting","Worship","Yoga",
+];
+
+/* ---------- Step-specific hero images (replace with your assets if you want) ---------- */
+const STEP_IMAGES = [
+  // Demographics → iconic city/people
+  "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop",
+  // Companion → friends/couple
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop",
+  // Activities → adventure / hiking
+  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1600&auto=format&fit=crop",
+  // Preferences → lifestyle/luxury
+  "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=1600&auto=format&fit=crop",
+].map((u) => u || loginImage);
+
+/* -------------------- Component -------------------- */
 export default function PreferencesWizard() {
   const navigate = useNavigate();
   const { login, updateUser } = useAuth();
@@ -86,23 +61,21 @@ export default function PreferencesWizard() {
     budget: "",
   });
 
+  /* -------- Init (logic unchanged) -------- */
   useEffect(() => {
     (async () => {
       try {
         const res = await getMyPreferences();
         const data = res?.data ?? res;
         if (data) setForm((prev) => ({ ...prev, ...data }));
-      } catch {
-        /* ignore */
-      }
+      } catch { /* ignore */ }
     })();
   }, []);
 
   const canNext = useMemo(() => {
     if (step === 0) return !!form.age_group && !!form.gender && !!form.country;
     if (step === 1) return !!form.travel_companion;
-    if (step === 2)
-      return Array.isArray(form.preferred_activities) && form.preferred_activities.length >= 2;
+    if (step === 2) return Array.isArray(form.preferred_activities) && form.preferred_activities.length >= 2;
     if (step === 3) return !!form.travel_style && !!form.budget;
     return false;
   }, [step, form]);
@@ -114,37 +87,27 @@ export default function PreferencesWizard() {
         login(refreshed.token, refreshed.user);
         return;
       }
-    } catch {
-      /* fall through */
-    }
+    } catch { /* fall through */ }
 
     try {
       const me = await getMe();
       const updatedUser = me?.user ?? me?.data ?? me;
       if (updatedUser) updateUser(updatedUser);
-    } catch {
-      /* ignore */
-    }
+    } catch { /* ignore */ }
   };
 
   const saveAndNext = async () => {
-    if (!canNext) {
-      toast.error("Please complete this step");
-      return;
-    }
+    if (!canNext) return toast.error("Please complete this step");
     try {
       setLoading(true);
       const res = await updateMyPreferences({ ...form });
-
       const statusOk = res?.status === "ok" || res?.success === true || !!res;
       if (statusOk) {
         toast.success("Saved!");
         await shadowRefreshUser();
       }
-
-      if (step < STEPS.length - 1) {
-        setStep((s) => s + 1);
-      } else {
+      if (step < STEPS.length - 1) setStep((s) => s + 1);
+      else {
         toast.success("All set!");
         navigate("/home");
       }
@@ -160,355 +123,351 @@ export default function PreferencesWizard() {
 
   const titles = ["About You", "Travel Partner", "Activities", "Final Touches"];
   const subtitles = [
-    "Let's get to know you",
+    "Let’s get to know you better.",
     "Who are you traveling with?",
-    "What interests you?",
-    "Budget and travel styles"
+    "Pick a few things you enjoy.",
+    "Choose your style and budget."
   ];
 
   const displayedActivities = ACTIVITIES.slice(0, activitiesShown);
 
-  return (
-    <div className="min-h-screen flex" style={{ background: '#ffffff' }}>
-      {/* Left - Image */}
-      <div
-        className="hidden lg:block lg:w-2/3 bg-cover bg-center relative"
-        style={{ backgroundImage: `url(${loginImage})` }}
-      >
-        <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.3)' }} />
-      </div>
+  /* -------- Motion (UI only) -------- */
+  const stepVariants = {
+    initial: { opacity: 0, y: 24 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+    exit: { opacity: 0, y: -16, transition: { duration: 0.25 } },
+  };
 
-      {/* Right - Form */}
-      <div className="w-full lg:w-2/3 flex flex-col h-screen" style={{ background: '#f9fafb' }}>
-        {/* Top Navigation */}
-        <div style={{ borderBottom: '1px solid #e5e7eb', padding: '16px 0', background: '#ffffff', flexShrink: 0 }}>
-          <Container size="xl">
+  const optionBase =
+    "h-12 sm:h-14 w-full rounded-xl border text-sm sm:text-[15px] font-semibold " +
+    "flex items-center justify-center transition bg-white/80 text-[#0b1622] border-white/60 hover:bg-white";
+  const optionActive = "ring-2 ring-[var(--color-brave-orange)] text-[var(--color-brave-orange)]";
+
+  return (
+    <div className="min-h-screen relative bg-[#0b1622] text-white">
+
+      {/* Desktop Left Hero (changes per step) */}
+      <motion.aside
+        key={step}
+        className="hidden xl:block fixed left-0 top-0 h-full w-[40vw] bg-cover bg-center"
+        style={{ backgroundImage: `url(${STEP_IMAGES[step] || loginImage})` }}
+        initial={{ opacity: 0.6, scale: 1.02 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0.6 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/35 to-transparent" />
+        {/* Caption */}
+        <div className="absolute bottom-8 left-8 right-8">
+          <div className="inline-flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 text-xs font-semibold">
+            <span>{step + 1} / {STEPS.length}</span>
+            <span className="text-[var(--color-brave-orange)]">•</span>
+            <span>{STEPS[step]}</span>
+          </div>
+          <h2 className="mt-3 text-3xl font-extrabold drop-shadow-sm">{titles[step]}</h2>
+          <p className="text-white/80">{subtitles[step]}</p>
+        </div>
+      </motion.aside>
+
+      {/* Content column */}
+      <div className="relative xl:ml-[40vw]">
+        {/* Mobile hero with step image */}
+        <motion.div
+          key={`m-${step}`}
+          className="xl:hidden h-44 w-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${STEP_IMAGES[step] || loginImage})` }}
+          initial={{ opacity: 0.6, scale: 1.02 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <div className="h-full w-full bg-gradient-to-b from-black/50 via-black/40 to-[#0b1622]" />
+          <div className="absolute bottom-3 left-4 right-4">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={back}
+                disabled={step === 0}
+                className={`p-2 rounded-md ${step === 0 ? "opacity-40" : "hover:bg-white/10"} border border-white/30`}
+              >
+                <ArrowLeft size={18} />
+              </button>
+              <div className="text-xs font-semibold opacity-90">{step + 1} / {STEPS.length}</div>
+            </div>
+            <h3 className="mt-2 font-display text-2xl font-extrabold">{titles[step]}</h3>
+            <p className="text-[13px] text-white/85">{subtitles[step]}</p>
+          </div>
+        </motion.div>
+
+        {/* Top bar (desktop) */}
+        <div className="hidden xl:block sticky top-0 z-20 bg-[#0b1622]/85 backdrop-blur-md border-b border-white/10">
+          <Container size="lg" className="py-3">
             <Group position="apart" align="center">
               <Group spacing={8}>
                 <button
                   onClick={back}
                   disabled={step === 0}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: step === 0 ? 'default' : 'pointer',
-                    opacity: step === 0 ? 0.3 : 1,
-                    padding: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    transition: 'opacity 0.2s'
-                  }}
+                  className={`p-2 rounded-md ${step === 0 ? "opacity-40" : "hover:bg-white/10"} border border-white/20`}
                 >
-                  <ArrowLeft size={20} color="#1f2937" />
+                  <ArrowLeft size={18} />
                 </button>
-                <Text style={{ color: '#111827', fontSize: '16px', fontWeight: '700' }} className="font-display">
-                  Travel Preferences
-                </Text>
+                <Text className="font-semibold">Travel Preferences</Text>
               </Group>
-              <Text style={{ color: '#6b7280', fontSize: '13px', fontWeight: '600' }}>
-                {step + 1} of {STEPS.length}
-              </Text>
-            </Group>
-
-            {/* Progress Bar */}
-            <div style={{ marginTop: '12px' }}>
-              <div style={{ width: '100%', background: '#e5e7eb', height: '3px', borderRadius: '2px', overflow: 'hidden' }}>
-                <div
-                  style={{
-                    height: '100%',
-                    background: '#FD661E',
-                    width: `${progress}%`,
-                    transition: 'width 0.3s ease'
-                  }}
+              <div className="w-72 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-[var(--color-brave-orange)]"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.45, ease: "easeOut" }}
                 />
               </div>
-            </div>
+            </Group>
           </Container>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 overflow-y-auto" style={{ padding: '32px 0' }}>
-          <Container size="md">
-            <div style={{ maxWidth: '550px', margin: '0 auto', paddingX: '20px' }}>
-              {/* Step Indicator */}
-              <div style={{ marginBottom: '32px' }}>
-                <h1 style={{
-                  color: '#111827',
-                  fontSize: '32px',
-                  fontWeight: '900',
-                  lineHeight: '1.2',
-                  marginBottom: '8px'
-                }} className="font-display">
+        {/* Main card */}
+        <div className="py-6 sm:py-10">
+          <Container size="lg">
+            <div
+              className="mx-auto max-w-3xl rounded-2xl border shadow-[0_8px_40px_rgba(0,0,0,0.35)]"
+              style={{
+                background: "rgba(255,255,255,0.92)",        // lighter for contrast
+                borderColor: "rgba(0,0,0,0.08)",
+                color: "#0b1622",
+              }}
+            >
+              {/* Heading (desktop – we already show in hero on mobile) */}
+              <div className="hidden xl:block px-8 pt-8 pb-2 text-center">
+                <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#0b1622] mb-1">
                   {titles[step]}
                 </h1>
-                <p style={{ color: '#6b7280', fontSize: '15px', lineHeight: '1.5' }} className="font-body">
-                  {subtitles[step]}
-                </p>
+                <p className="text-[14px] sm:text-[15px] text-[#0b1622]/70">{subtitles[step]}</p>
               </div>
 
-              {/* Form Content */}
-              <Stack spacing={24}>
-                {step === 0 && (
-                  <>
-                    <div>
-                      <label style={{ color: '#374151', fontSize: '14px', fontWeight: '600', marginBottom: '10px', display: 'block' }}>
-                        Age Group
-                      </label>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                        {AGE_GROUPS.map(age => (
-                          <button
-                            key={age}
-                            onClick={() => setForm(f => ({ ...f, age_group: age }))}
-                            style={{
-                              padding: '12px 10px',
-                              borderRadius: '6px',
-                              border: form.age_group === age ? '2px solid #FD661E' : '1px solid #d1d5db',
-                              background: form.age_group === age ? '#FFF5F0' : '#ffffff',
-                              color: form.age_group === age ? '#FD661E' : '#374151',
-                              fontWeight: form.age_group === age ? '700' : '500',
-                              cursor: 'pointer',
-                              fontSize: '14px',
-                              transition: 'all 0.2s',
-                              textAlign: 'center'
-                            }}
-                          >
-                            {age}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+              <div className="px-6 sm:px-8 pb-8">
+                <AnimatePresence mode="wait">
+                  {/* Step 0 */}
+                  {step === 0 && (
+                    <motion.div key="demographics" variants={stepVariants} initial="initial" animate="animate" exit="exit">
+                      <Stack spacing={24}>
+                        <div>
+                          <label className="block text-[13px] font-semibold text-[#0b1622] mb-2">
+                            Age Group
+                          </label>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {AGE_GROUPS.map((age) => {
+                              const active = form.age_group === age;
+                              return (
+                                <motion.button
+                                  key={age}
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                  onClick={() => setForm((f) => ({ ...f, age_group: age }))}
+                                  className={`${optionBase} ${active ? optionActive : ""}`}
+                                >
+                                  {age}
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
 
-                    <div>
-                      <label style={{ color: '#374151', fontSize: '14px', fontWeight: '600', marginBottom: '10px', display: 'block' }}>
-                        Gender
-                      </label>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
-                        {GENDERS.map(gender => (
-                          <button
-                            key={gender}
-                            onClick={() => setForm(f => ({ ...f, gender }))}
-                            style={{
-                              padding: '12px 10px',
-                              borderRadius: '6px',
-                              border: form.gender === gender ? '2px solid #FD661E' : '1px solid #d1d5db',
-                              background: form.gender === gender ? '#FFF5F0' : '#ffffff',
-                              color: form.gender === gender ? '#FD661E' : '#374151',
-                              fontWeight: form.gender === gender ? '700' : '500',
-                              cursor: 'pointer',
-                              fontSize: '14px',
-                              transition: 'all 0.2s',
-                              textAlign: 'center'
-                            }}
-                          >
-                            {gender}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                        <div>
+                          <label className="block text-[13px] font-semibold text-[#0b1622] mb-2">
+                            Gender
+                          </label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            {GENDERS.map((g) => {
+                              const active = form.gender === g;
+                              return (
+                                <motion.button
+                                  key={g}
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                  onClick={() => setForm((f) => ({ ...f, gender: g }))}
+                                  className={`${optionBase} ${active ? optionActive : ""}`}
+                                >
+                                  {g}
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
 
-                    <Select
-                      label="Country"
-                      placeholder="Select"
-                      data={COUNTRIES}
-                      value={form.country}
-                      onChange={(v) => setForm(f => ({ ...f, country: v || "" }))}
-                      searchable
-                      clearable={false}
-                      maxDropdownHeight={200}
-                      styles={{
-                        label: { color: '#374151', fontSize: '14px', fontWeight: '600', marginBottom: '10px' },
-                        input: {
-                          background: '#ffffff',
-                          borderColor: '#d1d5db',
-                          color: '#111827',
-                          borderRadius: '6px',
-                          height: '40px',
-                          fontSize: '14px',
-                        },
-                        placeholder: { color: '#9ca3af' },
-                        dropdown: { background: '#ffffff', borderColor: '#d1d5db' },
-                        option: { color: '#111827', '&:hover': { background: '#f3f4f6' }, padding: '8px 10px', fontSize: '14px' },
-                      }}
-                    />
-                  </>
-                )}
-
-                {step === 1 && (
-                  <div>
-                    <label style={{ color: '#374151', fontSize: '14px', fontWeight: '600', marginBottom: '14px', display: 'block' }}>
-                      Who are you traveling with?
-                    </label>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                      {TRAVEL_COMPANIONS.map(c => (
-                        <button
-                          key={c}
-                          onClick={() => setForm(f => ({ ...f, travel_companion: c }))}
-                          style={{
-                            padding: '14px 12px',
-                            borderRadius: '6px',
-                            border: form.travel_companion === c ? '2px solid #FD661E' : '1px solid #d1d5db',
-                            background: form.travel_companion === c ? '#FFF5F0' : '#ffffff',
-                            color: form.travel_companion === c ? '#FD661E' : '#374151',
-                            fontWeight: form.travel_companion === c ? '700' : '600',
-                            cursor: 'pointer',
-                            fontSize: '14px',
-                            transition: 'all 0.2s',
-                            textAlign: 'center'
+                        <Select
+                          label="Country"
+                          placeholder="Select your country"
+                          data={COUNTRIES}
+                          value={form.country}
+                          onChange={(v) => setForm((f) => ({ ...f, country: v || "" }))}
+                          searchable
+                          clearable={false}
+                          maxDropdownHeight={220}
+                          styles={{
+                            label: { color: "#0b1622", fontSize: 13, fontWeight: 700, marginBottom: 8 },
+                            input: {
+                              background: "white",
+                              borderColor: "#d1d5db",
+                              color: "#0b1622",
+                              borderRadius: 10,
+                              height: 44,
+                              fontSize: 14,
+                            },
+                            placeholder: { color: "#6b7280" },
+                            dropdown: { background: "white", borderColor: "#e5e7eb" },
+                            option: {
+                              color: "#0b1622",
+                              "&[data-hovered]": { background: "#f3f4f6" },
+                              fontSize: 14,
+                              padding: "8px 10px",
+                            },
                           }}
-                        >
-                          {c}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                        />
+                      </Stack>
+                    </motion.div>
+                  )}
 
-                {step === 2 && (
-                  <div>
-                    <label style={{ color: '#374151', fontSize: '14px', fontWeight: '600', marginBottom: '14px', display: 'block' }}>
-                      What interests you? (Select at least 2)
-                    </label>
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1fr',
-                      gap: '10px',
-                      maxHeight: '250px',
-                      overflowY: 'auto',
-                      paddingRight: '4px',
-                      marginBottom: '14px'
-                    }}>
-                      {displayedActivities.map((activity) => (
-                        <button
-                          key={activity}
-                          onClick={() =>
-                            setForm((f) => ({
-                              ...f,
-                              preferred_activities: f.preferred_activities.includes(activity)
-                                ? f.preferred_activities.filter((a) => a !== activity)
-                                : [...f.preferred_activities, activity],
-                            }))
-                          }
-                          style={{
-                            padding: '10px 8px',
-                            borderRadius: '6px',
-                            border: form.preferred_activities.includes(activity) ? '2px solid #FD661E' : '1px solid #d1d5db',
-                            background: form.preferred_activities.includes(activity) ? '#FFF5F0' : '#ffffff',
-                            color: form.preferred_activities.includes(activity) ? '#FD661E' : '#374151',
-                            fontWeight: form.preferred_activities.includes(activity) ? '700' : '500',
-                            cursor: 'pointer',
-                            fontSize: '13px',
-                            transition: 'all 0.2s',
-                            textAlign: 'center'
-                          }}
-                        >
-                          {activity}
-                        </button>
-                      ))}
-                    </div>
-                    {activitiesShown < ACTIVITIES.length && (
-                      <button
-                        onClick={() => setActivitiesShown((s) => s + 10)}
-                        style={{
-                          width: '100%',
-                          padding: '10px',
-                          background: '#ffffff',
-                          border: '1px solid #FD661E',
-                          color: '#FD661E',
-                          fontWeight: '600',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          fontSize: '13px',
-                          transition: 'all 0.2s'
-                        }}
-                        onMouseEnter={(e) => e.target.style.background = '#FFF5F0'}
-                        onMouseLeave={(e) => e.target.style.background = '#ffffff'}
-                      >
-                        Show More
-                      </button>
-                    )}
-                  </div>
-                )}
-
-                {step === 3 && (
-                  <>
-                    <div>
-                      <label style={{ color: '#374151', fontSize: '14px', fontWeight: '600', marginBottom: '14px', display: 'block' }}>
-                        Travel Style
+                  {/* Step 1 */}
+                  {step === 1 && (
+                    <motion.div key="companion" variants={stepVariants} initial="initial" animate="animate" exit="exit">
+                      <label className="block text-[13px] font-semibold text-[#0b1622] mb-3">
+                        Who are you traveling with?
                       </label>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                        {TRAVEL_STYLE.map(s => (
-                          <button
-                            key={s}
-                            onClick={() => setForm(f => ({ ...f, travel_style: s }))}
-                            style={{
-                              padding: '12px 10px',
-                              borderRadius: '6px',
-                              border: form.travel_style === s ? '2px solid #FD661E' : '1px solid #d1d5db',
-                              background: form.travel_style === s ? '#FFF5F0' : '#ffffff',
-                              color: form.travel_style === s ? '#FD661E' : '#374151',
-                              fontWeight: form.travel_style === s ? '700' : '600',
-                              cursor: 'pointer',
-                              fontSize: '14px',
-                              transition: 'all 0.2s',
-                              textAlign: 'center'
-                            }}
-                          >
-                            {s}
-                          </button>
-                        ))}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {TRAVEL_COMPANIONS.map((c) => {
+                          const active = form.travel_companion === c;
+                          return (
+                            <motion.button
+                              key={c}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                              onClick={() => setForm((f) => ({ ...f, travel_companion: c }))}
+                              className={`${optionBase} ${active ? optionActive : ""}`}
+                            >
+                              {c}
+                            </motion.button>
+                          );
+                        })}
                       </div>
-                    </div>
+                    </motion.div>
+                  )}
 
-                    <div>
-                      <label style={{ color: '#374151', fontSize: '14px', fontWeight: '600', marginBottom: '14px', display: 'block' }}>
-                        Budget
+                  {/* Step 2 */}
+                  {step === 2 && (
+                    <motion.div key="activities" variants={stepVariants} initial="initial" animate="animate" exit="exit">
+                      <label className="block text-[13px] font-semibold text-[#0b1622] mb-3">
+                        What interests you? (Select at least 2)
                       </label>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
-                        {BUDGET_OPTIONS.map(b => (
-                          <button
-                            key={b}
-                            onClick={() => setForm(f => ({ ...f, budget: b }))}
-                            style={{
-                              padding: '14px 10px',
-                              borderRadius: '6px',
-                              border: form.budget === b ? '2px solid #FD661E' : '1px solid #d1d5db',
-                              background: form.budget === b ? '#FFF5F0' : '#ffffff',
-                              color: form.budget === b ? '#FD661E' : '#374151',
-                              fontWeight: form.budget === b ? '700' : '600',
-                              cursor: 'pointer',
-                              fontSize: '14px',
-                              transition: 'all 0.2s',
-                              textAlign: 'center'
-                            }}
-                          >
-                            {b}
-                          </button>
-                        ))}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[260px] overflow-y-auto pr-1">
+                        {displayedActivities.map((a) => {
+                          const active = form.preferred_activities.includes(a);
+                          return (
+                            <motion.button
+                              key={a}
+                              whileHover={{ scale: 1.01 }}
+                              whileTap={{ scale: 0.99 }}
+                              onClick={() =>
+                                setForm((f) => ({
+                                  ...f,
+                                  preferred_activities: active
+                                    ? f.preferred_activities.filter((x) => x !== a)
+                                    : [...f.preferred_activities, a],
+                                }))
+                              }
+                              className={`h-11 sm:h-12 w-full rounded-xl border text-xs sm:text-[13px] font-semibold
+                                flex items-center justify-center transition
+                                bg-white/80 text-[#0b1622] border-white/60 hover:bg-white
+                                ${active ? optionActive : ""}`}
+                            >
+                              {a}
+                            </motion.button>
+                          );
+                        })}
                       </div>
-                    </div>
-                  </>
-                )}
-              </Stack>
+                      {activitiesShown < ACTIVITIES.length && (
+                        <motion.button
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
+                          className="mt-3 w-full py-2 text-sm font-bold rounded-xl border border-[var(--color-brave-orange)] text-[var(--color-brave-orange)] bg-white hover:bg-[#FFF5F0]"
+                          onClick={() => setActivitiesShown((s) => s + 10)}
+                        >
+                          Show More
+                        </motion.button>
+                      )}
+                    </motion.div>
+                  )}
+
+                  {/* Step 3 */}
+                  {step === 3 && (
+                    <motion.div key="preferences" variants={stepVariants} initial="initial" animate="animate" exit="exit">
+                      <Stack spacing={28}>
+                        <div>
+                          <label className="block text-[13px] font-semibold text-[#0b1622] mb-3">Travel Style</label>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {TRAVEL_STYLE.map((s) => {
+                              const active = form.travel_style === s;
+                              return (
+                                <motion.button
+                                  key={s}
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                  onClick={() => setForm((f) => ({ ...f, travel_style: s }))}
+                                  className={`${optionBase} ${active ? optionActive : ""}`}
+                                >
+                                  {s}
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[13px] font-semibold text-[#0b1622] mb-3">Budget</label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            {BUDGET_OPTIONS.map((b) => {
+                              const active = form.budget === b;
+                              return (
+                                <motion.button
+                                  key={b}
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                  onClick={() => setForm((f) => ({ ...f, budget: b }))}
+                                  className={`${optionBase} ${active ? optionActive : ""}`}
+                                >
+                                  {b}
+                                </motion.button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </Stack>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </Container>
         </div>
 
-        {/* Footer */}
-        <div style={{ borderTop: '1px solid #e5e7eb', padding: '16px 0', background: '#ffffff', flexShrink: 0 }}>
-          <Container size="md">
-            <div style={{ maxWidth: '550px', margin: '0 auto', paddingX: '20px' }}>
+        {/* Footer (aligned) */}
+        <motion.div
+          className="bg-[#0b1622]/85 backdrop-blur-md border-t border-white/10 py-4 sticky bottom-0 z-20"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
+          <Container size="lg">
+            <div className="mx-auto max-w-3xl">
               <Group spacing={10}>
                 <Button
                   onClick={back}
                   disabled={step === 0 || loading}
                   variant="default"
-                  style={{ flex: 1, height: '40px', borderRadius: '6px', fontSize: '13px', fontWeight: '600' }}
+                  className="flex-1 rounded-md text-sm font-semibold"
                   styles={{
                     root: {
-                      background: '#f3f4f6',
-                      borderColor: '#d1d5db',
-                      color: '#374151',
-                    }
+                      background: "white",
+                      borderColor: "#e5e7eb",
+                      color: "#0b1622",
+                      height: 44,
+                    },
                   }}
                 >
                   Back
@@ -517,24 +476,24 @@ export default function PreferencesWizard() {
                   onClick={saveAndNext}
                   loading={loading}
                   disabled={!canNext}
-                  style={{
-                    flex: 1,
-                    height: '40px',
-                    borderRadius: '6px',
-                    background: canNext ? '#FD661E' : '#d1d5db',
-                    color: 'white',
-                    fontSize: '13px',
-                    fontWeight: '700',
-                    opacity: canNext ? 1 : 0.6,
-                  }}
                   rightIcon={!loading && canNext && <ChevronRight size={18} />}
+                  className="flex-1 rounded-md text-sm font-bold"
+                  styles={{
+                    root: {
+                      background: canNext ? "var(--color-brave-orange)" : "#f1f5f9",
+                      color: canNext ? "white" : "#64748b",
+                      height: 44,
+                      transition: "all 0.25s ease",
+                      boxShadow: canNext ? "0 6px 20px rgba(253,102,30,0.35)" : "none",
+                    },
+                  }}
                 >
-                  {step === STEPS.length - 1 ? 'Complete' : 'Next'}
+                  {step === STEPS.length - 1 ? "Complete" : "Next"}
                 </Button>
               </Group>
             </div>
           </Container>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
