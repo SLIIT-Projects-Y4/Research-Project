@@ -74,8 +74,8 @@ export const Navbar = () => {
             localStorage.removeItem('token');
             localStorage.removeItem('formData');
             localStorage.removeItem('predictions');
-            localStorage.removeItem('savedItineraryLocationIds');
-            localStorage.removeItem('savedItineraries');
+            // localStorage.removeItem('savedItineraryLocationIds');
+            // localStorage.removeItem('savedItineraries');
             sessionStorage.clear();
 
             console.log('LocalStorage after clearing:', localStorage.length);
@@ -87,7 +87,7 @@ export const Navbar = () => {
 
             setUser(null);
             setIsProfileOpen(false);
-            toast.success("Safe travels! You've been logged out successfully!");
+            toast.success("You've been logged out successfully!");
 
             window.dispatchEvent(new Event("userStateChange"));
             window.dispatchEvent(new Event("storage"));

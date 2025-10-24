@@ -19,7 +19,10 @@ export default function ConfirmedPlans() {
   async function fetchPlans() {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8080/confirmed-plans");
+        const localUser = JSON.parse(localStorage.getItem("user") || "null");
+  const user_id = localUser?.userId;
+  console.log("dsds",user_id)
+     const res = await fetch(`https://budget-tourism-view-520013428455.asia-south1.run.app/confirmed-plans?user_id=${user_id}`);
       const data = await res.json();
       setPlans(data.confirmed_plans || []);
     } catch (err) {
