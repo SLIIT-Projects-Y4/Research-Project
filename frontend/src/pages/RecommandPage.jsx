@@ -23,7 +23,7 @@ export default function RecommendPage() {
   const [prefs, setPrefs] = useState(null);
   const [destinationsReady, setDestinationsReady] = useState(false);
 
-  const serverUrl = "http://localhost:9090";
+  const serverUrl = "https://trip-collab-be.livelydesert-2195a427.southeastasia.azurecontainerapps.io";
 
   // Confirm modal state
   const [confirmState, setConfirmState] = useState({
