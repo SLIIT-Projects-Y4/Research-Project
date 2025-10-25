@@ -62,16 +62,19 @@ export default function Predictions({ data, onCloseAll, onPlanConfirmed }) {
     setErrorConfirm(null);
 
     const packageIDs = data[selectedIndex].plan.map((pkg) => pkg.Package_ID);
-
+  const localUser = JSON.parse(localStorage.getItem("user") || "null");
+  const user_id = localUser?.userId;
+  console.log("sdsd",user_id)
     const payload = {
       plan_number: selectedIndex,
       package_ids: packageIDs,
       confirmed_at: new Date().toISOString(),
       full_plan: data[selectedIndex],
+      user_id
     };
 
     try {
-      const res = await fetch("http://localhost:8080/confirm", {
+      const res = await fetch("https://budget-tourism-view-520013428455.asia-south1.run.app/confirm", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

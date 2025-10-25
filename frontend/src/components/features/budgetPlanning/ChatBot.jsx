@@ -67,7 +67,7 @@ const ChatBot = ({ showChatBot, onClose }) => {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const response = await fetch("http://localhost:8080/chatbot", {
+      const response = await fetch("https://budget-tourism-view-520013428455.asia-south1.run.app/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
