@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const serverUrl = "https://trip-collab-be.livelydesert-2195a427.southeastasia.azurecontainerapps.io";
+const serverUrl = "https://trip-collab-be.livelydesert-2195a427.southeastasia.azurecontainerapps.io/";
 
 export default function PollCreator({ group_id, user_id, onClose, onCreated }) {
   const [question, setQuestion] = useState("");

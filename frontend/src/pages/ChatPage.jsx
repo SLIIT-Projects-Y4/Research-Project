@@ -11,7 +11,7 @@ import PollCreator from "../models/PollCreator.jsx";
 import PollCard from "../models/PollCard.jsx";
 import { useCallback } from "react";
 
-const serverUrl = "https://trip-collab-be.livelydesert-2195a427.southeastasia.azurecontainerapps.io";
+const serverUrl = "https://trip-collab-be.livelydesert-2195a427.southeastasia.azurecontainerapps.io/";
 
 const FILE_TYPES = {
   photo: "image/*,video/*",

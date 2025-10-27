@@ -8,6 +8,8 @@ import { SyncLoader } from "react-spinners";
 import { useViewportSize } from "@mantine/hooks";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+const API_BASE_URL = import.meta.env.VITE_RECOMMENDER_API_URL;
+
 const LOCATION_TYPES = [
   "Beaches",
   "Farms",
@@ -32,7 +34,7 @@ const LocationCategorySection = ({ locationType }) => {
       try {
         setLoading(true);
         const res = await axios.get(
-          `http://localhost:8000/locations/category?location_type=${locationType}`
+          `https://ai-tourism-view-520013428455.asia-south1.run.app/locations/category?location_type=${locationType}`
         );
         if (res.data?.results) {
           setLocations(res.data.results);

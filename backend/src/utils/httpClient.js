@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const client = axios.create({
-  baseURL: process.env.RECOMMENDER_API_URL || 'http://localhost:8000',
+  baseURL: process.env.RECOMMENDER_API_URL || 'http://localhost:8000' || 'https://ai-tourism-view-520013428455.asia-south1.run.app/',
   timeout: 30000
 });
 

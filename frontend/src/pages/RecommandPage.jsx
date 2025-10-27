@@ -23,7 +23,7 @@ export default function RecommendPage() {
   const [prefs, setPrefs] = useState(null);
   const [destinationsReady, setDestinationsReady] = useState(false);
 
-  const serverUrl = "https://trip-collab-be.livelydesert-2195a427.southeastasia.azurecontainerapps.io";
+  const serverUrl = "https://trip-collab-be.livelydesert-2195a427.southeastasia.azurecontainerapps.io/";
 
   // Confirm modal state
   const [confirmState, setConfirmState] = useState({
@@ -82,7 +82,7 @@ export default function RecommendPage() {
     const loadPrefs = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/auth/preferences/${userId}`
+          `https://travel-machan-520013428455.asia-south1.run.app/api/auth/preferences/${userId}`
         );
         if (res.status === 304) return; // defensive: 304 has no body
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -102,7 +102,7 @@ export default function RecommendPage() {
 
     const loadPlanPoolNames = async () => {
       try {
-        const url = `http://localhost:3000/api/auth/users/${userId}/plan-pool-names`;
+        const url = `https://travel-machan-520013428455.asia-south1.run.app/api/auth/users/${userId}/plan-pool-names`;
         const res = await fetch(url, { cache: "no-store" }); // ⬅️ bypass cache
 
         if (res.status === 304) return; // nothing new; keep previous state

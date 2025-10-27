@@ -14,7 +14,7 @@ export const Footer = () => {
                             className="text-brave-orange group-hover:scale-110 transition-transform duration-200"
                             size={24}/>
                           <span className="font-display text-2xl font-bold text-fly-by-night">
-                Travel <span className="text-brave-orange">මචo</span>
+                Travel <span className="text-brave-orange">MACHAN</span>
               </span>
                       </Link>
                       <p className="text-welded-iron leading-relaxed max-w-md">
@@ -123,7 +123,7 @@ export const Footer = () => {
               <div className="mt-16 pt-8 border-t border-gray-100">
                   <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                       <div className="text-sm text-welded-iron">
-                          © {new Date().getFullYear()} Travel මචo. All rights reserved.
+                          © {new Date().getFullYear()} Travel Machan. All rights reserved.
                       </div>
 
                       {/* Legal Links */}

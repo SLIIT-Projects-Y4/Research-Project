@@ -34,14 +34,20 @@ const Hero = () => {
 
                   {/* Call to Action Button */}
                   <div className="flex justify-center">
-                    <Button
-                      size="lg"
-                      color='white'
-                      className="font-display bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-6 sm:px-8 py-2 sm:py-3 text-xs sm:text-sm font-medium uppercase tracking-wider"
-                      variant="outline"
-                    >
-                        Explore More
-                    </Button>
+                      <Button
+                        size="lg"
+                        color="white"
+                        onClick={() => {
+                            window.scrollBy({
+                                top: window.innerHeight * 0.8,
+                                behavior: 'smooth',
+                            });
+                        }}
+                        className="font-display bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-6 sm:px-8 py-2 sm:py-3 text-xs sm:text-sm font-medium uppercase tracking-wider"
+                        variant="outline"
+                      >
+                          Explore More
+                      </Button>
                   </div>
               </div>
           </div>
