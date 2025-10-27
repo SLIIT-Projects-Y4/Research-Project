@@ -123,7 +123,7 @@ export const Footer = () => {
               <div className="mt-16 pt-8 border-t border-gray-100">
                   <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                       <div className="text-sm text-welded-iron">
-                          © {new Date().getFullYear()} Travel මචo. All rights reserved.
+                          © {new Date().getFullYear()} Travel Machan. All rights reserved.
                       </div>
 
                       {/* Legal Links */}
