@@ -14,7 +14,7 @@ export const Footer = () => {
                             className="text-brave-orange group-hover:scale-110 transition-transform duration-200"
                             size={24}/>
                           <span className="font-display text-2xl font-bold text-fly-by-night">
-                Travel <span className="text-brave-orange">මචo</span>
+                Travel <span className="text-brave-orange">MACHAN</span>
               </span>
                       </Link>
                       <p className="text-welded-iron leading-relaxed max-w-md">
