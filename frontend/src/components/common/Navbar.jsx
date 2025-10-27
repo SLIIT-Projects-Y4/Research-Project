@@ -208,7 +208,7 @@ export const Navbar = () => {
 
                             {/* Profile Dropdown */}
                             <div
-                              className={`absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl shadow-black/10 border border-gray-100 overflow-hidden transition-all duration-300 ${
+                              className={`absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl shadow-black/10 border border-gray-100 overflow-hidden transition-all duration-300 ${
                                 isProfileOpen
                                   ? 'opacity-100 translate-y-0 scale-100'
                                   : 'opacity-0 translate-y-2 scale-95 pointer-events-none'
@@ -216,8 +216,8 @@ export const Navbar = () => {
                                 <div className="p-4 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100">
                                     <div className="flex items-center space-x-3">
                                         <div
-                                          className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg flex-shrink-0">
-                                            <User size={20} className="text-white"/>
+                                          className="flex items-center justify-center w-12 h-12 rounded-lg shadow-lg flex-shrink-0">
+                                            <User size={20} className="text-black"/>
                                         </div>
                                         <div className="min-w-0">
                                             <p className="font-semibold text-gray-800 truncate">
@@ -231,31 +231,6 @@ export const Navbar = () => {
                                 </div>
 
                                 <div className="p-2">
-                                    <Link
-                                      to="/profile"
-                                      className="flex items-center space-x-3 px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                                      onClick={() => setIsProfileOpen(false)}
-                                    >
-                                        <User size={16} className="flex-shrink-0"/>
-                                        <span className="text-sm font-medium">My Profile</span>
-                                    </Link>
-                                    <Link
-                                      to="/bookings"
-                                      className="flex items-center space-x-3 px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                                      onClick={() => setIsProfileOpen(false)}
-                                    >
-                                        <Calendar size={16} className="flex-shrink-0"/>
-                                        <span className="text-sm font-medium">My Bookings</span>
-                                    </Link>
-                                    <Link
-                                      to="/wishlist"
-                                      className="flex items-center space-x-3 px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                                      onClick={() => setIsProfileOpen(false)}
-                                    >
-                                        <Heart size={16} className="flex-shrink-0"/>
-                                        <span className="text-sm font-medium">Wishlist</span>
-                                    </Link>
-                                    <div className="border-t border-gray-100 my-1"></div>
                                     <button
                                       onClick={handleLogout}
                                       className="w-full flex items-center space-x-3 px-3 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
@@ -370,33 +345,6 @@ export const Navbar = () => {
                                             {user.email}
                                         </p>
                                     </div>
-                                </div>
-
-                                <div className="space-y-2 bg-gray-50 rounded-xl p-3">
-                                    <Link
-                                      to="/profile"
-                                      className="flex items-center space-x-3 px-3.5 py-3 text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-all duration-200 text-sm font-medium"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                        <User size={18} className="flex-shrink-0 opacity-70"/>
-                                        <span>My Profile</span>
-                                    </Link>
-                                    <Link
-                                      to="/bookings"
-                                      className="flex items-center space-x-3 px-3.5 py-3 text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-all duration-200 text-sm font-medium"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                        <Calendar size={18} className="flex-shrink-0 opacity-70"/>
-                                        <span>My Bookings</span>
-                                    </Link>
-                                    <Link
-                                      to="/wishlist"
-                                      className="flex items-center space-x-3 px-3.5 py-3 text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-all duration-200 text-sm font-medium"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                        <Heart size={18} className="flex-shrink-0 opacity-70"/>
-                                        <span>Wishlist</span>
-                                    </Link>
                                 </div>
 
                                 <button
