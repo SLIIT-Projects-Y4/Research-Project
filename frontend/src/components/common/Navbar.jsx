@@ -74,7 +74,7 @@ export const Navbar = () => {
             localStorage.removeItem('token');
             localStorage.removeItem('formData');
             localStorage.removeItem('predictions');
-            // localStorage.removeItem('savedItineraryLocationIds');
+            localStorage.removeItem('savedItineraryLocationIds');
             // localStorage.removeItem('savedItineraries');
             sessionStorage.clear();
 
