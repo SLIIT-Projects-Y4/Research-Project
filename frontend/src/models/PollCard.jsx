@@ -27,7 +27,9 @@ export default function PollCard({
           {poll.is_open && (
             <button
               onClick={onClose}
-              className="rounded-lg bg-white/15 hover:bg-white/25 px-2.5 py-1 text-sm"
+              className="w-12 h-5 flex items-center justify-center rounded-full 
+                 bg-red-500/20 hover:bg-red-500/30 text-[8px] font-medium
+                 text-white border border-red-300/40 transition"
               title="Close poll"
             >
               Close

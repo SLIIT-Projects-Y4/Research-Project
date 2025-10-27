@@ -12,7 +12,7 @@ export default function ExperienceTipsModal({ tips, onClose }) {
           <ul className="space-y-2">
             {tips.map((tip, i) => (
               <li key={i}>
-                <strong className="text-blue-700">{tip.user}</strong>: {tip.message}
+                <strong className="text-orange-500">{tip.user}</strong>: {tip.message}
               </li>
             ))}
           </ul>

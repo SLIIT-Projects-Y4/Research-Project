@@ -821,7 +821,7 @@ export default function ChatPage() {
         message={
           uploading
             ? "A file is still uploading. If you leave now, the upload will be canceled."
-            : "You’ll stop receiving messages and this group will be removed from your joined list."
+            : "You will stop receiving messages. This group will be removed from your joined list, won’t appear in future recommendations, and you will not be able to join it again."
         }
         confirmText={uploading ? "Leave anyway" : "Leave"}
         cancelText="Stay"
